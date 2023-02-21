@@ -1,10 +1,12 @@
 ---
-role: Technical Lead @ Shell
+role: "CGI Consultant: Technical Lead"
 publishDate: 2012-11-02 00:00:00
-img: /assets/stock-1.jpg
+img: /assets/auditor.png
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |
   We designed a whodunnit-style game to introduce Markdown formatting. Suspense — suspicion — syntax!
+employer: Shell plc - Finance / Group Reporting
+location: The Hague, The Netherlands
 tags:
   - Design
   - Dev
@@ -22,6 +24,5 @@ Period: 2012 - 2014
 
 > Tech stack
 - Languages: C# (.NET Framework), ASP.NET, JavaScript, jQuery, Batch
-- Architecture: ORM mapping (Entity Framework), Dynamic expression trees (LINQ)
-- Security tooling: Veracode
-- Testing: NUnit
+- Architecture: ORM mapping (Entity Framework), Dynamic expression trees (LINQ), Code contract, Signed assemblies, Team Foundation Server (TFS).
+- Tools: Veracode (security scanner), NUnit (testing), Entity Framework (ORM mapper)

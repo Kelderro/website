@@ -5,6 +5,9 @@ img: /assets/stock-1.jpg
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |
   We designed a whodunnit-style game to introduce Markdown formatting. Suspense — suspicion — syntax!
+location: Canary Wharf, London, United Kingdom
+employment: Employee (35 hours a week)
+employer: KPMG - Learning Solutions
 tags:
   - Design
   - Dev

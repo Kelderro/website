@@ -1,10 +1,11 @@
 ---
-role: Experienced Software Engineer @ Shell
+role: "CGI Consultant: Experienced Software Engineer"
 publishDate: 2010-03-02 00:00:00
-img: /assets/stock-1.jpg
+img: /assets/auditor.png
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |
   Transforming the JML (Joiners, Movers and Leavers) process of different enterprise financial systems (SAP and in-house made software). Improving the traceability, auditability, and reporting to ensure compliance with security and SOX.
+employer: Shell plc - Finance / Group Reporting
 location: The Hague, The Netherlands
 tags:
   - Design
@@ -16,6 +17,8 @@ Period: 2010 - 2011
 
 > Experience
 
+**Leadership**
+- 
 ** **
 
 ** **

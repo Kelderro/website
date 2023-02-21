@@ -1,22 +1,28 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
 
 interface Props {
-	project: CollectionEntry<'work'>;
+	project: CollectionEntry<"work">;
 }
 
 const { data, slug } = Astro.props.project;
 ---
 
 <a class="card" href={`/work/${slug}`}>
-	<span class="title">{data.title}</span>
-	<img src={data.img} alt={data.img_alt || ''} loading="lazy" decoding="async" />
+	<span class="title">{data.role} @ {data.employer}</span>
+	<!-- <span class="subTitle">{data.employer}</span> -->
+	<img
+		src={data.img}
+		alt={data.img_alt || ""}
+		loading="lazy"
+		decoding="async"
+	/>
 </a>
 
 <style>
 	.card {
 		display: grid;
-		grid-template: auto 1fr / auto 1fr;
+		grid-template: auto 2fr / auto 2fr;
 		height: 11rem;
 		background: var(--gradient-subtle);
 		border: 1px solid var(--gray-800);
@@ -42,6 +48,17 @@ const { data, slug } = Astro.props.project;
 		background: var(--gray-999);
 		color: var(--gray-200);
 		border-radius: 0.375rem;
+	}
+
+	.subTitle {
+		grid-area: 1 / 2 / 1 / 2;
+		z-index: 1;
+		margin: 0.5rem;
+		padding: 0.5rem 0.8rem;
+		background: var(--gray-999);
+		color: var(--gray-200);
+		border-radius: 0.375rem;
+		font-size: 0.8em;
 	}
 
 	img {

@@ -7,6 +7,7 @@ img_alt: A bright pink sheet of paper used to wrap flowers curves in front of ri
 description: |
  Transforming the way employees learn. Utilizing the best fit for purpose technology to provide learning material, exams and reports to employee, their managers and learning directors.
 location: Canary Wharf, London, United Kingdom
+selectedWork: true
 employment: Employee (35 hours a week)
 employer: KPMG - Learning Solutions
 tags:

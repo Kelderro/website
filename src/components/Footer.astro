@@ -4,16 +4,22 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer>
-	<div class="group">
+	<div class="astro">
 		<p>
 			Developed with <a href="https://astro.build/">Astro</a>
 			<Icon icon="rocket-launch" size="1.2em" />
 		</p>
-		<p>&copy; {currentYear} Rob op den Kelder</p>
 	</div>
+	<p class="copyright">
+		&copy; {currentYear} Rob op den Kelder
+	</p>
 	<p class="socials">
-		<a href="https://github.com/kelderro"> GitHub</a>
-		<a href="https://www.linkedin.com/in/kelderro"> LinkedIn</a>
+		<a href="https://github.com/kelderro"
+			><Icon icon="github-logo" /> GitHub</a
+		>
+		<a href="https://www.linkedin.com/in/kelderro"
+			><Icon icon="linkedin-logo" /> LinkedIn</a
+		>
 	</p>
 </footer>
 <style>
@@ -40,10 +46,17 @@ const currentYear = new Date().getFullYear();
 		text-decoration-color: currentColor;
 	}
 
-	.group {
+	.astro {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+	}
+
+	.copyright {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		flex-wrap: wrap;
 	}
 
 	.socials {
@@ -60,10 +73,16 @@ const currentYear = new Date().getFullYear();
 			padding: 2.5rem 5rem;
 		}
 
-		.group {
+		.astro {
 			flex-direction: row;
 			gap: 1rem;
 			flex-wrap: wrap;
+		}
+
+		.copyright {
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
 		}
 
 		.socials {

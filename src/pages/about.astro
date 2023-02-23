@@ -12,28 +12,34 @@ import Hero from "../components/Hero.astro";
 	<div class="stack gap-20">
 		<main class="wrapper about">
 			<Hero title="About" tagline="">
-				<img
+				<!-- <img
 					width="1553"
 					height="873"
 					src="/assets/at-work.jpg"
 					alt="Rob op den Kelder at work with a colleague"
-				/>
+				/> -->
 			</Hero>
 
-			<section>
+			<section id="section-about-background">
 				<h2 class="section-title">Background</h2>
 				<div class="content">
 					<p>
-						Strong focus on enabling the best technical solution in
-						a multicultural environment.
+						Principal software engineer with over 14 years of
+						professional experience in the computer software sector
+						and a product engineering mindset. Driven to work in an
+						international team atmosphere to identify
+						straightforward solutions to complex challenges.
+					</p><p>
+						Using experience to recognize and lead technological
+						opportunities, mentoring others, ensuring quality, and
+						developing long-term strategic decisions and plans.
+						Extensive experience applying skills in a variety of
+						industries, including energy, industrial, business
+						services, finance, government and transportation.
 					</p>
 					<p>
-						Consultancy experience for CGI (Logica) for over 6
-						years.
-					</p>
-					<p>
-						Moved in October 2015 to London, United Kingdom to take
-						the next step in my career.
+						Able to work in the United Kingdom as part of the settle
+						status scheme and Europa as a Dutch citizen.
 					</p>
 				</div>
 			</section>
@@ -88,13 +94,26 @@ import Hero from "../components/Hero.astro";
 					<p>Security</p>
 					<p>Development</p>
 					<p>
-						Polygot programming <sub
-							><sub
-								><sup
-									>(C#, Python, Java, JavaScript (React JS),
-									Batch, PHP, Go(Lang) and Rust (learning)</sup
-								></sub
-							></sub
+						Polygot programming: <small
+							><small
+								>C#, Python, Java, JavaScript (React JS), Batch,
+								PHP, Go(Lang) and Rust (learning)</small
+							></small
+						>
+					</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Interests</h2>
+				<div class="content">
+					<p>Sports, snowboarding, cycling and lane swimming.</p>
+					<p>
+						Ingress team captain:<small
+							><small>
+								establishing, inspiring, and leading freshly
+								formed teams. Assist them in attaining success
+								in a dynamic and fast-paced environment.</small
+							></small
 						>
 					</p>
 				</div>
@@ -110,6 +129,14 @@ import Hero from "../components/Hero.astro";
 		display: flex;
 		flex-direction: column;
 		gap: 3.5rem;
+	}
+
+	#section-about-background p {
+		padding-bottom: 20px;
+	}
+
+	#section-about-background p:last-of-type {
+		padding-bottom: 0;
 	}
 
 	img {

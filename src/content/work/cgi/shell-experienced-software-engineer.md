@@ -1,6 +1,7 @@
 ---
 role: "CGI Consultant: Experienced Software Engineer"
-publishDate: 2010-03-02 00:00:00
+startDate: 1900-02-01
+endDate: 1900-10-31
 img: /assets/auditor.png
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |

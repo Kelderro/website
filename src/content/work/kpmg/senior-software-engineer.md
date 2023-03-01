@@ -1,7 +1,5 @@
 ---
 role: Senior Software Engineer
-startDate: 1900-02-01
-endDate: 1900-10-31
 img: /assets/stock-1.jpg
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |

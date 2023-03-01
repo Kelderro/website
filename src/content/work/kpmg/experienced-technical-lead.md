@@ -1,6 +1,7 @@
 ---
 role: Technical Lead
-publishDate: 2017-02-01 00:00:00
+startDate: 2017-02-01
+endDate: 2018-10-31
 img: /assets/stock-1.jpg
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |

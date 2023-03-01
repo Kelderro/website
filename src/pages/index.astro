@@ -18,31 +18,36 @@ import Skills from "../components/Skills.astro";
 
 // Content Fetching: List four most recent work projects
 const projects = (await getCollection("work", (e) => e.data.selectedWork))
-	.sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf())
+	.sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf())
 	.slice(0, 4);
 
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
+const yearsOfExperience = new Date().getFullYear() - 2009;
 ---
 
-<BaseLayout>
-	<div class="stack gap-20 lg:gap-48">
+<BaseLayout
+	title="Freelance Principle Software Engineer, Rob op den Kelder"
+	description="The personal site of Rob op den Kelder. View personal experience and learing recommendations"
+>
+	<div class="stack gap-10 lg:gap-30">
 		<div class="wrapper stack gap-8 lg:gap-20">
 			<header class="hero">
 				<Hero
 					title="Hello, my name is Rob op den Kelder"
-					tagline="I am a Principle Software Engineer who is currently based in The Hague Area in The Netherlands."
+					tagline="I am a Self Employed Principle Software Engineer who is based in The Hague Area in The Netherlands."
 					align="start"
 				>
 					<div class="roles">
 						<Pill>
-							<Icon icon="code" size="1.33em" /> Developer
+							<Icon icon="arrows-out" size="1.33em" /> Tech Lead
 						</Pill>
 						<Pill>
-							<Icon icon="microphone-stage" size="1.33em" /> Speaker
+							<Icon icon="code" size="1.33em" /> Senior Software Engineer
 						</Pill>
 						<Pill>
-							<Icon icon="pencil-line" size="1.33em" /> Writer
+							<Icon icon="lifebuoy" size="1.33em" /> Technical adviser
+						</Pill>
+						<Pill>
+							<Icon icon="pencil-line" size="1.33em" /> Architect
 						</Pill>
 					</div>
 				</Hero>
@@ -55,13 +60,38 @@ const projects = (await getCollection("work", (e) => e.data.selectedWork))
 				/>
 			</header>
 
-			<Skills />
+			<Skills yearsOfExperience={yearsOfExperience} />
 		</div>
 
 		<main class="wrapper stack gap-20 lg:gap-48">
+			<section class="section">
+				<header class="section-header">
+					<h3>Introduction</h3>
+				</header>
+				<div class="gallery">
+					<p>
+						As a Self-employed principal software engineer with over {
+							yearsOfExperience
+						}
+						years of professional experience in the computer software
+						sector and with a strong product engineering mindset. Driven
+						to work in an multidisciplinary international agile team
+						atmosphere to identify, lead and build straightforward solutions
+						to complex challenges. Using experience to recognize and
+						lead technological opportunities, mentoring others, ensuring
+						quality, and developing long-term strategic decisions and
+						plans. Pushing the limits of technology.<br /><br />
+					</p>
+					<p>
+						Authorised to work in the United Kingdom as part of the
+						settle status scheme and Europe as a Dutch citizen.
+					</p>
+				</div>
+			</section>
+
 			<section class="section with-background with-cta">
 				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Highlighted work</h3>
+					<h3>Highlighted roles</h3>
 					<p>
 						An overview of the most relevant work experience in the
 						last few years.

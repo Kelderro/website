@@ -6,20 +6,28 @@ import ThemeToggle from "./ThemeToggle.astro";
 const textLinks: { label: string; href: string }[] = [
 	{ label: "Home", href: "/" },
 	{ label: "Work", href: "/work/" },
+	{ label: "Learning", href: "/learning/" },
 	{ label: "About", href: "/about/" },
 ];
 
-/** Icon links to social media — edit these with links to your profiles! */
-const iconLinks: { label: string; href: string; icon: IconProps["icon"] }[] = [
+/** Icon links to social media */
+const iconLinks: {
+	label: string;
+	href: string;
+	icon: IconProps["icon"];
+	title: string;
+}[] = [
 	{
 		label: "GitHub",
 		href: "https://github.com/kelderro",
 		icon: "github-logo",
+		title: "See Rob op den Kelder's GitHub account",
 	},
 	{
 		label: "LinkedIn",
 		href: "https://www.linkedin.com/in/kelderro",
 		icon: "linkedin-logo",
+		title: "See Rob op den Kelder's LinkedIn account",
 	},
 ];
 ---
@@ -73,10 +81,10 @@ const iconLinks: { label: string; href: string; icon: IconProps["icon"] }[] = [
 		<div class="menu-footer">
 			<div class="socials">
 				{
-					iconLinks.map(({ href, icon, label }) => (
-						<a href={href} class="social">
+					iconLinks.map(({ href, icon, label, title }) => (
+						<a href={href} class="social" title={title}>
 							<span class="sr-only">{label}</span>
-							<Icon icon={icon} />
+							<Icon icon={icon} alt="Logo" />
 						</a>
 					))
 				}

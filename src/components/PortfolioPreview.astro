@@ -1,28 +1,71 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
+// Component Imports
+import Icon from "../components/Icon.astro";
+
 interface Props {
 	project: CollectionEntry<"work">;
 }
 
 const { data, slug } = Astro.props.project;
+
+function formatPeriod(startDate: Date, endDate: Date) {
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
+
+	var dateDiff = endDate.getFullYear() - startDate.getFullYear();
+
+	var multipleYears = dateDiff > 1;
+
+	return `${months[startDate.getMonth()]} ${startDate.getFullYear()}
+	 - ${months[endDate.getMonth()]} ${endDate.getFullYear()} (${dateDiff} year${
+		multipleYears ? "s" : ""
+	})`;
+}
 ---
 
 <a class="card" href={`/work/${slug}`}>
-	<span class="title">{data.role}</span>
-	<span class="subTitle">{data.description}</span>
-	<img
-		src={data.img}
-		alt={data.img_alt || ""}
-		loading="lazy"
-		decoding="async"
-	/>
+	<span class="card-content">
+		<div class="title">{data.role}</div>
+		<div>
+			<div>{data.employer}</div>
+			<div class="description">
+				{data.description}<br /><br /><br />
+			</div>
+			<br />
+			<small>
+				<div>
+					<Icon icon="calendar" />
+					{formatPeriod(data.startDate, data.endDate)}
+				</div>
+				<div>
+					<Icon icon="map-pin" /> Canary Wharf, London, United Kingdom
+				</div>
+				<div>
+					<Icon icon="list" /> Full time employee (35 hours a week)
+				</div>
+			</small>
+		</div>
+	</span>
 </a>
 
 <style>
 	.card {
 		display: grid;
-		grid-template: auto auto 2fr / auto 2fr;
+		grid-template: 1fr auto / 1fr auto;
 		height: 11rem;
 		background: var(--gradient-subtle);
 		border: 1px solid var(--gray-800);
@@ -30,9 +73,6 @@ const { data, slug } = Astro.props.project;
 		overflow: hidden;
 		box-shadow: var(--shadow-sm);
 		text-decoration: none;
-		font-family: var(--font-brand);
-		font-size: var(--text-lg);
-		font-weight: 500;
 		transition: box-shadow var(--theme-transition);
 	}
 
@@ -40,29 +80,28 @@ const { data, slug } = Astro.props.project;
 		box-shadow: var(--shadow-md);
 	}
 
-	.title {
-		grid-area: 1 / 1 / 2 / 2;
+	.card-content {
+		grid-area: 1 / 1 / 1 / 1;
 		z-index: 1;
 		margin: 0.5rem;
 		padding: 0.5rem 1rem;
-		background: var(--gray-999_40);
+		background: var(--gray-999_90);
 		color: var(--gray-200);
-		border-radius: 0.375rem;
+		border-radius: 0.75rem;
 	}
 
-	.subTitle {
-		grid-area: 2 / 1 / 2 / 2;
-		z-index: 1;
-		margin: 0 0.5rem;
-		padding: 0.5rem 0.8rem;
-		background: var(--gray-999_40);
-		color: var(--gray-200);
-		border-radius: 0.375rem;
-		font-size: 0.7em;
+	.description {
+		display: none;
+	}
+
+	.title {
+		font-weight: 500;
+		font-family: var(--font-brand);
+		font-size: var(--text-lg);
 	}
 
 	img {
-		grid-area: 1 / 1 / 4 / 4;
+		grid-area: 1 / 1 / 1 / 1;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -72,6 +111,10 @@ const { data, slug } = Astro.props.project;
 		.card {
 			height: 22rem;
 			border-radius: 1.5rem;
+		}
+
+		.description {
+			display: block;
 		}
 
 		.title {

@@ -1,8 +1,32 @@
 ---
 import Icon from "./Icon.astro";
+
+interface Props {
+	yearsOfExperience: number;
+}
+
+const { yearsOfExperience } = Astro.props;
 ---
 
 <section class="box skills">
+	<div class="stack gap-2 lg:gap-4">
+		<Icon
+			icon="arrows-out"
+			color="var(--accent-regular)"
+			size="2.5rem"
+			gradient
+		/>
+		<h2>Leader & mentor</h2>
+		<p>
+			Multi-year experienced as an open-minded leader. Passitioned being
+			the force multiplier to achieve results. Setting and defining
+			example for local teams and wider engineering organisation. Building
+			for success and career progression within the teams. Strong believer
+			of lead by example and not afriad to get his hands "dirty".
+			Experience large product teams of up to 40 technical employees in
+			enterprise organsations.
+		</p>
+	</div>
 	<div class="stack gap-2 lg:gap-4">
 		<Icon
 			icon="terminal-window"
@@ -12,20 +36,9 @@ import Icon from "./Icon.astro";
 		/>
 		<h2>Software Engineer</h2>
 		<p>
-			Over 14 years of software engineering experience. Broad experience
-			in production software processes and a high standard of security.
-		</p>
-	</div>
-	<div class="stack gap-2 lg:gap-4">
-		<Icon
-			icon="trophy"
-			color="var(--accent-regular)"
-			size="2.5rem"
-			gradient
-		/>
-		<h2>Leader</h2>
-		<p>
-			Setting example for local teams and wider engineering organisation.
+			Over {yearsOfExperience} years of software engineering experience. Leading
+			and delivering multiple projects and products from concept to launch.
+			From monoliths to scalable distributed microservices architectures.
 		</p>
 	</div>
 	<div class="stack gap-2 lg:gap-4">
@@ -36,7 +49,11 @@ import Icon from "./Icon.astro";
 			gradient
 		/>
 		<h2>Strategy-Minded</h2>
-		<p>Build for the future.</p>
+		<p>
+			Using past experience and network to build solutions that are build
+			for the future. Delivering product that are ready to be supported
+			and maintained for multiple years by using proven technology.
+		</p>
 	</div>
 </section>
 

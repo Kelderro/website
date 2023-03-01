@@ -1,0 +1,9 @@
+---
+title: "Understanding Distributed Systems"
+publishDate: 2010-03-03 00:00:00
+cover: https://m.media-amazon.com/images/I/515I5fp5Q3L._SY344_BO1,204,203,200_.jpg
+url: https://www.amazon.com/Understanding-Distributed-Systems-distributed-applications/dp/1838430202
+type: book
+description: "During my career break in 2022 this book was one of the top tier books that I have read during the period. Even after developing enterprise grade distributed systems I was surprised that this book was able to pull me in that I couldn't stop reading it."
+rating: 6
+---

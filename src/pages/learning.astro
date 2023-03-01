@@ -1,0 +1,163 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import Hero from "../components/Hero.astro";
+import Icon from "../components/Icon.astro";
+
+const books = (
+    await getCollection("learning", (e) => e.data.type == "book")
+).sort((a, b) => b.data.rating.valueOf() - a.data.rating.valueOf());
+
+const videos = (
+    await getCollection("learning", (e) => e.data.type == "video")
+).sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+
+const blogs = (
+    await getCollection("learning", (e) => e.data.type == "blog")
+).sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+---
+
+<BaseLayout
+    title="Learning | Rob op den Kelder"
+    description="Learn about Rob op den Kelder most recent projects"
+>
+    <div class="stack gap-20">
+        <main class="wrapper stack gap-8">
+            <Hero
+                title="Learning"
+                tagline="Overview of learning resources I personally recommend."
+                align="start"
+            />
+            <section>
+                <header class="section-header stack gap-2 lg:gap-4">
+                    <h3>Books</h3>
+                </header>
+                <p>
+                    Prefer reading books that can't be easily outdated.<br /><br
+                    />
+                </p>
+                <div>
+                    {
+                        books.map((book) => (
+                            <div class="book">
+                                <div class="title">
+                                    <h5>{book.data.title}</h5>
+                                    {[...Array(book.data.rating)].map(
+                                        (e, i) => (
+                                            <Icon
+                                                icon="star"
+                                                size="1.33em"
+                                                gradient={true}
+                                            />
+                                        )
+                                    )}
+                                </div>
+                                <a href={book.data.url} title={book.data.title}>
+                                    <img
+                                        src={book.data.cover}
+                                        alt={book.data.title}
+                                    />
+                                </a>
+                                <div class="description">
+                                    <p>{book.data.description}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </section>
+            <section>
+                <header class="section-header stack gap-2 lg:gap-4">
+                    <h3>Video</h3>
+                </header>
+                <div>
+                    {
+                        videos.map((video) => (
+                            <div class="video">
+                                <h5 class="title">{video.data.title}</h5>
+                                <a
+                                    href={video.data.url}
+                                    title={video.data.title}
+                                >
+                                    <img
+                                        src={video.data.cover}
+                                        alt={video.data.title}
+                                    />
+                                </a>
+                                <div class="description">
+                                    <p>{video.data.description}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </section>
+            <section>
+                <header class="section-header stack gap-2 lg:gap-4">
+                    <h3>Blogs</h3>
+                </header>
+                <div>
+                    {
+                        blogs.map((blog) => (
+                            <div class="blog">
+                                <h5 class="title">{blog.data.title}</h5>
+                                <a href={blog.data.url} title={blog.data.title}>
+                                    <img
+                                        src={blog.data.cover}
+                                        alt={blog.data.title}
+                                    />
+                                </a>
+                                <div class="description">
+                                    <p>{blog.data.description}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </section>
+        </main>
+    </div>
+</BaseLayout>
+
+<style>
+    .book,
+    .video,
+    .blog {
+        display: grid;
+        column-gap: 2rem;
+        row-gap: 1rem;
+        grid-template-columns: 150px auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "title title"
+            "img description";
+        padding-top: 20px;
+    }
+
+    .title {
+        grid-area: title;
+    }
+
+    a {
+        grid-area: img;
+    }
+
+    img {
+        width: 150px;
+    }
+
+    .description {
+        grid-area: description;
+    }
+
+    .video img {
+        border-radius: 50%;
+    }
+
+    @media (min-width: 50em) {
+        section {
+            font-size: var(--text-lg);
+        }
+    }
+</style>

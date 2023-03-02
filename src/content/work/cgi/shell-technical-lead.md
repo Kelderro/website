@@ -6,6 +6,11 @@ img: /assets/auditor.png
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |
   We designed a whodunnit-style game to introduce Markdown formatting. Suspense — suspicion — syntax!
+impact: |
+ - Significant decrease in the estate's operating costs
+ - Collaboration with consultants and internal personnel
+ - Creating a highly confidential application from idea to launch
+ - Deliver a .NET application combined with Python (IronPython)
 employer: (CGI) Shell plc - Group Reporting
 employment: Full time employee (40 hours a week)
 location: CSQ, The Hague, The Netherlands

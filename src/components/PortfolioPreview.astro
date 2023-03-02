@@ -29,11 +29,9 @@ function formatPeriod(startDate: Date, endDate: Date) {
 
 	var dateDiff = endDate.getFullYear() - startDate.getFullYear();
 
-	var multipleYears = dateDiff > 1;
-
 	return `${months[startDate.getMonth()]} ${startDate.getFullYear()}
 	 - ${months[endDate.getMonth()]} ${endDate.getFullYear()} (${dateDiff} year${
-		multipleYears ? "s" : ""
+		dateDiff != 1 ? "s" : ""
 	})`;
 }
 ---

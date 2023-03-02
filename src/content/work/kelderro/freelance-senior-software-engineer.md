@@ -1,20 +1,18 @@
 ---
-role: Experienced Technical Lead
-startDate: 2017-02-01
-endDate: 2018-10-31
+role: Freelance Senior Software Engineer
+startDate: 2015-02-01
+endDate: 2015-10-31
 img: /assets/stock-1.jpg
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |
   We designed a whodunnit-style game to introduce Markdown formatting. Suspense — suspicion — syntax!
 impact: |
- - Concept to launch
- - Bias for action
- - Distributed systems
- - Performance manager
-location: Canary Wharf, London, United Kingdom
+ - Technical advisor
+ - Client conversations
+location: Remote, The Hague Area, The Netherlands
 selectedWork: true
-employment: Full time employee (35 hours a week)
-employer: KPMG - Learning Solutions
+employment: Freelancer
+employer: Kelderro
 tags:
   - Design
   - Dev

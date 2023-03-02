@@ -9,6 +9,7 @@ description: |
 employer: (CGI) Shell plc - Group Reporting
 employment: Full time employee (40 hours a week)
 location: CSQ, The Hague, The Netherlands
+selectedWork: true
 tags:
   - Design
   - Dev

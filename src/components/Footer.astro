@@ -11,7 +11,7 @@ const currentYear = new Date().getFullYear();
 		</p>
 	</div>
 	<p class="copyright">
-		&copy; {currentYear} Rob op den Kelder
+		&copy; {currentYear} - Rob op den Kelder
 	</p>
 	<p class="socials">
 		<a href="https://github.com/kelderro" title="See my GitHub account"
@@ -49,7 +49,8 @@ const currentYear = new Date().getFullYear();
 	}
 
 	.astro {
-		display: flex;
+		color: var(--gray-600);
+		display: none;
 		flex-direction: column;
 		gap: 0.5rem;
 	}
@@ -79,6 +80,7 @@ const currentYear = new Date().getFullYear();
 			flex-direction: row;
 			gap: 1rem;
 			flex-wrap: wrap;
+			display: flex;
 		}
 
 		.copyright {

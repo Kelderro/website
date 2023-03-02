@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Markdown } from "@astropub/md";
 
 // Component Imports
 import Icon from "../components/Icon.astro";
@@ -43,7 +44,7 @@ function formatPeriod(startDate: Date, endDate: Date) {
 		<div>
 			<div>{data.employer}</div>
 			<div class="description">
-				{data.description}<br /><br /><br />
+				<Markdown of={data.impact} /><br /><br /><br />
 			</div>
 			<div class="meta">
 				<div>

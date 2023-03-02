@@ -7,6 +7,7 @@ export const collections = {
 			employer: z.string().optional(),
 			department: z.string().optional(),
 			description: z.string(),
+			impact: z.string().optional(),
 			startDate: z.coerce.date().default(new Date(0)),
 			endDate: z.coerce.date().default(new Date(0)),
 			tags: z.array(z.string()),

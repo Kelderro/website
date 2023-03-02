@@ -1,11 +1,14 @@
 ---
-role: "CGI Consultant: Experienced Software Engineer"
+role: "Consultant: Senior Software Engineer"
+startDate: 2011-07-01
+endDate: 2012-10-31
 img: /assets/auditor.png
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |
   Transforming the JML (Joiners, Movers and Leavers) process of different enterprise financial systems (SAP and in-house made software). Improving the traceability, auditability, and reporting to ensure compliance with security and SOX.
-employer: Shell plc - Finance / Group Reporting
-location: The Hague, The Netherlands
+employer: (CGI) Shell plc - Group Reporting
+employment: Full time employee (40 hours a week)
+location: CSQ, The Hague, The Netherlands
 tags:
   - Design
   - Dev

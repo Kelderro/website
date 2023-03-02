@@ -1,5 +1,5 @@
 ---
-role: Technical Lead
+role: Experienced Technical Lead
 startDate: 2017-02-01
 endDate: 2018-10-31
 img: /assets/stock-1.jpg
@@ -8,7 +8,7 @@ description: |
   We designed a whodunnit-style game to introduce Markdown formatting. Suspense — suspicion — syntax!
 location: Canary Wharf, London, United Kingdom
 selectedWork: true
-employment: Employee (35 hours a week)
+employment: Full time employee (35 hours a week)
 employer: KPMG - Learning Solutions
 tags:
   - Design

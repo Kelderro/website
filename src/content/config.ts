@@ -13,6 +13,7 @@ export const collections = {
 			img: z.string(),
 			img_alt: z.string().optional(),
 			location: z.string().optional(),
+			employment: z.string(),
 			selectedWork: z.boolean().optional().default(false),
 		}),
 	}),

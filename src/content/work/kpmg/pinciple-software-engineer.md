@@ -8,7 +8,7 @@ description: |
  Transforming the way employees learn. Utilizing the best fit for purpose technology to provide learning material, exams and reports to employee, their managers and learning directors.
 location: Canary Wharf, London, United Kingdom
 selectedWork: true
-employment: Employee (35 hours a week)
+employment: Full time employee (35 hours a week)
 employer: KPMG - Learning Solutions
 department: Learning Solutions
 tags:

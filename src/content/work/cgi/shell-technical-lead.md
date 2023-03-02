@@ -1,11 +1,15 @@
 ---
-role: "CGI Consultant: Technical Lead"
+role: "Consultant: Technical Lead"
+startDate: 2012-11-01
+endDate: 2014-11-31
 img: /assets/auditor.png
 img_alt: Iridescent ripples of a bright blue and pink liquid
 description: |
   We designed a whodunnit-style game to introduce Markdown formatting. Suspense — suspicion — syntax!
-employer: Shell plc - Finance / Group Reporting
-location: The Hague, The Netherlands
+employer: (CGI) Shell plc - Group Reporting
+employment: Full time employee (40 hours a week)
+location: CSQ, The Hague, The Netherlands
+selectedWork: true
 tags:
   - Design
   - Dev

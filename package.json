@@ -10,7 +10,9 @@
 		"astro": "astro"
 	},
 	"dependencies": {
+		"@astrojs/image": "^0.16.1",
 		"@astropub/md": "^0.1.5",
-		"astro": "^2.0.14"
+		"astro": "^2.0.14",
+		"sharp": "^0.31.3"
 	}
 }

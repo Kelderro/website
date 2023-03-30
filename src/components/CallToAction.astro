@@ -6,7 +6,10 @@ interface Props {
 const { href } = Astro.props;
 ---
 
-<a href={href}><slot /></a>
+<a
+	href="javascript:location='mailto:\u0063\u006f\u006e\u0074\u0061\u0063\u0074\u0040\u0067\u006d\u0061\u0069\u006c\u002e\u0063\u006f\u006d'"
+	><slot /></a
+>
 
 <style>
 	a {
@@ -34,7 +37,7 @@ const { href } = Astro.props;
 
 	/* Overlay for hover effects. */
 	a::after {
-		content: '';
+		content: "";
 		position: absolute;
 		inset: 0;
 		pointer-events: none;

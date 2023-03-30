@@ -1,11 +1,25 @@
 ---
 import CallToAction from "./CallToAction.astro";
 import Icon from "./Icon.astro";
+
+let obfuscate = (plaintext: string) => {
+	var obfuscated = "";
+
+	for (var i = 0; i < plaintext.length; i++) {
+		obfuscated += "\\u00" + plaintext.charCodeAt(i).toString(16);
+	}
+
+	return obfuscated;
+};
+
+let obfuscateMailAddress = (mailAddress: string) => {
+	return `javascript:location='mailto:${obfuscate(mailAddress)}';void 0`;
+};
 ---
 
 <aside>
 	<h2>Interested in working together?</h2>
-	<CallToAction href="mailto:contact@kelderro.nl">
+	<CallToAction href="contact@kelderro.nl">
 		Send Me a Message
 		<Icon icon="paper-plane-tilt" size="1.2em" />
 	</CallToAction>

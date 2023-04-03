@@ -34,33 +34,33 @@ function formatPeriod(startDate: Date, endDate: Date) {
 		dateDiff != 1 ? "s" : ""
 	})`;
 }
+
+// <a class="card" href={`/work/${slug}`}>
 ---
 
-<a class="card" href={`/work/${slug}`}>
-	<span class="card-content">
-		<div class="title">{data.role}</div>
-		<div>
-			<div>{data.employer}</div>
-			<div class="description">
-				<Markdown of={data.impact} /><br /><br /><br />
+<span class="card-content">
+	<div class="title">{data.role}</div>
+	<div>
+		<div>{data.employer}</div>
+		<div class="description">
+			<Markdown of={data.impact} /><br /><br /><br />
+		</div>
+		<div class="meta">
+			<div>
+				<Icon icon="calendar" />
+				{formatPeriod(data.startDate, data.endDate)}
 			</div>
-			<div class="meta">
-				<div>
-					<Icon icon="calendar" />
-					{formatPeriod(data.startDate, data.endDate)}
-				</div>
-				<div>
-					<Icon icon="map-pin" />
-					{data.location}
-				</div>
-				<div>
-					<Icon icon="list" />
-					{data.employment}
-				</div>
+			<div>
+				<Icon icon="map-pin" />
+				{data.location}
+			</div>
+			<div>
+				<Icon icon="list" />
+				{data.employment}
 			</div>
 		</div>
-	</span>
-</a>
+	</div>
+</span>
 
 <style>
 	.card {

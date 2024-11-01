@@ -5,7 +5,6 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Component Imports
-import { Picture } from "@astrojs/image/components";
 import CallToAction from "../components/CallToAction.astro";
 import Grid from "../components/Grid.astro";
 import Hero from "../components/Hero.astro";
@@ -16,6 +15,8 @@ import PortfolioPreview from "../components/PortfolioPreview.astro";
 // Page section components
 import ContactCTA from "../components/ContactCTA.astro";
 import Skills from "../components/Skills.astro";
+import { Picture } from "astro:assets";
+import portrait from '../assets/portrait.jpg';
 
 // Content Fetching: List four most recent work projects
 const projects = (await getCollection("work", (e) => e.data.selectedWork))
@@ -51,13 +52,7 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 					</div>
 				</Hero>
 
-				<Picture
-					src={import("../assets/portrait.jpg")}
-					alt="Rob op den Kelder"
-					widths={[456, 342]}
-					formats={["avif", "webp"]}
-					sizes="(max-width: 456px) 100vw, 456px"
-				/>
+				<Picture src={portrait} formats={['webp','avif']} alt="Rob op den Kelder" widths={[456, 342]} />
 			</header>
 
 			<Skills yearsOfExperience={yearsOfExperience} />

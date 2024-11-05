@@ -8,23 +8,23 @@ import PortfolioPreview from "../components/PortfolioPreview.astro";
 import Hero from "../components/Hero.astro";
 import Grid from "../components/Grid.astro";
 
-const projects = (await getCollection("work")).sort(
+const projects = (await getCollection("experience")).sort(
 	(a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf()
 );
 ---
 
 <BaseLayout
-	title="My Work | Rob op den Kelder"
+	title="Experience | Rob op den Kelder"
 	description="Learn about Rob op den Kelder most recent projects"
 >
 	<div class="stack gap-20">
 		<main class="wrapper stack gap-8">
 			<Hero
-				title="Work Experience"
+				title="Experience"
 				tagline="See my most recent projects below to get an idea of my past experience and the impact."
 				align="start"
 			/>
-			<Grid variant="offset">
+			<div>
 				{
 					projects.map((project) => (
 						<li>
@@ -32,7 +32,7 @@ const projects = (await getCollection("work")).sort(
 						</li>
 					))
 				}
-			</Grid>
+			</div>
 		</main>
 		<ContactCTA />
 	</div>

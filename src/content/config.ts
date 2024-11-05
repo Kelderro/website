@@ -1,8 +1,8 @@
 import { defineCollection, z } from 'astro:content';
 
 export const collections = {
-	work: defineCollection({
-		schema: z.object({
+	experience: defineCollection({
+		schema: ({ image }) => z.object({
 			role: z.string(),
 			employer: z.string().optional(),
 			department: z.string().optional(),
@@ -11,9 +11,12 @@ export const collections = {
 			startDate: z.coerce.date().default(new Date(0)),
 			endDate: z.coerce.date().default(new Date(0)),
 			tags: z.array(z.string()),
-			img: z.string(),
-			img_alt: z.string().optional(),
+			img: image().refine((img) => img.width >= 100, {
+				message: "Cover image must be at least 100 pixels wide!",
+			}),
+			imgAlt: z.string().optional(),
 			location: z.string().optional(),
+			office: z.string().optional(),
 			employment: z.string(),
 			selectedWork: z.boolean().optional().default(false),
 		}),

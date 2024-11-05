@@ -1,11 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Markdown } from "@astropub/md";
 
 // Component Imports
 import Icon from "../components/Icon.astro";
 
 interface Props {
-	project: CollectionEntry<"work">;
+	project: CollectionEntry<"experience">;
 }
 
 const { data, slug } = Astro.props.project;
@@ -26,7 +27,7 @@ function formatPeriod(startDate: Date, endDate: Date) {
 		"December",
 	];
 
-	var dateDiff = endDate.getFullYear() - startDate.getFullYear();
+	const dateDiff = endDate.getFullYear() - startDate.getFullYear();
 
 	return `${months[startDate.getMonth()]} ${startDate.getFullYear()}
 	 - ${months[endDate.getMonth()]} ${endDate.getFullYear()} (${dateDiff} year${
@@ -34,39 +35,40 @@ function formatPeriod(startDate: Date, endDate: Date) {
 	})`;
 }
 
-// <a class="card" href={`/work/${slug}`}>
----
 
-<span class="card-content">
-	<div class="title">{data.role}</div>
-	<div>
-		<div>{data.employer}</div>
-		<div class="description">
-			{data.impact}<br /><br /><br />
+---
+<a class="card" href={`/experience/${slug}`}>
+	<span class="card-content">
+		<div class="title">{data.role}</div>
+		<div>
+			<div>{data.employer}</div>
+			<div class="meta">
+				<div>
+					<Icon icon="calendar" />
+					{formatPeriod(data.startDate, data.endDate)}
+				</div>
+				<div>
+					<Icon icon="map-pin" />
+					{data.location}
+				</div>
+				<div>
+					<Icon icon="list" />
+					{data.employment}
+				</div>
+			</div>
+			<div class="description">
+				<b>Description:</b><Markdown of={data.impact} />
+			</div>
 		</div>
-		<div class="meta">
-			<div>
-				<Icon icon="calendar" />
-				{formatPeriod(data.startDate, data.endDate)}
-			</div>
-			<div>
-				<Icon icon="map-pin" />
-				{data.location}
-			</div>
-			<div>
-				<Icon icon="list" />
-				{data.employment}
-			</div>
-		</div>
-	</div>
-</span>
+	</span>
+</a>
 
 <style>
 	.card {
 		position: relative;
 		display: grid;
-		grid-template: 1fr auto / 1fr auto;
-		height: 11rem;
+		//grid-template: 1fr auto / 1fr auto;
+		//height: 11rem;
 		background: var(--gradient-subtle);
 		border: 1px solid var(--gray-800);
 		border-radius: 0.75rem;
@@ -108,14 +110,11 @@ function formatPeriod(startDate: Date, endDate: Date) {
 	}
 
 	.meta {
-		position: absolute;
-		bottom: 0.3rem;
 		font-size: var(--text-sm);
 	}
 
 	@media (min-width: 50em) {
 		.card {
-			height: 22rem;
 			border-radius: 1.5rem;
 		}
 

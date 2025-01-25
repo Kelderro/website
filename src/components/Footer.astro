@@ -8,12 +8,6 @@ const currentYear = new Date().getFullYear();
 		KVK (COC) number: 88664236<br />
 		BTW (VATIN) number: NL004663952B91<br />
 	</div>
-	<div class="astro">
-		<p>
-			Developed with <a href="https://astro.build/">Astro</a>
-			<Icon icon="rocket-launch" size="1.2em" />
-		</p>
-	</div>
 	<p class="copyright">
 		&copy; {currentYear} - Rob op den Kelder
 	</p>
@@ -52,13 +46,6 @@ const currentYear = new Date().getFullYear();
 		text-decoration-color: currentColor;
 	}
 
-	.astro {
-		color: var(--gray-600);
-		display: none;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
 	.copyright {
 		display: flex;
 		justify-content: center;
@@ -79,13 +66,6 @@ const currentYear = new Date().getFullYear();
 			justify-content: space-between;
 			padding: 2.5rem 5rem;
 			align-items: center;
-		}
-
-		.astro {
-			flex-direction: row;
-			gap: 1rem;
-			flex-wrap: wrap;
-			display: flex;
 		}
 
 		.copyright {

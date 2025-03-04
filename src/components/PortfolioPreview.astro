@@ -56,9 +56,6 @@ function formatPeriod(startDate: Date, endDate: Date) {
 					{data.employment}
 				</div>
 			</div>
-			<div class="description">
-				<b>Description:</b><Markdown of={data.impact} />
-			</div>
 		</div>
 	</span>
 </a>
@@ -67,8 +64,8 @@ function formatPeriod(startDate: Date, endDate: Date) {
 	.card {
 		position: relative;
 		display: grid;
-		//grid-template: 1fr auto / 1fr auto;
-		//height: 11rem;
+		grid-template: 1fr auto / 1fr auto;
+		height: 11rem;
 		background: var(--gradient-subtle);
 		border: 1px solid var(--gray-800);
 		border-radius: 0.75rem;
@@ -90,10 +87,6 @@ function formatPeriod(startDate: Date, endDate: Date) {
 		background: var(--gray-999_90);
 		color: var(--gray-200);
 		border-radius: 0.75rem;
-	}
-
-	.description {
-		display: none;
 	}
 
 	.title {

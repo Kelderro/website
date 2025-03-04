@@ -41,6 +41,12 @@ const { Content } = await entry.render();
 						</div>
 					</Hero>
 					<div>
+						<a href={entry.data.employerSite} target="_blank" rel="noopener noreferrer" class="" title=`Visit ${entry.data.employer} corporate website`>
+							<Icon icon="office-building" size="1.2em" />
+							{entry.data.employer}
+						</a>	
+					</div>
+					<div>
 						<a href={entry.data.office} target="_blank" rel="noopener noreferrer" class="office-location">
 							<Icon icon="office-building" size="1.2em" />
 							{entry.data.location}
@@ -156,6 +162,10 @@ const { Content } = await entry.render();
 		.content :global(blockquote) {
 			font-size: var(--text-2xl);
 		}
+	}
+
+	a {
+		text-decoration: none;
 	}
 	
 	.office-location {

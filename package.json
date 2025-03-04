@@ -1,7 +1,7 @@
 {
-	"name": "bizarre-belt",
+	"name": "kelderro-website",
 	"type": "module",
-	"version": "0.0.1",
+	"version": "2025.01.0001",
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",

@@ -11,9 +11,7 @@ export const collections = {
 			startDate: z.coerce.date().default(new Date(0)),
 			endDate: z.coerce.date().default(new Date(0)),
 			tags: z.array(z.string()),
-			img: image().refine((img) => img.width >= 100, {
-				message: "Cover image must be at least 100 pixels wide!",
-			}),
+			img: image().optional(),
 			imgAlt: z.string().optional(),
 			location: z.string().optional(),
 			office: z.string().optional(),

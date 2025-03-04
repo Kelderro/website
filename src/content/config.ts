@@ -1,5 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 
+const DEFAULT_DATE = new Date(0);
+
 export const collections = {
 	experience: defineCollection({
 		schema: ({ image }) => z.object({
@@ -8,8 +10,8 @@ export const collections = {
 			department: z.string().optional(),
 			description: z.string(),
 			impact: z.string().optional(),
-			startDate: z.coerce.date().default(new Date(0)),
-			endDate: z.coerce.date().default(new Date(0)),
+			startDate: z.coerce.date().default(DEFAULT_DATE),
+			endDate: z.coerce.date().default(DEFAULT_DATE),
 			tags: z.array(z.string()),
 			img: image().optional(),
 			imgAlt: z.string().optional(),

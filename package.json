@@ -12,7 +12,7 @@
 	"dependencies": {
 		"@astrojs/mdx": "^3.1.9",
 		"@astropub/md": "^1.0.0",
-		"@sentry/astro": "^8.55.0",
+		"@sentry/astro": "^9.3.0",
 		"@spotlightjs/astro": "^3.0.1",
 		"astro": "^4.16.18"
 	}

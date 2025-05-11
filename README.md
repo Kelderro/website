@@ -16,4 +16,5 @@ All commands are run from the root of the project, from a terminal:
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
 ## Design of the site
+
 Designed based on the [Astro Starter Kit: Portfolio](https://github.com/withastro/astro/tree/latest/examples/portfolio)

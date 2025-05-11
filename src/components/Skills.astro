@@ -1,108 +1,83 @@
 ---
-import Icon from "./Icon.astro";
-
-interface Props {
-	yearsOfExperience: number;
-}
-
-const { yearsOfExperience } = Astro.props;
+import Icon from './Icon.astro';
 
 // Bias for action
 ---
 
 <section class="box skills">
-	<div class="stack gap-2 lg:gap-4">
-		<Icon
-			icon="arrows-out"
-			color="var(--accent-regular)"
-			size="2.5rem"
-			gradient
-		/>
-		<h2>Leader & mentor</h2>
-		<p>
-			A seasoned, open-minded leader with extensive experience empowering 
-			teams to achieve exceptional results. Passionate about being a force 
-			multiplier, driving success through clear vision and guidance. Skilled 
-			at setting examples for both local teams and broader engineering 
-			organizations. Committed to fostering growth, career progression, 
-			and a culture of excellence within teams. A firm believer in leading 
-			by example, never hesitating to get hands-on to ensure success. 
-			Proven experience managing large product teams of up to 40 technical 
-			employees in enterprise organizations.
-		</p>
-	</div>
-	<div class="stack gap-2 lg:gap-4">
-		<Icon
-			icon="terminal-window"
-			color="var(--accent-regular)"
-			size="2.5rem"
-			gradient
-		/>
-		<h2>Software Engineer Mindset</h2>
-		<p>
-			A proven leader with extensive experience driving the end-to-end 
-			delivery of projects and products, from concept to successful launch. 
-			Expertise spans designing and implementing systems, ranging from 
-			monolithic architectures to scalable, distributed microservices. 
-			Skilled at balancing technical depth with strategic oversight to 
-			deliver impactful, high-quality solutions.
-		</p>
-	</div>
-	<div class="stack gap-2 lg:gap-4">
-		<Icon
-			icon="strategy"
-			color="var(--accent-regular)"
-			size="2.5rem"
-			gradient
-		/>
-		<h2>Strategy-Minded</h2>
-		<p>
-			Leveraging extensive experience and a robust professional network 
-			to design future-ready solutions. Focused on delivering products 
-			built for long-term success, ensuring they are maintainable, 
-			scalable, and sustainable. Dedicated to using proven technologies 
-			and best practices to create systems that stand the test of time.
-		</p>
-	</div>
+    <div class="stack gap-2 lg:gap-4">
+        <Icon icon="arrows-out" color="var(--accent-regular)" size="2.5rem" gradient />
+        <h2>Leader & mentor</h2>
+        <p>
+            A seasoned, open-minded leader with extensive experience empowering teams to achieve
+            exceptional results. Passionate about being a force multiplier, driving success through
+            clear vision and guidance. Skilled at setting examples for both local teams and broader
+            engineering organizations. Committed to fostering growth, career progression, and a
+            culture of excellence within teams. A firm believer in leading by example, never
+            hesitating to get hands-on to ensure success. Proven experience managing large product
+            teams of up to 40 technical employees in enterprise organizations.
+        </p>
+    </div>
+    <div class="stack gap-2 lg:gap-4">
+        <Icon icon="terminal-window" color="var(--accent-regular)" size="2.5rem" gradient />
+        <h2>Software Engineer Mindset</h2>
+        <p>
+            A proven leader with extensive experience driving the end-to-end delivery of projects
+            and products, from concept to successful launch. Expertise spans designing and
+            implementing systems, ranging from monolithic architectures to scalable, distributed
+            microservices. Skilled at balancing technical depth with strategic oversight to deliver
+            impactful, high-quality solutions.
+        </p>
+    </div>
+    <div class="stack gap-2 lg:gap-4">
+        <Icon icon="strategy" color="var(--accent-regular)" size="2.5rem" gradient />
+        <h2>Strategy-Minded</h2>
+        <p>
+            Leveraging extensive experience and a robust professional network to design future-ready
+            solutions. Focused on delivering products built for long-term success, ensuring they are
+            maintainable, scalable, and sustainable. Dedicated to using proven technologies and best
+            practices to create systems that stand the test of time.
+        </p>
+    </div>
 </section>
 
 <style>
-	.box {
-		border: 1px solid var(--gray-800);
-		border-radius: 0.75rem;
-		padding: 1.5rem;
-		background-color: var(--gray-999_40);
-		box-shadow: var(--shadow-sm);
-	}
+    .box {
+        border: 1px solid var(--gray-800);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        background-color: var(--gray-999_40);
+        box-shadow: var(--shadow-sm);
+    }
 
-	.skills {
-		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-	}
+    .skills {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
 
-	.skills h2 {
-		font-size: var(--text-lg);
-	}
+    .skills h2 {
+        font-size: var(--text-lg);
+    }
 
-	.skills p {
-		color: var(--gray-400);
-	}
+    .skills p {
+        color: var(--gray-400);
+    }
 
-	@media (min-width: 50em) {
-		.box {
-			border-radius: 1.5rem;
-			padding: 2.5rem;
-		}
+    @media (min-width: 50em) {
+        .box {
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+        }
 
-		.skills {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 5rem;
-		}
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5rem;
+        }
 
-		.skills h2 {
-			font-size: var(--text-2xl);
-		}
-	}
+        .skills h2 {
+            font-size: var(--text-2xl);
+        }
+    }
 </style>

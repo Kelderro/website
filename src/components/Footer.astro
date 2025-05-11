@@ -1,80 +1,78 @@
 ---
-import Icon from "./Icon.astro";
+import Icon from './Icon.astro';
 const currentYear = new Date().getFullYear();
 ---
 
 <footer>
-	<div class="company">
-		KVK (COC) number: 88664236<br />
-		BTW (VATIN) number: NL004663952B91<br />
-	</div>
-	<p class="copyright">
-		&copy; {currentYear} - Rob op den Kelder
-	</p>
-	<p class="socials">
-		<a href="https://github.com/kelderro" title="See my GitHub account"
-			><Icon icon="github-logo" /> GitHub</a
-		>
-		<a
-			href="https://www.linkedin.com/in/kelderro"
-			title="See my LinkedIn account"
-			><Icon icon="linkedin-logo" /> LinkedIn</a
-		>
-	</p>
+    <div class="company">
+        KVK (COC) number: 88664236<br />
+        BTW (VATIN) number: NL004663952B91<br />
+    </div>
+    <p class="copyright">
+        &copy; {currentYear} - Rob op den Kelder
+    </p>
+    <p class="socials">
+        <a href="https://github.com/kelderro" title="See my GitHub account"
+            ><Icon icon="github-logo" /> GitHub</a
+        >
+        <a href="https://www.linkedin.com/in/kelderro" title="See my LinkedIn account"
+            ><Icon icon="linkedin-logo" /> LinkedIn</a
+        >
+    </p>
 </footer>
 <style>
-	footer {
-		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-		margin-top: auto;
-		padding: 3rem 2rem 3rem;
-		text-align: center;
-		color: var(--gray-400);
-		font-size: var(--text-sm);
-	}
+    footer {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        margin-top: auto;
+        padding: 3rem 2rem 3rem;
+        text-align: center;
+        color: var(--gray-400);
+        font-size: var(--text-sm);
+    }
 
-	footer a {
-		color: var(--gray-400);
-		text-decoration: 1px solid underline transparent;
-		text-underline-offset: 0.25em;
-		transition: text-decoration-color var(--theme-transition);
-	}
+    footer a {
+        color: var(--gray-400);
+        text-decoration: 1px solid underline transparent;
+        text-underline-offset: 0.25em;
+        transition: text-decoration-color var(--theme-transition);
+    }
 
-	footer a:hover,
-	footer a:focus {
-		text-decoration-color: currentColor;
-	}
+    footer a:hover,
+    footer a:focus {
+        text-decoration-color: currentColor;
+    }
 
-	.copyright {
-		display: flex;
-		justify-content: center;
-		gap: 1rem;
-		flex-wrap: wrap;
-	}
+    .copyright {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
 
-	.socials {
-		display: flex;
-		justify-content: center;
-		gap: 1rem;
-		flex-wrap: wrap;
-	}
+    .socials {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
 
-	@media (min-width: 50em) {
-		footer {
-			flex-direction: row;
-			justify-content: space-between;
-			padding: 2.5rem 5rem;
-			align-items: center;
-		}
+    @media (min-width: 50em) {
+        footer {
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 2.5rem 5rem;
+            align-items: center;
+        }
 
-		.copyright {
-			flex-direction: row;
-			justify-content: center;
-		}
+        .copyright {
+            flex-direction: row;
+            justify-content: center;
+        }
 
-		.socials {
-			justify-content: flex-end;
-		}
-	}
+        .socials {
+            justify-content: flex-end;
+        }
+    }
 </style>

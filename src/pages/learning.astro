@@ -1,21 +1,21 @@
 ---
-import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-import Hero from "../components/Hero.astro";
-import Icon from "../components/Icon.astro";
+import Hero from '../components/Hero.astro';
+import Icon from '../components/Icon.astro';
 
-const books = (
-    await getCollection("learning", (e) => e.data.type == "book")
-).sort((a, b) => b.data.rating.valueOf() - a.data.rating.valueOf());
+const books = (await getCollection('learning', e => e.data.type == 'book')).sort(
+    (a, b) => b.data.rating.valueOf() - a.data.rating.valueOf()
+);
 
-const videos = (
-    await getCollection("learning", (e) => e.data.type == "video")
-).sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+const videos = (await getCollection('learning', e => e.data.type == 'video')).sort(
+    (a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf()
+);
 
-const blogs = (
-    await getCollection("learning", (e) => e.data.type == "blog")
-).sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+const blogs = (await getCollection('learning', e => e.data.type == 'blog')).sort(
+    (a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf()
+);
 ---
 
 <BaseLayout
@@ -34,30 +34,20 @@ const blogs = (
                     <h3>Books</h3>
                 </header>
                 <p>
-                    Prefer reading books that can't be easily outdated.<br /><br
-                    />
+                    Prefer reading books that can't be easily outdated.<br /><br />
                 </p>
                 <div>
                     {
-                        books.map((book) => (
+                        books.map(book => (
                             <div class="book">
                                 <div class="title">
                                     <h5>{book.data.title}</h5>
-                                    {[...Array(book.data.rating)].map(
-                                        (e, i) => (
-                                            <Icon
-                                                icon="star"
-                                                size="1.33em"
-                                                gradient={true}
-                                            />
-                                        )
-                                    )}
+                                    {[...Array(book.data.rating)].map(() => (
+                                        <Icon icon="star" size="1.33em" gradient={true} />
+                                    ))}
                                 </div>
                                 <a href={book.data.url} title={book.data.title}>
-                                    <img
-                                        src={book.data.cover}
-                                        alt={book.data.title}
-                                    />
+                                    <img src={book.data.cover} alt={book.data.title} />
                                 </a>
                                 <div class="description">
                                     <p>{book.data.description}</p>
@@ -73,17 +63,11 @@ const blogs = (
                 </header>
                 <div>
                     {
-                        videos.map((video) => (
+                        videos.map(video => (
                             <div class="video">
                                 <h5 class="title">{video.data.title}</h5>
-                                <a
-                                    href={video.data.url}
-                                    title={video.data.title}
-                                >
-                                    <img
-                                        src={video.data.cover}
-                                        alt={video.data.title}
-                                    />
+                                <a href={video.data.url} title={video.data.title}>
+                                    <img src={video.data.cover} alt={video.data.title} />
                                 </a>
                                 <div class="description">
                                     <p>{video.data.description}</p>
@@ -99,14 +83,11 @@ const blogs = (
                 </header>
                 <div>
                     {
-                        blogs.map((blog) => (
+                        blogs.map(blog => (
                             <div class="blog">
                                 <h5 class="title">{blog.data.title}</h5>
                                 <a href={blog.data.url} title={blog.data.title}>
-                                    <img
-                                        src={blog.data.cover}
-                                        alt={blog.data.title}
-                                    />
+                                    <img src={blog.data.cover} alt={blog.data.title} />
                                 </a>
                                 <div class="description">
                                     <p>{blog.data.description}</p>
@@ -130,8 +111,8 @@ const blogs = (
         grid-template-columns: 150px auto;
         grid-template-rows: auto auto;
         grid-template-areas:
-            "title title"
-            "img description";
+            'title title'
+            'img description';
         padding-top: 20px;
     }
 

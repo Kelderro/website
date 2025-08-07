@@ -23,7 +23,7 @@
         "@astropub/md": "^1.0.0",
         "@sentry/astro": "^9.17.0",
         "@spotlightjs/astro": "^3.2.3",
-        "astro": "^5.7.12",
+        "astro": "^5.12.8",
         "astro-eslint-parser": "^1.2.2",
         "sharp": "^0.34.1"
     },

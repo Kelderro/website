@@ -26,7 +26,8 @@ export default defineConfig({
     // Deployment Output
     output: 'static',
     adapter: cloudflare({
-        mode: 'directory', 
+        mode: 'directory',
+        imageService: 'compile',
     }),
 
     integrations: [sentry(), spotlightjs(), mdx()],

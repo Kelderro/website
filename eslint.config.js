@@ -19,6 +19,8 @@ export default [
             'dist/',
             'public/',
             'node_modules/',
+            'playwright-report/',
+            'test-results/',
             '**/*.min.js',
             '**/*.min.css',
             '**/package-lock.json',

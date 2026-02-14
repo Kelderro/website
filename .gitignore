@@ -1,26 +1,29 @@
-# build output
+# Astro & Build
+node_modules/
 dist/
-# generated types
 .astro/
 
-# dependencies
-node_modules/
+# Environment Secrets
+.env
+.env.production
 
-# logs
+# Debug & Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-
-# environment variables
-.env
-.env.production
-
-# macOS-specific files
 .DS_Store
-.idea
 
 # Playwright test artifacts
 /playwright-report/
 /test-results/
 /playwright/.cache/
+
+# IDE & Editor
+.idea/
+
+# VS Code: Ignore all, but allow specific shared files
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/extensions.json

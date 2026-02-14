@@ -54,4 +54,8 @@ export default defineConfig({
             devSourcemap: true,
         },
     },
+    prefetch: { 
+        prefetchAll: true,
+        defaultStrategy: 'hover', // or 'tap' for mobile optimization
+    },
 });

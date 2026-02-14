@@ -1,21 +1,46 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
+import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
-
 import sentry from '@sentry/astro';
 import spotlightjs from '@spotlightjs/astro';
 
 export default defineConfig({
+    // Environment Variable Schema (Astro 5.0+)
+    env: {
+        schema: {
+        // Available in the browser (client-side)
+        VITE_SOURCEMAP: envField.boolean({ 
+            context: 'client', 
+            access: 'public', 
+            default: false 
+        }),
+		// Available only during the build process (server-side context)
+        VITE_DEBUG: envField.boolean({ 
+            context: 'server', 
+            access: 'public', 
+            default: false 
+        }),
+        }
+    },
+
+    // Deployment Output
+    output: 'static',
+    adapter: cloudflare({
+        mode: 'directory', 
+    }),
+
     integrations: [sentry(), spotlightjs(), mdx()],
-    // Enable image optimization
+
+    // Image Optimization
     image: {
-        // Enable image optimization
+        // Astro uses Sharp by default
         service: {
             entrypoint: 'astro/assets/services/sharp',
         },
         // Define image quality
         quality: 80,
-        // Enable WebP format
-        format: ['webp'],
+        // Enable WebP and AVIF formats
+        formats: ['webp', 'avif'],
         // Enable responsive images
         remotePatterns: [
             {
@@ -23,39 +48,31 @@ export default defineConfig({
             },
         ],
     },
-    // Enable build optimization
+
+    // Build & HTML Optimization
     build: {
         // Enable inline stylesheets
         inlineStylesheets: 'auto',
         // Enable asset optimization
         assets: '_assets',
     },
+
     // Enable compression
     compressHTML: true,
-    // Enable source maps for better debugging
+
+    // Vite Configuration
     vite: {
         build: {
             sourcemap: true,
-            // Enable source maps for CSS
-            cssSourceMap: true,
-            // Enable source maps for JavaScript
-            jsSourceMap: true,
-            // Enable source maps for TypeScript
-            tsSourceMap: true,
-            // Enable source maps for Astro files
-            astroSourceMap: true,
         },
-        // Enable source maps in development
-        server: {
-            sourcemapIgnoreList: false,
-        },
-        // Configure source map options
         css: {
             devSourcemap: true,
         },
     },
+
+    // Navigation Optimization
     prefetch: { 
         prefetchAll: true,
-        defaultStrategy: 'hover', // or 'tap' for mobile optimization
+        defaultStrategy: 'hover',
     },
 });

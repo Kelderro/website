@@ -1,6 +1,5 @@
 import eslint from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tseslintParser from '@typescript-eslint/parser';
+import tseslint from 'typescript-eslint';
 import astroPlugin from 'eslint-plugin-astro';
 import astroEslintParser from 'astro-eslint-parser';
 import prettier from 'eslint-config-prettier';
@@ -28,24 +27,20 @@ export default [
             '**/pnpm-lock.yaml',
         ],
     },
-    // JS/TS config
+
+    // Base JS & TypeScript Config
+    eslint.configs.recommended,
+    ...tseslint.configs.recommended,
     {
-        ...eslint.configs.recommended,
         files: ['**/*.{js,jsx,ts,tsx}'],
         languageOptions: {
-            parser: tseslintParser,
-            parserOptions: {
-                ecmaVersion: 'latest',
-                sourceType: 'module',
-            },
+            ecmaVersion: 'latest',
+            sourceType: 'module',
             globals: {
                 ...safeTrimGlobals(globals.browser),
                 ...safeTrimGlobals(globals.node),
                 ...safeTrimGlobals(globals.es2021),
             },
-        },
-        plugins: {
-            '@typescript-eslint': tseslint,
         },
         rules: {
             '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
@@ -59,16 +54,14 @@ export default [
             'no-control-regex': 'off',
         },
     },
+
     // Astro config
     {
         files: ['**/*.astro'],
-        plugins: {
-            astro: astroPlugin,
-        },
         languageOptions: {
             parser: astroEslintParser,
             parserOptions: {
-                parser: '@typescript-eslint/parser',
+                parser: tseslint.parser, // Uses the typed parser from the import
                 extraFileExtensions: ['.astro'],
             },
             globals: {
@@ -77,10 +70,15 @@ export default [
                 ...safeTrimGlobals(globals.es2021),
             },
         },
+        plugins: {
+            astro: astroPlugin,
+        },
         rules: {
             ...astroPlugin.configs.recommended.rules,
             ...astroPlugin.configs['jsx-a11y-recommended'].rules,
         },
     },
+
+    // Prettier should be last to override other formatting rules
     prettier,
 ];

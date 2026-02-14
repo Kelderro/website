@@ -21,4 +21,6 @@ pnpm-debug.log*
 .idea
 
 # Playwright test artifacts
-playwright-report/
+/playwright-report/
+/test-results/
+/playwright/.cache/

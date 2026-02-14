@@ -1,7 +1,7 @@
 {
     "name": "kelderro-website",
     "type": "module",
-    "version": "2025.01.0001",
+    "version": "2026.01.0001",
     "scripts": {
         "dev": "astro dev",
         "build": "astro build",

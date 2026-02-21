@@ -15,8 +15,6 @@ import PortfolioPreview from '../components/PortfolioPreview.astro';
 // Page section components
 import ContactCTA from '../components/ContactCTA.astro';
 import Skills from '../components/Skills.astro';
-import { Picture } from 'astro:assets';
-import portrait from '../assets/portrait.jpg';
 
 // Content Fetching: List four most recent work projects
 const projects = (await getCollection('experience', e => e.data.selectedWork))
@@ -31,37 +29,31 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
     description="The personal site of Rob op den Kelder. View personal experience and learning recommendations"
 >
     <div class="stack gap-10 lg:gap-30">
-        <div class="wrapper stack gap-8 lg:gap-20">
-            <header class="hero">
-                <Hero
-                    title="Hello, my name is Rob op den Kelder"
-                    tagline="I'm a Freelance Technical Consultant & Principal Engineer and passionate about collaborating with exceptional individuals on technological challenges."
-                    align="start"
-                >
-                    <div class="roles">
-                        <Pill>
-                            <Icon icon="arrows-out" size="1.33em" /> Leadership
-                        </Pill>
-                        <Pill>
-                            <Icon icon="lifebuoy" size="1.33em" /> Architecture
-                        </Pill>
-                        <Pill>
-                            <Icon icon="pencil-line" size="1.33em" /> Stakeholder management
-                        </Pill>
-                    </div>
-                </Hero>
+        <section id="services">
+            <div class="wrapper stack gap-8 lg:gap-20">
+                <header class="hero">
+                    <Hero
+                        title="Freelance Technical Consultant & Principal Engineer"
+                        tagline="I help enterprise organizations scale their technical products through strategic architecture, hands-on engineering, and team leadership."
+                        align="start"
+                    >
+                        <div class="roles">
+                            <Pill>
+                                <Icon icon="arrows-out" size="1.33em" /> Leadership
+                            </Pill>
+                            <Pill>
+                                <Icon icon="lifebuoy" size="1.33em" /> Architecture
+                            </Pill>
+                            <Pill>
+                                <Icon icon="pencil-line" size="1.33em" /> Stakeholder management
+                            </Pill>
+                        </div>
+                    </Hero>
+                </header>
 
-                <Picture
-                    src={portrait}
-                    formats={['webp', 'avif']}
-                    alt="Rob op den Kelder"
-                    widths={[456, 342]}
-                />
-            </header>
-
-            <Skills yearsOfExperience={yearsOfExperience} />
-        </div>
-
+                <Skills yearsOfExperience={yearsOfExperience} />
+            </div>
+        </section>
         <main class="wrapper stack gap-20 lg:gap-48">
             <section class="section with-background with-cta">
                 <header class="section-header stack gap-2 lg:gap-4">
@@ -84,16 +76,20 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                     </Grid>
                 </div>
 
-                <div class="cta">
-                    <CallToAction href="/experience/">
-                        View All
-                        <Icon icon="arrow-right" size="1.2em" />
-                    </CallToAction>
-                </div>
+                <section id="experience">
+                    <div class="cta">
+                        <CallToAction href="/experience/">
+                            View All
+                            <Icon icon="arrow-right" size="1.2em" />
+                        </CallToAction>
+                    </div>
+                </section>
             </section>
         </main>
 
-        <ContactCTA />
+        <section id="contact">
+            <ContactCTA />
+        </section>
     </div>
 </BaseLayout>
 
@@ -118,7 +114,7 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 
     @media (min-width: 50em) {
         .hero {
-            display: grid;
+            display: block;
             grid-template-columns: 6fr 4fr;
             padding-inline: 2.5rem;
             gap: 3.75rem;

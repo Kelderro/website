@@ -5,10 +5,9 @@ import ThemeToggle from './ThemeToggle.astro';
 
 /** Main menu items */
 const textLinks: { label: string; href: string }[] = [
-    { label: 'Home', href: '/' },
-    { label: 'Experience', href: '/experience/' },
-    // { label: "Learning", href: "/learning/" },
-    // { label: "About", href: "/about/" },
+    { label: 'Services', href: '#services' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Contact', href: '#contact' },
 ];
 
 /** Icon links to social media */
@@ -55,14 +54,7 @@ const iconLinks: {
                     <li>
                         <a
                             aria-current={Astro.url.pathname === href}
-                            class:list={[
-                                'link',
-                                {
-                                    active:
-                                        Astro.url.pathname === href ||
-                                        (href !== '/' && Astro.url.pathname.startsWith(href)),
-                                },
-                            ]}
+                            class:list={['link']}
                             href={href}
                         >
                             {label}
@@ -125,13 +117,91 @@ const iconLinks: {
     customElements.define('menu-button', MenuButton);
 </script>
 
+<script>
+    const observerOptions = {
+        root: null,
+        rootMargin: '-30% 0px -30% 0px',
+        threshold: 0,
+    };
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                updateActiveState(`#${id}`);
+            }
+        });
+    };
+
+    const updateActiveState = (href: string) => {
+        document.querySelectorAll('.link').forEach(link => {
+            const isActive = link.getAttribute('href') === href;
+            link.classList.toggle('active', isActive);
+            link.setAttribute('aria-current', isActive ? 'page' : 'false');
+        });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    // Track sections
+    document.querySelectorAll('section[id]').forEach(section => {
+        observer.observe(section);
+    });
+
+    window.addEventListener('load', () => {
+        if (window.scrollY < 100) {
+            updateActiveState('#services');
+        }
+    });
+
+    if (window.scrollY > 100) {
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top > 0 && rect.top < window.innerHeight / 2) {
+                updateActiveState(`#${section.id}`);
+            }
+        });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (this: HTMLAnchorElement, e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#top') {
+                if (targetId === '#top') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                return;
+            }
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerOffset = 100;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                history.pushState(null, '', targetId);
+            }
+        });
+    });
+</script>
+
 <style>
     nav {
         z-index: 9999;
-        position: relative;
+        position: sticky;
+        top: 0;
         font-family: var(--font-brand);
         font-weight: 500;
         margin-bottom: 3.5rem;
+
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
+        mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
     }
 
     .menu-header {

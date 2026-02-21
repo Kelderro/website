@@ -126,8 +126,8 @@
 
 html,
 body {
-    height: 100%;
-    overflow-x: hidden;
+    height: auto;
+    scroll-behavior: smooth;
 }
 
 body {

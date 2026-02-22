@@ -84,6 +84,8 @@ const iconLinks: {
 
 <script>
     class MenuButton extends HTMLElement {
+        setExpanded!: (expand: boolean) => void;
+
         constructor() {
             super();
 
@@ -96,17 +98,17 @@ const iconLinks: {
             menu.hidden = true;
 
             /** Set whether the menu is currently expanded or collapsed. */
-            const setExpanded = (expand: boolean) => {
+            this.setExpanded = (expand: boolean) => {
                 btn.setAttribute('aria-expanded', expand ? 'true' : 'false');
                 menu.hidden = !expand;
             };
 
             // Toggle menu visibility when the menu button is clicked.
-            btn.addEventListener('click', () => setExpanded(menu.hidden));
+            btn.addEventListener('click', () => this.setExpanded(menu.hidden));
 
             // Hide menu button for large screens.
             const handleViewports = (e: MediaQueryList | MediaQueryListEvent) => {
-                setExpanded(e.matches);
+                this.setExpanded(e.matches);
                 btn.hidden = e.matches;
             };
             const mediaQueries = window.matchMedia('(min-width: 50em)');
@@ -183,6 +185,17 @@ const iconLinks: {
 
                 window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                 history.pushState(null, '', targetId);
+            }
+
+            // Close mobile menu after navigation
+            const menuButton = document.querySelector('menu-button') as HTMLElement & {
+                setExpanded: (expand: boolean) => void;
+            };
+            if (
+                menuButton &&
+                !document.querySelector<HTMLButtonElement>('button.menu-button')?.hidden
+            ) {
+                menuButton.setExpanded(false);
             }
         });
     });

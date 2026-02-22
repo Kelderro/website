@@ -15,6 +15,8 @@ import PortfolioPreview from '../components/PortfolioPreview.astro';
 // Page section components
 import ContactCTA from '../components/ContactCTA.astro';
 import Skills from '../components/Skills.astro';
+import { Picture } from 'astro:assets';
+import microsoftCertBadge from '../assets/microsoft-certified-expert-badge.svg';
 
 // Content Fetching: List four most recent work projects
 const projects = (await getCollection('experience', e => e.data.selectedWork))
@@ -39,18 +41,29 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                     >
                         <div class="roles">
                             <Pill>
-                                <Icon icon="arrows-out" size="1.33em" /> Leadership
+                                <Icon icon="shield-check" size="1.33em" /> Architectural Guardrails
                             </Pill>
                             <Pill>
-                                <Icon icon="lifebuoy" size="1.33em" /> Architecture
+                                <Icon icon="rocket-launch" size="1.33em" /> Strategic Engineering
                             </Pill>
                             <Pill>
-                                <Icon icon="pencil-line" size="1.33em" /> Stakeholder management
+                                <Icon icon="users-four" size="1.33em" /> Technical Team Leadership
                             </Pill>
                         </div>
                     </Hero>
                 </header>
-
+                <div id="trustBar">
+                    <span class="label">Strategic Impact at:</span>
+                    <div class="company-list">
+                        <span><a href="#transavia">Transavia</a></span>
+                        <span class="separator">//</span>
+                        <span><a href="#kpmg">KPMG LLP (UK)</a></span>
+                        <span class="separator">//</span>
+                        <span><a href="#shell">Royal Dutch Shell</a></span>
+                        <span class="separator">//</span>
+                        <span><a href="#cgi">CGI</a></span>
+                    </div>
+                </div>
                 <Skills yearsOfExperience={yearsOfExperience} />
             </div>
         </section>
@@ -85,6 +98,93 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                     </div>
                 </section>
             </section>
+            <section id="about">
+                <h3>About Rob op den Kelder</h3>
+                <div id="about-quote">
+                    I've spent {yearsOfExperience}+ years in the trenches, from leading 40+ globally
+                    distributed engineers at <strong>KPMG</strong> to modernizing legacy financial systems
+                    for <strong>Transavia</strong>.
+                </div>
+                <p>
+                    As a Strategic Technical Leader, I focus on the high-leverage decisions that
+                    prevent technical debt and ensure long-term scalability. While I still code to
+                    keep my saw sharp, my primary value lies in ensuring your architecture supports
+                    your business goals with the same rigor I used to help secure <strong
+                        >£150M+</strong
+                    > in enterprise contracts.
+                </p>
+                <h2 class="pillars-lead-in">
+                    My approach is built on three pillars of experience:
+                </h2>
+                <section class="about-pillars">
+                    <div class="pillars-grid">
+                        <div class="pillar-item">
+                            <div class="pillar-icon">
+                                <span class="accent-bar"></span>
+                            </div>
+                            <h4>Enterprise Architecture</h4>
+                            <p>
+                                Designing scalable, event-driven microservice architectures for
+                                global firms like <strong>KPMG</strong>.
+                            </p>
+                        </div>
+
+                        <div class="pillar-item">
+                            <div class="pillar-icon">
+                                <span class="accent-bar"></span>
+                            </div>
+                            <h4>Legacy Modernization</h4>
+                            <p>
+                                Orchestrating cloud-native transformations to replace aging
+                                infrastructure, such as the <strong>AS-400</strong> migration at <strong
+                                    >Transavia</strong
+                                >.
+                            </p>
+                        </div>
+
+                        <div class="pillar-item">
+                            <div class="pillar-icon">
+                                <span class="accent-bar"></span>
+                            </div>
+                            <h4>Engineering Enablement</h4>
+                            <p>
+                                Scaling team maturity and delivery quality across DevOps, Data, and
+                                QA disciplines.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <div class="cert-card-wrapper">
+                    <a
+                        href="https://learn.microsoft.com/api/credentials/share/en-us/RobKelder-0006/1D3FC9BEB76BCB26?sharingId=F604AD3A83C1F2D3"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="cert-card"
+                    >
+                        <div class="cert-badge-area">
+                            <Picture
+                                src={microsoftCertBadge}
+                                alt="Microsoft Certified: Azure Solutions Architect Expert"
+                            />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status">Active Certification</span>
+                            <h3 class="cert-title">
+                                Microsoft Certified: Azure Solutions Architect Expert
+                            </h3>
+                            <p class="cert-meta">Verified via Microsoft Learn</p>
+                        </div>
+                        <div class="cert-arrow">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path
+                                    fill="currentColor"
+                                    d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"
+                                ></path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </section>
         </main>
 
         <section id="contact">
@@ -94,6 +194,185 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 </BaseLayout>
 
 <style>
+    .cert-card-wrapper {
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cert-card {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem 2.5rem;
+        background: rgba(255, 255, 255, 0.02); /* Very subtle fill */
+        border: 1px solid var(--gray-800); /* The ONLY border */
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        max-width: 800px;
+    }
+
+    /* On hover, we change the border color and add a subtle glow */
+    .cert-card:hover {
+        border-color: var(--accent-purple);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px var(--gray-400);
+    }
+
+    .cert-badge-area {
+        width: 90px;
+        height: auto;
+        /* Soft glow behind the badge instead of a box */
+        filter: drop-shadow(0px 0px 1.5rem rgba(0, 120, 212, 0.8));
+    }
+
+    .cert-status {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--accent-purple);
+        font-weight: 600;
+    }
+
+    .cert-title {
+        font-size: 1.35rem;
+        color: var(--gray-0);
+        margin: 0.25rem 0;
+    }
+
+    .cert-meta {
+        font-size: 0.85rem;
+        color: var(--gray-400);
+    }
+
+    .cert-arrow {
+        margin-left: auto;
+        color: var(--gray-600);
+    }
+
+    .pillars-lead-in {
+        margin-top: 3rem; /* Large gap to separate from narrative */
+        margin-bottom: 1.5rem; /* Smaller gap to connect to the grid */
+        font-size: 1.1rem;
+        color: var(--gray-100);
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        /* Optional: A very thin left border or accent to make it pop */
+        border-left: 2px solid var(--accent-purple);
+        padding-left: 1rem;
+    }
+
+    .badge-icon {
+        width: 60px; /* Keep it small and elegant */
+        height: auto;
+        filter: drop-shadow(0 0 10px rgba(0, 120, 212, 0.2)); /* Subtle Azure blue glow */
+    }
+
+    #about {
+        padding: 80px 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        color: var(--gray-300);
+    }
+
+    #about-quote {
+        position: relative;
+        font-size: 1.85rem;
+        line-height: 1.4;
+        font-weight: 300;
+        color: var(--gray-0);
+        margin-bottom: 2.5rem;
+        padding-top: 1.5rem; /* Space for the giant quote mark */
+    }
+
+    #about-quote::before {
+        content: '“';
+        position: absolute;
+        top: -20px;
+        left: -10px;
+        font-size: 5rem;
+        color: var(--accent-purple);
+        opacity: 0.3; /* Subtle, not distracting */
+        font-family: serif; /* Serifs look more "literary" and authoritative */
+    }
+
+    #about .pillars-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2.5rem;
+        margin-top: 3rem;
+    }
+
+    #about .pillar-item h4 {
+        color: var(--accent-purple);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.75rem;
+    }
+
+    #about .pillar-item p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        opacity: 0.8;
+    }
+
+    #trustBar {
+        padding: 2.5rem 1rem;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+
+        background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.03) 50%,
+            transparent 100%
+        );
+        border-top: 1px solid var(--gray-800);
+        border-bottom: 1px solid var(--gray-800);
+        text-align: center;
+    }
+
+    #trustBar a {
+        text-decoration: none;
+        color: var(--gray-0);
+        transition: color 0.3s ease;
+    }
+
+    #trustBar a:hover {
+        color: var(--accent-regular);
+        cursor: pointer;
+    }
+
+    #trustBar .label {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    #trustBar .company-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        color: inherit; /* Bright white for the names */
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    #trustBar .separator {
+        opacity: 0.3;
+    }
+
     .hero {
         display: flex;
         flex-direction: column;
@@ -121,8 +400,10 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
         }
 
         .roles {
-            margin-top: 0.5rem;
+            margin-top: 1.5rem;
             display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             gap: 0.5rem;
         }
 

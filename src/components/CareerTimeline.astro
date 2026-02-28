@@ -1,0 +1,210 @@
+---
+import { getCollection } from 'astro:content';
+
+const roles = (await getCollection('experience')).sort(
+    (a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf()
+);
+
+function formatYear(d: Date) {
+    return d.getFullYear().toString();
+}
+
+function formatDuration(startDate: Date, endDate: Date): string {
+    const totalMonths =
+        (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+        (endDate.getMonth() - startDate.getMonth());
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+    const parts: string[] = [];
+    if (years > 0) parts.push(`${years} yr${years !== 1 ? 's' : ''}`);
+    if (months > 0) parts.push(`${months} mo`);
+    return parts.join(' ') || '< 1 mo';
+}
+
+const now = new Date();
+function endLabel(endDate: Date): string {
+    const diff =
+        now.getFullYear() * 12 + now.getMonth() - endDate.getFullYear() * 12 - endDate.getMonth();
+    return diff <= 3 ? 'present' : formatYear(endDate);
+}
+
+function isFreelance(employment: string): boolean {
+    return employment.toLowerCase().includes('freelan');
+}
+---
+
+<section class="timeline">
+    <ul class="timeline-list">
+        {
+            roles.map(role => (
+                <li class="timeline-item">
+                    <a class="timeline-link" href={`/engagements/${role.slug}`}>
+                        <span class="year-range">
+                            {formatYear(role.data.startDate)}
+                            <span class="year-sep">–</span>
+                            {endLabel(role.data.endDate)}
+                        </span>
+                        <span class="role-info">
+                            <span class="role-title">{role.data.role}</span>
+                            <span class="role-meta">
+                                <span class="employer">{role.data.employer}</span>
+                                <span class="dot" aria-hidden="true">
+                                    ·
+                                </span>
+                                <span class="duration">
+                                    {formatDuration(role.data.startDate, role.data.endDate)}
+                                </span>
+                                {isFreelance(role.data.employment) && (
+                                    <span class="freelance-badge">Freelance</span>
+                                )}
+                            </span>
+                        </span>
+                        <span class="timeline-arrow" aria-hidden="true">
+                            →
+                        </span>
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</section>
+
+<style>
+    .timeline {
+        width: 100%;
+    }
+
+    .timeline-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-left: 2px solid var(--gray-800);
+        padding-left: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .timeline-item {
+        position: relative;
+    }
+
+    /* Timeline dot */
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -1.625rem;
+        top: 1.1rem;
+        width: 0.6rem;
+        height: 0.6rem;
+        border-radius: 50%;
+        background: var(--gray-700);
+        border: 2px solid var(--gray-900);
+        transition: background var(--theme-transition);
+    }
+
+    .timeline-item:first-child::before {
+        background: var(--accent-regular);
+    }
+
+    .timeline-link {
+        display: flex;
+        align-items: baseline;
+        gap: 1.25rem;
+        padding: 0.85rem 0.5rem;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        transition: background var(--theme-transition);
+    }
+
+    .timeline-link:hover {
+        background: var(--accent-subtle-overlay);
+    }
+
+    .timeline-link:hover .timeline-item::before {
+        background: var(--accent-regular);
+    }
+
+    .timeline-link:hover .role-title {
+        color: var(--accent-regular);
+    }
+
+    .timeline-link:hover .timeline-arrow {
+        opacity: 1;
+        transform: translateX(3px);
+    }
+
+    .year-range {
+        font-size: var(--text-sm);
+        font-variant-numeric: tabular-nums;
+        color: var(--gray-400);
+        white-space: nowrap;
+        min-width: 7rem;
+        flex-shrink: 0;
+    }
+
+    .year-sep {
+        margin: 0 0.15rem;
+    }
+
+    .role-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .role-title {
+        font-weight: 600;
+        color: var(--gray-0);
+        font-size: var(--text-md);
+        transition: color var(--theme-transition);
+    }
+
+    .role-meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.3rem 0.5rem;
+        font-size: var(--text-sm);
+        color: var(--gray-400);
+    }
+
+    .dot {
+        opacity: 0.4;
+    }
+
+    .duration {
+        color: var(--gray-300);
+    }
+
+    .freelance-badge {
+        font-size: 0.7rem;
+        padding: 0.05rem 0.5rem;
+        border-radius: 999rem;
+        border: 1px solid var(--accent-regular);
+        color: var(--accent-regular);
+        font-weight: 500;
+    }
+
+    .timeline-arrow {
+        opacity: 0;
+        color: var(--accent-regular);
+        font-size: var(--text-sm);
+        transition:
+            opacity var(--theme-transition),
+            transform var(--theme-transition);
+        align-self: center;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 49.9em) {
+        .year-range {
+            min-width: 5rem;
+        }
+
+        .timeline-arrow {
+            display: none;
+        }
+    }
+</style>

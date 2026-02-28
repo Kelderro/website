@@ -1,0 +1,204 @@
+---
+import Icon from './Icon.astro';
+import {
+    siDotnet,
+    siTypescript,
+    siPython,
+    siGo,
+    siRust,
+    siJavascript,
+    siOpenjdk,
+    siDocker,
+    siKubernetes,
+    siTerraform,
+    siPostgresql,
+    siGit,
+    siGithub,
+    siSonarqubeserver,
+    siJenkins,
+} from 'simple-icons';
+
+interface TechItem {
+    name: string;
+    svgPath?: string;
+    hex?: string;
+}
+
+interface Category {
+    label: string;
+    icon: 'code' | 'rocket-launch' | 'strategy' | 'shield-check';
+    items: TechItem[];
+}
+
+const categories: Category[] = [
+    {
+        label: 'Languages',
+        icon: 'code',
+        items: [
+            { name: 'C# / .NET', svgPath: siDotnet.path, hex: siDotnet.hex },
+            { name: 'TypeScript', svgPath: siTypescript.path, hex: siTypescript.hex },
+            { name: 'Python', svgPath: siPython.path, hex: siPython.hex },
+            { name: 'Go', svgPath: siGo.path, hex: siGo.hex },
+            { name: 'Rust', svgPath: siRust.path, hex: siRust.hex },
+            { name: 'JavaScript', svgPath: siJavascript.path, hex: siJavascript.hex },
+            { name: 'Java', svgPath: siOpenjdk.path, hex: siOpenjdk.hex },
+        ],
+    },
+    {
+        label: 'Cloud & Infrastructure',
+        icon: 'rocket-launch',
+        items: [
+            { name: 'Azure', hex: '0078D4' },
+            { name: 'Bicep', hex: '0078D4' },
+            { name: 'Docker', svgPath: siDocker.path, hex: siDocker.hex },
+            { name: 'Kubernetes', svgPath: siKubernetes.path, hex: siKubernetes.hex },
+            { name: 'Terraform', svgPath: siTerraform.path, hex: siTerraform.hex },
+            { name: 'PostgreSQL', svgPath: siPostgresql.path, hex: siPostgresql.hex },
+        ],
+    },
+    {
+        label: 'Architecture',
+        icon: 'strategy',
+        items: [
+            { name: 'Microservices' },
+            { name: 'Event-Driven' },
+            { name: 'Domain-Driven Design' },
+            { name: 'REST & gRPC APIs' },
+            { name: 'Azure Solutions Architect' },
+            { name: 'Legacy Modernization' },
+        ],
+    },
+    {
+        label: 'Quality & Tooling',
+        icon: 'shield-check',
+        items: [
+            { name: 'Git', svgPath: siGit.path, hex: siGit.hex },
+            { name: 'GitHub', svgPath: siGithub.path, hex: siGithub.hex },
+            { name: 'GitHub Actions', svgPath: siGithub.path, hex: siGithub.hex },
+            { name: 'SonarQube', svgPath: siSonarqubeserver.path, hex: siSonarqubeserver.hex },
+            { name: 'Jenkins', svgPath: siJenkins.path, hex: siJenkins.hex },
+        ],
+    },
+];
+---
+
+<section class="toolkit-grid">
+    {
+        categories.map(cat => (
+            <div class="category">
+                <header class="category-header">
+                    <Icon icon={cat.icon} size="1.4em" color="var(--accent-regular)" />
+                    <h3>{cat.label}</h3>
+                </header>
+                <ul class="item-list">
+                    {cat.items.map(item => (
+                        <li class="tech-item">
+                            {item.svgPath ? (
+                                <svg
+                                    role="img"
+                                    viewBox="0 0 24 24"
+                                    aria-label={item.name}
+                                    class="tech-icon"
+                                    style={`color: #${item.hex}`}
+                                >
+                                    <path d={item.svgPath} fill="currentColor" />
+                                </svg>
+                            ) : (
+                                <span
+                                    class="tech-icon text-icon"
+                                    style={item.hex ? `background: #${item.hex}` : undefined}
+                                    aria-hidden="true"
+                                >
+                                    {item.name.slice(0, 2).toUpperCase()}
+                                </span>
+                            )}
+                            <span class="tech-name">{item.name}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        ))
+    }
+</section>
+
+<style>
+    .toolkit-grid {
+        display: grid;
+        gap: 2.5rem;
+        grid-template-columns: 1fr;
+    }
+
+    .category {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .category-header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--gray-800);
+    }
+
+    .category-header h3 {
+        font-size: var(--text-lg);
+        color: var(--gray-0);
+        font-weight: 600;
+    }
+
+    .item-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .tech-item {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.35rem 0.75rem 0.35rem 0.55rem;
+        background: var(--gray-999_40);
+        border: 1px solid var(--gray-800);
+        border-radius: 999rem;
+        transition: border-color var(--theme-transition);
+    }
+
+    .tech-item:hover {
+        border-color: var(--gray-600);
+    }
+
+    .tech-icon {
+        width: 1rem;
+        height: 1rem;
+        flex-shrink: 0;
+    }
+
+    .text-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        font-size: 0.5rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -0.02em;
+    }
+
+    .tech-name {
+        font-size: var(--text-sm);
+        color: var(--gray-200);
+        white-space: nowrap;
+    }
+
+    @media (min-width: 50em) {
+        .toolkit-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+    }
+</style>

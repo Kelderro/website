@@ -25,6 +25,7 @@ export default [
             '**/package-lock.json',
             '**/yarn.lock',
             '**/pnpm-lock.yaml',
+            '.astro/**',
         ],
     },
 

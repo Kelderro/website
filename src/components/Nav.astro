@@ -4,12 +4,15 @@ import type { Props as IconProps } from './Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
 
 /** Main menu items */
+const isHome = Astro.url.pathname === '/';
+const sectionHref = (hash: string) => (isHome ? hash : `/${hash}`);
+
 const textLinks: { label: string; href: string }[] = [
-    { label: 'Services', href: '#services' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'About', href: '#about' },
-    { label: 'Technical Toolkit', href: '#technical-toolkit' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Services', href: sectionHref('#services') },
+    { label: 'Selected Engagements', href: sectionHref('#experience') },
+    { label: 'About', href: sectionHref('#about') },
+    { label: 'Technical Toolkit', href: sectionHref('#technical-toolkit') },
+    { label: 'Contact', href: sectionHref('#contact') },
 ];
 
 /** Icon links to social media */

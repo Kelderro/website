@@ -13,8 +13,10 @@ import Pill from '../components/Pill.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
 
 // Page section components
+import CareerTimeline from '../components/CareerTimeline.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import Skills from '../components/Skills.astro';
+import TechToolkit from '../components/TechToolkit.astro';
 import { Picture } from 'astro:assets';
 import microsoftCertBadge from '../assets/microsoft-certified-expert-badge.svg';
 
@@ -64,21 +66,19 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                         <span><a href="#cgi">CGI</a></span>
                     </div>
                 </div>
+                <CareerTimeline />
                 <Skills yearsOfExperience={yearsOfExperience} />
             </div>
         </section>
         <main class="wrapper stack gap-20 lg:gap-48">
             <section class="section with-background with-cta">
                 <header class="section-header stack gap-2 lg:gap-4">
-                    <h3>Highlighted roles</h3>
-                    <p>
-                        An overview of the most relevant professional experience in the last few
-                        years.
-                    </p>
+                    <h3>Selected Engagements</h3>
+                    <p>The most impactful roles from my professional experience.</p>
                 </header>
 
                 <div class="gallery">
-                    <Grid variant="offset">
+                    <Grid>
                         {
                             projects.map(project => (
                                 <li>
@@ -91,7 +91,7 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 
                 <section id="experience">
                     <div class="cta">
-                        <CallToAction href="/experience/">
+                        <CallToAction href="/engagements/">
                             View All
                             <Icon icon="arrow-right" size="1.2em" />
                         </CallToAction>
@@ -186,6 +186,14 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                 </div>
             </section>
         </main>
+
+        <section id="technical-toolkit" class="wrapper stack gap-2 lg:gap-4">
+            <header class="section-header stack gap-2 lg:gap-4">
+                <h3>Technical Toolkit</h3>
+                <p>Languages, platforms, and tools I use to deliver enterprise-grade solutions.</p>
+            </header>
+            <TechToolkit />
+        </section>
 
         <section id="contact">
             <ContactCTA />

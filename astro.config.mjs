@@ -2,9 +2,11 @@ import { defineConfig, envField } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 import sentry from '@sentry/astro';
+import sitemap from '@astrojs/sitemap';
 import spotlightjs from '@spotlightjs/astro';
 
 export default defineConfig({
+    site: 'https://kelderro.nl',
     // Environment Variable Schema (Astro 5.0+)
     env: {
         schema: {
@@ -30,7 +32,7 @@ export default defineConfig({
         imageService: 'compile',
     }),
 
-    integrations: [sentry(), spotlightjs(), mdx()],
+    integrations: [sentry(), spotlightjs(), mdx(), sitemap()],
 
     // Image Optimization
     image: {

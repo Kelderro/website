@@ -4,5 +4,43 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Not Found" description="404 Error — this page was not found">
-    <Hero title="Page Not Found" tagline="Not found" />
+    <div class="stack gap-20">
+        <main class="wrapper stack gap-8">
+            <Hero
+                title="Page Not Found"
+                tagline="The page you're looking for doesn't exist or has been moved."
+            />
+            <nav class="not-found-nav" aria-label="Alternative pages">
+                <a href="/" class="nav-link"> ← Back to Home </a>
+                <a href="/engagements/" class="nav-link"> View Engagements </a>
+                <a href="/about/" class="nav-link"> About Me </a>
+            </nav>
+        </main>
+    </div>
 </BaseLayout>
+
+<style>
+    .not-found-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .nav-link {
+        padding: 0.75rem 1.5rem;
+        border: 1px solid var(--gray-800);
+        border-radius: 999rem;
+        color: var(--gray-200);
+        text-decoration: none;
+        font-size: var(--text-sm);
+        transition:
+            background-color var(--theme-transition),
+            color var(--theme-transition);
+    }
+
+    .nav-link:hover {
+        background-color: var(--accent-subtle-overlay);
+        color: var(--gray-0);
+    }
+</style>

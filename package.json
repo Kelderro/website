@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@astrojs/mdx": "^4.3.13",
+        "@astrojs/sitemap": "^3.7.2",
         "@astropub/md": "^1.0.0",
         "@sentry/astro": "^9.17.0",
         "@spotlightjs/astro": "^3.2.3",

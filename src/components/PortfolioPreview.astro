@@ -3,10 +3,10 @@ import type { CollectionEntry } from 'astro:content';
 import Icon from '../components/Icon.astro';
 
 interface Props {
-    project: CollectionEntry<'experience'>;
+    engagement: CollectionEntry<'engagement'>;
 }
 
-const { data, slug } = Astro.props.project;
+const { data, slug } = Astro.props.engagement;
 
 function formatPeriod(startDate: Date, endDate: Date): string {
     const totalMonths =

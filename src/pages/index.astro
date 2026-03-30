@@ -14,14 +14,13 @@ import PortfolioPreview from '../components/PortfolioPreview.astro';
 
 // Page section components
 import CareerTimeline from '../components/CareerTimeline.astro';
-import ContactCTA from '../components/ContactCTA.astro';
 import Skills from '../components/Skills.astro';
 import TechToolkit from '../components/TechToolkit.astro';
 import { Picture } from 'astro:assets';
 import microsoftCertBadge from '../assets/microsoft-certified-expert-badge.svg';
 
 // Content Fetching: List four most recent work projects
-const projects = (await getCollection('experience', e => e.data.selectedWork))
+const engagements = (await getCollection('engagement', e => e.data.selectedWork))
     .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf())
     .slice(0, 4);
 
@@ -80,16 +79,16 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                 <div class="gallery">
                     <Grid>
                         {
-                            projects.map(project => (
+                            engagements.map(engagement => (
                                 <li>
-                                    <PortfolioPreview project={project} />
+                                    <PortfolioPreview engagement={engagement} />
                                 </li>
                             ))
                         }
                     </Grid>
                 </div>
 
-                <section id="experience">
+                <section id="engagements">
                     <div class="cta">
                         <CallToAction href="/engagements/">
                             View All
@@ -195,13 +194,156 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
             <TechToolkit />
         </section>
 
-        <section id="contact">
-            <ContactCTA />
+        <section id="contact" class="consultation-footer">
+            <div class="footer-container">
+                <div class="status-pill">
+                    <span class="pulse-dot"></span>
+                    Current Availability: Q3 2026 Engagement
+                </div>
+
+                <h2 class="footer-title">Ready to resolve your architectural bottlenecks?</h2>
+
+                <p class="footer-description">
+                    I partner with select organizations to modernize legacy systems, scale
+                    engineering maturity, and align technical roadmaps with business goals.
+                </p>
+
+                <div class="cta-group">
+                    <a href="mailto:contact@kelderro.nl" class="btn-primary">
+                        Book a Strategic Consultation
+                    </a>
+                    <a
+                        href="https://linkedin.com/in/kelderro"
+                        class="btn-secondary"
+                        target="_blank"
+                    >
+                        Connect on LinkedIn
+                    </a>
+                </div>
+
+                <div class="footer-meta">
+                    <span>Netherlands Based</span>
+                    <span class="separator">•</span>
+                    <span class="highlight-meta">UK Settled Status</span>
+                    <span class="separator">•</span>
+                    <span>Global Remote Engagements</span>
+                </div>
+            </div>
         </section>
     </div>
 </BaseLayout>
 
 <style>
+    .highlight-meta {
+        color: rgba(255, 255, 255, 0.9); /* Slightly brighter than the rest */
+        font-weight: 500;
+    }
+
+    .consultation-footer {
+        padding: 120px 20px;
+        background: radial-gradient(
+            circle at top,
+            rgba(var(--accent-regular), 0.05) 0%,
+            transparent 70%
+        );
+        text-align: center;
+    }
+
+    .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid color-mix(in srgb, var(--accent-regular), transparent 80%);
+        padding: 8px 16px;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        color: var(--gray-0);
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .pulse-dot {
+        position: relative;
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent-regular);
+        border-radius: 50%;
+        vertical-align: middle; /* Aligns the dot with your text baseline */
+    }
+
+    .pulse-dot::after {
+        content: ''; /* Keep this empty */
+        position: absolute;
+        top: 0;
+        left: 0;
+        /* Force the size to match the parent dot */
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: var(--accent-regular);
+        /* Use 'inherit' for background if you want it to always match the dot */
+        background-color: inherit;
+        animation: ripple 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+        z-index: -1; /* Place it BEHIND the main dot */
+    }
+
+    @keyframes ripple {
+        0% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+
+    .footer-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-description {
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 600px;
+        margin: 0 auto 3rem;
+        line-height: 1.6;
+    }
+
+    .btn-primary {
+        background: var(--accent);
+        color: white;
+        padding: 18px 36px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px color-mix(in srgb, var(--accent-purple), transparent 60%);
+    }
+
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.4;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
     .cert-card-wrapper {
         margin-top: 3rem;
         display: flex;

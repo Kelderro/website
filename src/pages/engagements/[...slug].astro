@@ -1,4 +1,5 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -11,13 +12,13 @@ import { Markdown } from '@astropub/md';
 
 export async function getStaticPaths() {
     const engagements = await getCollection('engagement');
-    return engagements.map(entry => ({
+    return engagements.map((entry: CollectionEntry<'engagement'>) => ({
         params: { slug: entry.slug },
         props: { entry },
     }));
 }
 
-const { entry } = Astro.props;
+const { entry } = Astro.props as { entry: CollectionEntry<'engagement'> };
 const { Content } = await entry.render();
 
 function formatPeriod(startDate: Date, endDate: Date): string {

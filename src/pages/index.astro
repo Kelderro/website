@@ -1,4 +1,5 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
 // Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
@@ -20,8 +21,13 @@ import { Picture } from 'astro:assets';
 import microsoftCertBadge from '../assets/microsoft-certified-expert-badge.svg';
 
 // Content Fetching: List four most recent work projects
-const engagements = (await getCollection('engagement', e => e.data.selectedWork))
-    .sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf())
+const engagements: CollectionEntry<'engagement'>[] = (
+    await getCollection('engagement', (e: CollectionEntry<'engagement'>) => e.data.selectedWork)
+)
+    .sort(
+        (a: CollectionEntry<'engagement'>, b: CollectionEntry<'engagement'>) =>
+            b.data.startDate.valueOf() - a.data.startDate.valueOf()
+    )
     .slice(0, 4);
 
 const yearsOfExperience = new Date().getFullYear() - 2009;

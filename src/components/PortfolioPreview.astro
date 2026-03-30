@@ -44,7 +44,7 @@ function formatPeriod(startDate: Date, endDate: Date): string {
         {
             data.tags?.length && (
                 <div class="tags">
-                    {data.tags.map(tag => (
+                    {data.tags.map((tag: string) => (
                         <span class="tag">{tag}</span>
                     ))}
                 </div>

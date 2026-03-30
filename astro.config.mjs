@@ -10,19 +10,19 @@ export default defineConfig({
     // Environment Variable Schema (Astro 5.0+)
     env: {
         schema: {
-        // Available in the browser (client-side)
-        VITE_SOURCEMAP: envField.boolean({ 
-            context: 'client', 
-            access: 'public', 
-            default: false 
-        }),
-		// Available only during the build process (server-side context)
-        VITE_DEBUG: envField.boolean({ 
-            context: 'server', 
-            access: 'public', 
-            default: false 
-        }),
-        }
+            // Available in the browser (client-side)
+            VITE_SOURCEMAP: envField.boolean({
+                context: 'client',
+                access: 'public',
+                default: false,
+            }),
+            // Available only during the build process (server-side context)
+            VITE_DEBUG: envField.boolean({
+                context: 'server',
+                access: 'public',
+                default: false,
+            }),
+        },
     },
 
     // Deployment Output
@@ -74,7 +74,7 @@ export default defineConfig({
     },
 
     // Navigation Optimization
-    prefetch: { 
+    prefetch: {
         prefetchAll: true,
         defaultStrategy: 'hover',
     },

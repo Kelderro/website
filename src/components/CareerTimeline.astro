@@ -1,8 +1,10 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
-const engagements = (await getCollection('engagement')).sort(
-    (a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf()
+const engagements: CollectionEntry<'engagement'>[] = (await getCollection('engagement')).sort(
+    (a: CollectionEntry<'engagement'>, b: CollectionEntry<'engagement'>) =>
+        b.data.startDate.valueOf() - a.data.startDate.valueOf()
 );
 
 function formatYear(d: Date) {

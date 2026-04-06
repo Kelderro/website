@@ -8,7 +8,14 @@
         "ghcr.io/devcontainers/features/desktop-lite:1": {}
     },
 
-    "postCreateCommand": "pnpm install && pnpm exec playwright install --with-deps chromium && pnpm run build",
+    "mounts": [
+        // 1. High-speed volume for node_modules
+        "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+        // 2. High-speed volume for the pnpm store
+        "source=pnpm-global-store,target=/home/node/.local/share/pnpm/store,type=volume"
+    ],
+
+    "postCreateCommand": "sudo chown -R node node_modules /home/node/.local/share/pnpm &&pnpm install && pnpm exec playwright install --with-deps chromium && pnpm run build",
     "waitFor": "postCreateCommand",
 
     "forwardPorts": [4321],

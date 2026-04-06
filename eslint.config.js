@@ -33,7 +33,7 @@ export default [
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     {
-        files: ['**/*.{js,jsx,ts,tsx}'],
+        files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
         languageOptions: {
             ecmaVersion: 'latest',
             sourceType: 'module',

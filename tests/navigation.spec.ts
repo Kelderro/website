@@ -1,11 +1,17 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+
+async function openMobileMenu(page: Page, isMobile: boolean) {
+    if (!isMobile) {
+        return;
+    }
+
+    await page.getByRole('navigation').getByRole('button', { name: 'Menu', exact: true }).click();
+}
 
 test('navigation contains expected links', async ({ page, isMobile }) => {
     await page.goto('/');
 
-    if (isMobile) {
-        await page.getByRole('button', { name: 'Menu' }).click();
-    }
+    await openMobileMenu(page, isMobile);
 
     await expect(page.getByRole('link', { name: /services/i })).toBeVisible();
     await expect(page.getByRole('link', { name: /selected engagements/i })).toBeVisible();
@@ -16,9 +22,7 @@ test('theme toggle switches dark mode', async ({ page, isMobile }) => {
     await page.goto('/');
     const html = page.locator('html');
 
-    if (isMobile) {
-        await page.getByRole('button', { name: 'Menu' }).click();
-    }
+    await openMobileMenu(page, isMobile);
 
     const button = page.getByRole('button', { name: 'Dark theme' });
     const initialIsDark = (await html.getAttribute('class'))?.includes('theme-dark') ?? false;
@@ -34,9 +38,7 @@ test('theme toggle switches dark mode', async ({ page, isMobile }) => {
 test('theme preference persists on navigation', async ({ page, isMobile }) => {
     await page.goto('/');
 
-    if (isMobile) {
-        await page.getByRole('button', { name: 'Menu' }).click();
-    }
+    await openMobileMenu(page, isMobile);
 
     // Enable dark mode if not already active
     const html = page.locator('html');

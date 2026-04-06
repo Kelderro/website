@@ -23,7 +23,7 @@ importers:
                 specifier: ^10.47.0
                 version: 10.47.0(@cloudflare/workers-types@4.20260405.1)
             '@spotlightjs/astro':
-                specifier: ^3.2.3
+                specifier: ^3.2.6
                 version: 3.2.6(@sentry/astro@10.47.0(astro@6.1.4(@types/node@25.5.2)(rollup@4.60.1)(typescript@6.0.2)(yaml@2.8.3))(rollup@4.60.1))(astro@6.1.4(@types/node@25.5.2)(rollup@4.60.1)(typescript@6.0.2)(yaml@2.8.3))
             astro:
                 specifier: ^6.1.4

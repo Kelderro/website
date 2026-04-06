@@ -32,7 +32,12 @@ export default defineConfig({
         imageService: 'compile',
     }),
 
-    integrations: [sentry(), spotlightjs(), mdx(), sitemap()],
+    integrations: [
+        sentry(),
+        ...(process.env.NODE_ENV === 'development' && !process.env.CI ? [spotlightjs()] : []),
+        mdx(),
+        sitemap(),
+    ],
 
     // Image Optimization
     image: {

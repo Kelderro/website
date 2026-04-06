@@ -24,7 +24,7 @@
         "@astropub/md": "^1.0.0",
         "@sentry/astro": "^10.47.0",
         "@sentry/cloudflare": "^10.47.0",
-        "@spotlightjs/astro": "^3.2.3",
+        "@spotlightjs/astro": "^3.2.6",
         "astro": "^6.1.4",
         "sharp": "^0.34.1"
     },

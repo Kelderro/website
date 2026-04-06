@@ -40,7 +40,7 @@ function isFreelance(employment: string): boolean {
         {
             engagements.map(engagement => (
                 <li class="timeline-item">
-                    <a class="timeline-link" href={`/engagements/${engagement.slug}`}>
+                    <a class="timeline-link" href={`/engagements/${engagement.id}`}>
                         <span class="year-range">
                             {formatYear(engagement.data.startDate)}
                             <span class="year-sep">–</span>

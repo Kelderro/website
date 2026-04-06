@@ -1,9 +1,12 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
 
 const DEFAULT_DATE = new Date(0);
 
 export const collections = {
     engagement: defineCollection({
+        loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/engagement' }),
         schema: ({ image }) =>
             z.object({
                 mission: z.string(),
@@ -24,6 +27,7 @@ export const collections = {
             }),
     }),
     learning: defineCollection({
+        loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/learning' }),
         schema: z.object({
             title: z.string(),
             publishDate: z.coerce.date(),

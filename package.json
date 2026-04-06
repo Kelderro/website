@@ -1,9 +1,10 @@
 {
     "name": "kelderro-website",
+    "packageManager": "pnpm@10.33.0",
     "type": "module",
     "version": "2026.01.0001",
     "scripts": {
-        "dev": "astro dev",
+        "dev": "astro dev --host 0.0.0.0",
         "build": "astro build",
         "preview": "astro preview",
         "astro": "astro",
@@ -13,8 +14,8 @@
         "format:check": "prettier --check .",
         "type-check": "astro check",
         "validate": "npm run lint && npm run format:check && npm run type-check",
-        "prepare": "husky install",
-        "debug": "astro dev --env-mode debug",
+        "prepare": "husky",
+        "debug": "astro dev --host 0.0.0.0 --env-mode debug",
         "test": "playwright test --headed"
     },
     "dependencies": {
@@ -41,5 +42,22 @@
         "simple-icons": "^16.9.0",
         "typescript": "^5.8.3",
         "typescript-eslint": "^8.55.0"
+    },
+    "lint-staged": {
+        "*.{js,ts,astro}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.{json,md}": [
+            "prettier --write"
+        ],
+        "src/**/__tests__/*.spec.ts": [
+            "pnpm exec playwright test"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
     }
 }

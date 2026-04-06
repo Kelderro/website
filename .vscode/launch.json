@@ -2,10 +2,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "./node_modules/.bin/astro dev",
             "name": "Development server",
             "request": "launch",
-            "type": "node-terminal"
+            "type": "node-terminal",
+            "command": "pnpm run dev",
+            "serverReadyAction": {
+                "action": "debugWithChrome",
+                "pattern": "local:.*(http://0.0.0.0:4321)",
+                "uriFormat": "http://localhost:4321"
+            }
         }
     ]
 }

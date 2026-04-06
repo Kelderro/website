@@ -1,1 +1,2 @@
-npx lint-staged
+# pnpm exec playwright test --project=chromium --reporter=dot
+pnpm exec lint-staged

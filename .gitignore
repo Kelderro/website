@@ -3,6 +3,10 @@ node_modules/
 dist/
 .astro/
 
+# pnpm specific
+.pnpm-store/
+pnpm-debug.log*
+
 # Environment Secrets
 .env
 .env.production
@@ -27,3 +31,7 @@ pnpm-debug.log*
 !.vscode/launch.json
 !.vscode/tasks.json
 !.vscode/extensions.json
+
+# Cloudflare/Wrangler specific
+.wrangler
+.dev.vars

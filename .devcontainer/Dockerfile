@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/javascript-node:22
+FROM mcr.microsoft.com/devcontainers/javascript-node:24
 
 # 1. Enable Corepack. Fetch version defined in package.json
 RUN corepack enable

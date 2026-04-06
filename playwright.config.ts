@@ -8,7 +8,7 @@ export default defineConfig({
     workers: process.env.CI ? 1 : undefined,
     reporter: 'html',
     use: {
-        baseURL: 'http://localhost:4321',
+        baseURL: 'http://127.0.0.1:4321',
         trace: 'on-first-retry',
     },
     projects: [
@@ -30,8 +30,11 @@ export default defineConfig({
         },
     ],
     webServer: {
-        command: 'npm run dev',
-        url: 'http://localhost:4321',
+        command: 'pnpm astro dev --port 4321 --host 127.0.0.1',
+        url: 'http://127.0.0.1:4321',
         reuseExistingServer: !process.env.CI,
+        timeout: 120 * 1000,
+        stderr: 'pipe',
+        stdout: 'ignore',
     },
 });

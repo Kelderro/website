@@ -7,7 +7,7 @@ on:
 
 jobs:
     quality:
-        name: Quality checks
+        name: Quality & Build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -36,6 +36,13 @@ jobs:
             - name: Build
               run: pnpm run build
 
+            - name: Upload dist
+              uses: actions/upload-artifact@v4
+              with:
+                  name: dist
+                  path: dist/
+                  retention-days: 1
+
     e2e:
         name: E2E tests
         needs: quality
@@ -55,11 +62,20 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
+            - name: Download dist
+              uses: actions/download-artifact@v4
+              with:
+                  name: dist
+                  path: dist/
+
             - name: Install Playwright browsers
               run: pnpm exec playwright install --with-deps chromium firefox webkit
 
             - name: Run Playwright tests
               run: pnpm exec playwright test
+              env:
+                  NODE_ENV: test
+                  WRANGLER_SEND_METRICS: false
 
             - name: Upload Playwright report
               uses: actions/upload-artifact@v4

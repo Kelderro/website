@@ -36,5 +36,8 @@ export default defineConfig({
         timeout: 120 * 1000,
         stderr: 'pipe',
         stdout: 'ignore',
+        env: {
+            CI: 'true',
+        },
     },
 });

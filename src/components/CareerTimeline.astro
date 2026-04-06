@@ -1,8 +1,10 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
-const roles = (await getCollection('experience')).sort(
-    (a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf()
+const engagements: CollectionEntry<'engagement'>[] = (await getCollection('engagement')).sort(
+    (a: CollectionEntry<'engagement'>, b: CollectionEntry<'engagement'>) =>
+        b.data.startDate.valueOf() - a.data.startDate.valueOf()
 );
 
 function formatYear(d: Date) {
@@ -36,25 +38,32 @@ function isFreelance(employment: string): boolean {
 <section class="timeline">
     <ul class="timeline-list">
         {
-            roles.map(role => (
+            engagements.map(engagement => (
                 <li class="timeline-item">
-                    <a class="timeline-link" href={`/engagements/${role.slug}`}>
+                    <a class="timeline-link" href={`/engagements/${engagement.slug}`}>
                         <span class="year-range">
-                            {formatYear(role.data.startDate)}
+                            {formatYear(engagement.data.startDate)}
                             <span class="year-sep">–</span>
-                            {endLabel(role.data.endDate)}
+                            {endLabel(engagement.data.endDate)}
                         </span>
                         <span class="role-info">
-                            <span class="role-title">{role.data.role}</span>
+                            <span class="role-title">{engagement.data.mission}</span>
                             <span class="role-meta">
-                                <span class="employer">{role.data.employer}</span>
+                                <span class="employer">{engagement.data.employer}</span>
                                 <span class="dot" aria-hidden="true">
-                                    ·
+                                    |
+                                </span>
+                                <span class="employer">{engagement.data.position}</span>
+                                <span class="dot" aria-hidden="true">
+                                    |
                                 </span>
                                 <span class="duration">
-                                    {formatDuration(role.data.startDate, role.data.endDate)}
+                                    {formatDuration(
+                                        engagement.data.startDate,
+                                        engagement.data.endDate
+                                    )}
                                 </span>
-                                {isFreelance(role.data.employment) && (
+                                {isFreelance(engagement.data.employment) && (
                                     <span class="freelance-badge">Freelance</span>
                                 )}
                             </span>

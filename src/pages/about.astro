@@ -34,16 +34,17 @@ import Hero from '../components/Hero.astro';
             <section>
                 <h2 class="section-title">Strengths</h2>
                 <div class="content">
-                    <p>Analytical, fgsdfgsdfgsd sdfg sdfgsd fgsdfg dfsg dsfgdfg sdfg sfdg</p><p>
+                    <p>
+                        Analytical and strategic thinker with a proven ability to break down complex
+                        challenges into actionable solutions. Skilled at aligning technical
+                        decisions with long-term business objectives.
+                    </p>
+                    <p>
                         Using experience to recognize and lead technological opportunities,
                         mentoring others, ensuring quality, and developing long-term strategic
                         decisions and plans. Extensive experience applying skills in a variety of
                         industries, including energy, industrial, business services, finance,
                         government and transportation.
-                    </p>
-                    <p>
-                        Able to work in the United Kingdom as part of the settle status scheme and
-                        Europa as a Dutch citizen.
                     </p>
                 </div>
             </section>
@@ -87,18 +88,16 @@ import Hero from '../components/Hero.astro';
             <section>
                 <h2 class="section-title">Hard skills</h2>
                 <div class="content">
-                    <p>Distributed Architure (event and message driven)</p>
+                    <p>Distributed Architecture (event and message driven)</p>
                     <p>Microservices</p>
                     <p>Product development</p>
                     <p>Technical roadmap</p>
                     <p>Security</p>
                     <p>Development</p>
                     <p>
-                        Polygot programming: <small
-                            ><small
-                                >C#, Python, Java, JavaScript (React JS), Batch, PHP, Go(Lang) and
-                                Rust (learning)</small
-                            ></small
+                        Polyglot programming: <span class="detail-text"
+                            >C#, Python, Java, JavaScript (React JS), Batch, PHP, Go(Lang) and Rust
+                            (learning)</span
                         >
                     </p>
                 </div>
@@ -126,11 +125,9 @@ import Hero from '../components/Hero.astro';
                 <div class="content">
                     <p>Sports, snowboarding, cycling and lane swimming.</p>
                     <p>
-                        Ingress team captain:<small
-                            ><small>
-                                establishing, inspiring, and leading freshly formed teams. Assist
-                                them in attaining success in a dynamic and fast-paced environment.</small
-                            ></small
+                        Ingress team captain: <span class="detail-text"
+                            >establishing, inspiring, and leading freshly formed teams. Assist them
+                            in attaining success in a dynamic and fast-paced environment.</span
                         >
                     </p>
                 </div>
@@ -188,6 +185,11 @@ import Hero from '../components/Hero.astro';
     .content :global(a:hover),
     .content :global(a:focus) {
         text-decoration-color: currentColor;
+    }
+
+    .detail-text {
+        font-size: var(--text-sm);
+        color: var(--gray-300);
     }
 
     @media (min-width: 50em) {

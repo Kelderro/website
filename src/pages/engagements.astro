@@ -1,4 +1,5 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -7,8 +8,9 @@ import ContactCTA from '../components/ContactCTA.astro';
 import PortfolioPreview from '../components/PortfolioPreview.astro';
 import Hero from '../components/Hero.astro';
 
-const projects = (await getCollection('experience')).sort(
-    (a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf()
+const engagements: CollectionEntry<'engagement'>[] = (await getCollection('engagement')).sort(
+    (a: CollectionEntry<'engagement'>, b: CollectionEntry<'engagement'>) =>
+        b.data.startDate.valueOf() - a.data.startDate.valueOf()
 );
 ---
 
@@ -25,9 +27,9 @@ const projects = (await getCollection('experience')).sort(
             />
             <div>
                 {
-                    projects.map(project => (
+                    engagements.map(engagement => (
                         <li>
-                            <PortfolioPreview project={project} />
+                            <PortfolioPreview engagement={engagement} />
                         </li>
                     ))
                 }

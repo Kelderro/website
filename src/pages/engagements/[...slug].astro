@@ -1,4 +1,5 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -10,14 +11,14 @@ import Pill from '../../components/Pill.astro';
 import { Markdown } from '@astropub/md';
 
 export async function getStaticPaths() {
-    const experiences = await getCollection('experience');
-    return experiences.map(entry => ({
+    const engagements = await getCollection('engagement');
+    return engagements.map((entry: CollectionEntry<'engagement'>) => ({
         params: { slug: entry.slug },
         props: { entry },
     }));
 }
 
-const { entry } = Astro.props;
+const { entry } = Astro.props as { entry: CollectionEntry<'engagement'> };
 const { Content } = await entry.render();
 
 function formatPeriod(startDate: Date, endDate: Date): string {
@@ -36,17 +37,21 @@ function formatPeriod(startDate: Date, endDate: Date): string {
 ---
 
 <BaseLayout
-    title={`${entry.data.role} | ${entry.data.employer}`}
+    title={`${entry.data.position} | ${entry.data.employer}`}
     description={entry.data.description}
 >
     <div class="stack gap-20">
         <div class="stack gap-15">
             <header>
                 <div class="wrapper stack gap-2">
-                    <a class="back-link" href="/engagements/">
-                        <Icon icon="arrow-left" /> Selected Engagements
-                    </a>
-                    <Hero title={entry.data.role} align="start">
+                    <nav class="breadcrumb" aria-label="Breadcrumb">
+                        <ol>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/engagements/">Engagements</a></li>
+                            <li aria-current="page">{entry.data.position}</li>
+                        </ol>
+                    </nav>
+                    <Hero title={entry.data.position} align="start">
                         <div class="details">
                             <div class="tags">
                                 {entry.data.tags.map((t: string) => <Pill>{t}</Pill>)}
@@ -73,9 +78,7 @@ function formatPeriod(startDate: Date, endDate: Date): string {
                         </div>
                         <div class="meta-item">
                             <Icon icon="map-pin" size="1em" />
-                            <a href={entry.data.office} target="_blank" rel="noopener noreferrer">
-                                {entry.data.location}
-                            </a>
+                            <span>{entry.data.location}</span>
                         </div>
                         <div class="meta-item">
                             <Icon icon="list" size="1em" />
@@ -112,18 +115,35 @@ function formatPeriod(startDate: Date, endDate: Date): string {
         border-bottom: 1px solid var(--gray-800);
     }
 
-    .back-link {
-        display: none;
+    .breadcrumb ol {
+        display: flex;
         align-items: center;
         gap: 0.4rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: var(--text-sm);
+        color: var(--gray-400);
+    }
+
+    .breadcrumb li:not(:last-child)::after {
+        content: '/';
+        margin-left: 0.4rem;
+        color: var(--gray-600);
+    }
+
+    .breadcrumb a {
         color: var(--gray-400);
         text-decoration: none;
-        font-size: var(--text-sm);
         transition: color var(--theme-transition);
     }
 
-    .back-link:hover {
+    .breadcrumb a:hover {
         color: var(--gray-0);
+    }
+
+    .breadcrumb [aria-current='page'] {
+        color: var(--gray-200);
     }
 
     .details {
@@ -260,26 +280,19 @@ function formatPeriod(startDate: Date, endDate: Date): string {
         color: var(--gray-0);
     }
 
-    .back-link,
+    .breadcrumb,
     .content :global(a) {
         text-decoration: 1px solid underline transparent;
         text-underline-offset: 0.25em;
         transition: text-decoration-color var(--theme-transition);
     }
 
-    .back-link:hover,
-    .back-link:focus,
     .content :global(a:hover),
     .content :global(a:focus) {
         text-decoration-color: currentColor;
     }
 
     @media (min-width: 50em) {
-        .back-link {
-            display: flex;
-            align-self: flex-start;
-        }
-
         .details {
             flex-direction: row;
             gap: 2.5rem;

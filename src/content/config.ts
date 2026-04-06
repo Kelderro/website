@@ -3,10 +3,11 @@ import { defineCollection, z } from 'astro:content';
 const DEFAULT_DATE = new Date(0);
 
 export const collections = {
-    experience: defineCollection({
+    engagement: defineCollection({
         schema: ({ image }) =>
             z.object({
-                role: z.string(),
+                mission: z.string(),
+                position: z.string(),
                 employer: z.string().optional(),
                 employerSite: z.string().optional(),
                 department: z.string().optional(),
@@ -18,7 +19,6 @@ export const collections = {
                 img: image().optional(),
                 imgAlt: z.string().optional(),
                 location: z.string().optional(),
-                office: z.string().optional(),
                 employment: z.string(),
                 selectedWork: z.boolean().optional().default(false),
             }),

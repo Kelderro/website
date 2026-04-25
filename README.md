@@ -30,7 +30,7 @@ End-to-end and integration tests are written with [Playwright](https://playwrigh
 - Test files are located in the `tests/` directory.
 - To run tests:
     ```sh
-    pnpm exec playwright test
+    pnpm test
     ```
 
 ## 📝 License

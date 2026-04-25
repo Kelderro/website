@@ -4,10 +4,6 @@
         "dockerfile": "Dockerfile"
     },
 
-    "features": {
-        "ghcr.io/devcontainers/features/desktop-lite:1": {}
-    },
-
     "mounts": [
         // 1. High-speed volume for node_modules
         "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",

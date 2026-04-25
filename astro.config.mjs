@@ -1,5 +1,4 @@
 import { defineConfig, envField } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
 import mdx from '@astrojs/mdx';
 import sentry from '@sentry/astro';
 import sitemap from '@astrojs/sitemap';
@@ -27,10 +26,6 @@ export default defineConfig({
 
     // Deployment Output
     output: 'static',
-    adapter: cloudflare({
-        mode: 'directory',
-        imageService: 'compile',
-    }),
 
     integrations: [
         sentry(),

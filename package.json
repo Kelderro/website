@@ -22,7 +22,6 @@
         "@astropub/md": "^1.0.0",
         "@sentry/cloudflare": "^10.50.0",
         "sharp": "^0.34.1",
-        "@astrojs/cloudflare": "^13.2.1",
         "@astrojs/mdx": "^5.0.4",
         "@astrojs/sitemap": "^3.7.2",
         "@sentry/astro": "^10.50.0",

@@ -7,9 +7,6 @@ settings:
 importers:
     .:
         dependencies:
-            '@astrojs/cloudflare':
-                specifier: ^13.2.1
-                version: 13.2.1(@types/node@25.5.2)(astro@6.1.9(@types/node@25.5.2)(rollup@4.60.2)(typescript@6.0.2)(yaml@2.8.3))(workerd@1.20260424.1)(wrangler@4.85.0)(yaml@2.8.3)
             '@astrojs/mdx':
                 specifier: ^5.0.4
                 version: 5.0.4(astro@6.1.9(@types/node@25.5.2)(rollup@4.60.2)(typescript@6.0.2)(yaml@2.8.3))
@@ -106,10 +103,10 @@ packages:
                 integrity: sha512-z97oYbdebO5aoWzuJ/8q5hLK232+17KcLZ7cJ8BCWk6+qNzVxn/gftC0KzMBUTD8WAaBkPpNSQK6PXLnNrZ0CA==,
             }
 
-    '@astrojs/internal-helpers@0.8.0':
+    '@astrojs/internal-helpers@0.9.0':
         resolution:
             {
-                integrity: sha512-J56GrhEiV+4dmrGLPNOl2pZjpHXAndWVyiVDYGDuw6MWKpBSEMLdFxHzeM/6sqaknw9M+HFfHZAcvi3OfT3D/w==,
+                integrity: sha512-GdYkzR26re8izmyYlBqf4z2s7zNngmWLFuxw0UKiPNqHraZGS6GKWIwSHgS22RDlu2ePFJ8bzmpBcUszut/SDg==,
             }
 
     '@astrojs/language-server@2.16.6':
@@ -6887,7 +6884,7 @@ snapshots:
 
     '@astrojs/compiler@3.0.1': {}
 
-    '@astrojs/internal-helpers@0.8.0':
+    '@astrojs/internal-helpers@0.9.0':
         dependencies:
             picomatch: 4.0.4
 

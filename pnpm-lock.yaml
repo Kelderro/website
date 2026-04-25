@@ -23,8 +23,8 @@ importers:
                 specifier: ^10.50.0
                 version: 10.50.0(astro@6.1.9(@types/node@25.5.2)(rollup@4.60.2)(typescript@6.0.2)(yaml@2.8.3))(rollup@4.60.2)
             '@sentry/cloudflare':
-                specifier: ^10.47.0
-                version: 10.47.0
+                specifier: ^10.50.0
+                version: 10.50.0
             '@spotlightjs/astro':
                 specifier: ^3.2.6
                 version: 3.2.6(@sentry/astro@10.50.0(astro@6.1.9(@types/node@25.5.2)(rollup@4.60.2)(typescript@6.0.2)(yaml@2.8.3))(rollup@4.60.2))(astro@6.1.9(@types/node@25.5.2)(rollup@4.60.2)(typescript@6.0.2)(yaml@2.8.3))
@@ -2364,10 +2364,10 @@ packages:
         engines: { node: '>= 10' }
         hasBin: true
 
-    '@sentry/cloudflare@10.47.0':
+    '@sentry/cloudflare@10.50.0':
         resolution:
             {
-                integrity: sha512-R5noxsP8M/L0TKoaOr2UYNgDitruGxknJJ4kcxHyjA3cpvvqUnDiMG8+E4SDosVFCWizHv+uVKIrPjXx03ruLg==,
+                integrity: sha512-fgPp2aVdCcHKzgoWwZDFbP/DwjsPwXMQFHCKeeE4jp6r4i0HoRGbaP7z1KlIGGrw12KM2i9rvQfKsaZlhHc0gQ==,
             }
         engines: { node: '>=18' }
         peerDependencies:
@@ -2375,13 +2375,6 @@ packages:
         peerDependenciesMeta:
             '@cloudflare/workers-types':
                 optional: true
-
-    '@sentry/core@10.47.0':
-        resolution:
-            {
-                integrity: sha512-nsYRAx3EWezDut+Zl+UwwP07thh9uY7CfSAi2whTdcJl5hu1nSp2z8bba7Vq/MGbNLnazkd3A+GITBEML924JA==,
-            }
-        engines: { node: '>=18' }
 
     '@sentry/core@10.50.0':
         resolution:
@@ -8377,12 +8370,10 @@ snapshots:
             - encoding
             - supports-color
 
-    '@sentry/cloudflare@10.47.0':
+    '@sentry/cloudflare@10.50.0':
         dependencies:
             '@opentelemetry/api': 1.9.1
-            '@sentry/core': 10.47.0
-
-    '@sentry/core@10.47.0': {}
+            '@sentry/core': 10.50.0
 
     '@sentry/core@10.50.0': {}
 

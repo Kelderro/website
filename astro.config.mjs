@@ -28,7 +28,7 @@ export default defineConfig({
     output: 'static',
 
     integrations: [
-        sentry(),
+        ...(process.env.NODE_ENV !== 'development' ? [sentry()] : []),
         ...(process.env.NODE_ENV === 'development' && !process.env.CI ? [spotlightjs()] : []),
         mdx(),
         sitemap(),

@@ -33,7 +33,7 @@ export default defineConfig({
     }),
 
     integrations: [
-        sentry(),
+        ...((process.env.NODE_ENV !== 'development' && !process.env.CI) ? [sentry()] : []),
         ...(process.env.NODE_ENV === 'development' && !process.env.CI ? [spotlightjs()] : []),
         mdx(),
         sitemap(),

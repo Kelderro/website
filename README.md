@@ -23,7 +23,7 @@ This is the portfolio and business website for my freelance technical consulting
 - [pnpm](https://pnpm.io/) (recommended)
 - [Docker](https://www.docker.com/), [Podman](https://podman.io/), or any compatible container runtime (for DevContainer)
 
-## 🧪 Automated Testing
+### 🧪 Automated Testing
 
 End-to-end and integration tests are written with [Playwright](https://playwright.dev/).
 
@@ -33,7 +33,7 @@ End-to-end and integration tests are written with [Playwright](https://playwrigh
     pnpm test
     ```
 
-## 📝 License
+### 📝 License
 
 **Code (Technical Aspects):**
 All code in this repository is licensed under the MIT License. You are free to use, modify, and reuse any technical or code aspects of this project, including for commercial purposes.

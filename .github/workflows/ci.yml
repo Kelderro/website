@@ -2,6 +2,9 @@ name: CI
 
 on:
     pull_request:
+    push:
+        branches:
+            - main
 
 permissions:
     contents: read
@@ -10,8 +13,13 @@ permissions:
 jobs:
     build_and_deploy:
         runs-on: ubuntu-latest
+
+        env:
+            CURRENT_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+
         outputs:
             preview_url: ${{ steps.deploy.outputs.deployment-url }}
+
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -43,10 +51,11 @@ jobs:
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  command: pages deploy dist --project-name="website" --branch="${{ github.head_ref }}"
+                  command: pages deploy dist --project-name="website" --branch="${{ env.CURRENT_BRANCH }}"
 
     lighthouse:
         needs: build_and_deploy
+        if: github.event_name == 'pull_request'
         runs-on: ubuntu-latest
         env:
             PREVIEW_URL: ${{ needs.build_and_deploy.outputs.preview_url }}

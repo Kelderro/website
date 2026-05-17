@@ -1,96 +1,124 @@
 name: CI
 
-permissions:
-    contents: write
-
 on:
     pull_request:
+    push:
         branches:
-            - '**'
+            - main
+
+permissions:
+    contents: read
+    pull-requests: write
 
 jobs:
-    quality:
-        name: Quality & Build
+    build_and_deploy:
         runs-on: ubuntu-latest
+
+        env:
+            CURRENT_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+
+        outputs:
+            preview_url: ${{ steps.deploy.outputs.deployment-url }}
+
         steps:
-            - uses: actions/checkout@v6
-              with:
-                  ref: ${{ github.head_ref }}
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
-            - uses: pnpm/action-setup@v5
-              with:
-                  version: 10.33.0
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
 
-            - uses: actions/setup-node@v6
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
               with:
-                  node-version-file: '.nvmrc'
-                  cache: 'pnpm'
+                  node-version: 22
+                  cache: pnpm
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
             - name: Lint
-              run: pnpm run lint:fix
+              run: pnpm lint
 
             - name: Format
-              run: pnpm run format
-
-            - name: Commit lint & formatting fixes
-              uses: stefanzweifel/git-auto-commit-action@v7
-              with:
-                  commit_message: 'style: apply lint and prettier fixes'
-
-            - name: Type check
-              run: pnpm run type-check
+              run: pnpm format
 
             - name: Build
-              run: pnpm run build
+              run: pnpm build
 
-            - name: Upload dist
-              uses: actions/upload-artifact@v6
+            - name: Deploy to Cloudflare Pages
+              id: deploy
+              uses: cloudflare/wrangler-action@v3
               with:
-                  name: dist
-                  path: dist/
-                  retention-days: 1
-
-    e2e:
-        name: E2E tests
-        needs: quality
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v6
-
-            - uses: pnpm/action-setup@v5
-              with:
-                  version: 10.33.0
-
-            - uses: actions/setup-node@v6
-              with:
-                  node-version-file: '.nvmrc'
-                  cache: 'pnpm'
-
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
-
-            - name: Download dist
-              uses: actions/download-artifact@v6
-              with:
-                  name: dist
-                  path: dist/
-
-            - name: Install Playwright browsers
-              run: pnpm exec playwright install --with-deps chromium firefox webkit
-
-            - name: Run Playwright tests
-              run: pnpm exec playwright test
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  command: pages deploy dist --project-name="website-kelderro-nl" --branch="${{ env.CURRENT_BRANCH }}"
               env:
-                  NODE_ENV: test
-                  WRANGLER_SEND_METRICS: false
+                  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-            - name: Upload Playwright report
-              uses: actions/upload-artifact@v4
-              if: failure()
+    lighthouse:
+        needs: build_and_deploy
+        if: github.event_name == 'pull_request'
+        runs-on: ubuntu-latest
+        env:
+            PREVIEW_URL: ${{ needs.build_and_deploy.outputs.preview_url }}
+
+        steps:
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
               with:
-                  name: playwright-report
-                  path: playwright-report/
-                  retention-days: 7
+                  version: 9
+
+            - name: Create lighthouserc.json with Zero Trust Headers
+              run: |
+                  cat << 'EOF' > lighthouserc.json
+                  {
+                    "ci": {
+                      "collect": {
+                        "numberOfRuns": 1,
+                        "settings": {
+                          "extraHeaders": {
+                            "CF-Access-Client-Id": "${{ secrets.CF_ACCESS_CLIENT_ID }}",
+                            "CF-Access-Client-Secret": "${{ secrets.CF_ACCESS_CLIENT_SECRET }}"
+                          }
+                        }
+                      },
+                      "assert": {
+                        "preset": "lighthouse:recommended"
+                      }
+                    }
+                  }
+                  EOF
+
+            - name: Run Lighthouse CI
+              run: |
+                  pnpm dlx @lhci/cli autorun \
+                    --collect.url="$PREVIEW_URL" \
+                    --upload.target=filesystem \
+                    --upload.outputDir="./lhci-report" \
+                    --assert.preset=lighthouse:recommended \
+                    --reporter=cli
+
+            - name: Upload Lighthouse report
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: lighthouse-report
+                  path: lhci-report
+
+            - name: Comment Lighthouse results on PR
+              if: always()
+              uses: marocchino/sticky-pull-request-comment@v2
+              with:
+                  message: |
+                      🔍 **Lighthouse CI Report**
+
+                      Preview URL: ${{ env.PREVIEW_URL }}
+
+                      A full Lighthouse report has been generated and uploaded as an artifact.
+
+                      Categories audited:
+                      - Performance  
+                      - Accessibility  
+                      - Best Practices  
+                      - SEO

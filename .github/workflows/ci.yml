@@ -96,7 +96,8 @@ jobs:
                     --collect.url="$PREVIEW_URL" \
                     --upload.target=filesystem \
                     --upload.outputDir="./lhci-report" \
-                    --assert.preset=lighthouse:recommended
+                    --assert.preset=lighthouse:recommended \
+                    --reporter=cli
 
             - name: Upload Lighthouse report
               uses: actions/upload-artifact@v4

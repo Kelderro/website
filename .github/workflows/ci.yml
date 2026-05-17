@@ -42,7 +42,7 @@ jobs:
 
         steps:
             - name: Wait for Cloudflare Pages preview deployment
-              uses: WalshyDev/wait-for-cloudflare-pages@v1
+              uses: WalshyDev/wait-for-cloudflare-pages-action@v1
               id: wait
               with:
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

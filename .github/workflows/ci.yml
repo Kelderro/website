@@ -69,7 +69,11 @@ jobs:
               with:
                   version: 9
 
-            # Combined & Fixed: pnpm dlx fetches and executes lhci all in one go
+            - name: Inject Zero Trust Headers
+              run: |
+                  sed -i "s|__CF_ID__|${{ secrets.CF_ACCESS_CLIENT_ID }}|g" lighthouserc.json
+                  sed -i "s|__CF_SECRET__|${{ secrets.CF_ACCESS_CLIENT_SECRET }}|g" lighthouserc.json
+
             - name: Run Lighthouse CI
               run: |
                   pnpm dlx @lhci/cli autorun \
@@ -77,10 +81,6 @@ jobs:
                     --upload.target=filesystem \
                     --upload.outputDir="./lhci-report" \
                     --assert.preset=lighthouse:recommended
-                    --collect.settings.extraHeaders='{"CF-Access-Client-Id":"'"$CF_ID"'","CF-Access-Client-Secret":"'"$CF_SECRET"'"}'
-              env:
-                  CF_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
-                  CF_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
 
             - name: Upload Lighthouse report
               uses: actions/upload-artifact@v4

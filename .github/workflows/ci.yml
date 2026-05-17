@@ -42,16 +42,16 @@ jobs:
 
         steps:
             - name: Wait for Cloudflare Pages preview deployment
-              uses: WalshyDev/wait-for-cloudflare-pages-action@v1
+              uses: cloudflare/wait-for-pages-action@v1
               id: wait
               with:
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
                   projectName: website
-                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   branch: ${{ github.head_ref }}
 
             - name: Save preview URL
-              run: echo "PREVIEW_URL=${{ steps.wait.outputs.url }}" >> $GITHUB_ENV
+              run: echo "PREVIEW_URL=${{ steps.wait.outputs.deployment_url }}" >> $GITHUB_ENV
 
     lighthouse:
         needs: wait_for_preview

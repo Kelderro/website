@@ -62,18 +62,17 @@ jobs:
         runs-on: ubuntu-latest
         env:
             PREVIEW_URL: ${{ needs.build_and_deploy.outputs.preview_url }}
+
         steps:
             - name: Setup pnpm
               uses: pnpm/action-setup@v4
               with:
                   version: 9
 
-            - name: Install Lighthouse CI
-              run: pnpm dlx @lhci/cli install
-
+            # Combined & Fixed: pnpm dlx fetches and executes lhci all in one go
             - name: Run Lighthouse CI
               run: |
-                  pnpm dlx lhci autorun \
+                  pnpm dlx @lhci/cli autorun \
                     --collect.url="$PREVIEW_URL" \
                     --upload.target=filesystem \
                     --upload.outputDir="./lhci-report" \

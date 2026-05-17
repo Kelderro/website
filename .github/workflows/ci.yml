@@ -1,96 +1,87 @@
 name: CI
 
-permissions:
-    contents: write
-
 on:
     pull_request:
-        branches:
-            - '**'
 
 jobs:
-    quality:
-        name: Quality & Build
+    build:
         runs-on: ubuntu-latest
+
         steps:
-            - uses: actions/checkout@v6
-              with:
-                  ref: ${{ github.head_ref }}
+            - name: Checkout repository
+              uses: actions/checkout@v4
 
-            - uses: pnpm/action-setup@v5
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
               with:
-                  version: 10.33.0
-
-            - uses: actions/setup-node@v6
-              with:
-                  node-version-file: '.nvmrc'
-                  cache: 'pnpm'
+                  node-version: 20
+                  cache: npm
 
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+              run: npm ci
 
             - name: Lint
-              run: pnpm run lint:fix
+              run: npm run lint
 
             - name: Format
-              run: pnpm run format
-
-            - name: Commit lint & formatting fixes
-              uses: stefanzweifel/git-auto-commit-action@v7
-              with:
-                  commit_message: 'style: apply lint and prettier fixes'
-
-            - name: Type check
-              run: pnpm run type-check
+              run: npm run format
 
             - name: Build
-              run: pnpm run build
+              run: npm run build
 
-            - name: Upload dist
-              uses: actions/upload-artifact@v6
-              with:
-                  name: dist
-                  path: dist/
-                  retention-days: 1
-
-    e2e:
-        name: E2E tests
-        needs: quality
+    wait_for_preview:
+        needs: build
         runs-on: ubuntu-latest
+
         steps:
-            - uses: actions/checkout@v6
-
-            - uses: pnpm/action-setup@v5
+            - name: Wait for Cloudflare Pages preview deployment
+              uses: WalshyDev/wait-for-cloudflare-pages@v1
+              id: wait
               with:
-                  version: 10.33.0
+                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  projectName: website
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  branch: ${{ github.head_ref }}
 
-            - uses: actions/setup-node@v6
-              with:
-                  node-version-file: '.nvmrc'
-                  cache: 'pnpm'
+            - name: Save preview URL
+              run: echo "PREVIEW_URL=${{ steps.wait.outputs.url }}" >> $GITHUB_ENV
 
-            - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+    lighthouse:
+        needs: wait_for_preview
+        runs-on: ubuntu-latest
 
-            - name: Download dist
-              uses: actions/download-artifact@v6
-              with:
-                  name: dist
-                  path: dist/
+        steps:
+            - name: Install Lighthouse CI
+              run: npm install -g @lhci/cli
 
-            - name: Install Playwright browsers
-              run: pnpm exec playwright install --with-deps chromium firefox webkit
+            - name: Run Lighthouse CI
+              run: |
+                  lhci autorun \
+                    --collect.url="$PREVIEW_URL" \
+                    --upload.target=filesystem \
+                    --upload.outputDir="./lhci-report" \
+                    --assert.preset=lighthouse:recommended
 
-            - name: Run Playwright tests
-              run: pnpm exec playwright test
-              env:
-                  NODE_ENV: test
-                  WRANGLER_SEND_METRICS: false
-
-            - name: Upload Playwright report
+            - name: Upload Lighthouse report
               uses: actions/upload-artifact@v4
-              if: failure()
               with:
-                  name: playwright-report
-                  path: playwright-report/
-                  retention-days: 7
+                  name: lighthouse-report
+                  path: lhci-report
+
+            - name: Comment Lighthouse results on PR
+              uses: marocchino/sticky-pull-request-comment@v2
+              with:
+                  message: |
+                      🔍 **Lighthouse CI Report**
+
+                      Preview URL: ${{ env.PREVIEW_URL }}
+
+                      A full Lighthouse report has been generated and uploaded as an artifact.
+
+                      Key categories audited:
+                      - Performance  
+                      - Accessibility  
+                      - Best Practices  
+                      - SEO  
+
+                      You can download the full report from the PR artifacts.

@@ -8,9 +8,10 @@ permissions:
     pull-requests: write
 
 jobs:
-    build:
+    build_and_deploy:
         runs-on: ubuntu-latest
-
+        outputs:
+            preview_url: ${{ steps.deploy.outputs.deployment-url }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -36,27 +37,19 @@ jobs:
             - name: Build
               run: pnpm build
 
-    wait_for_preview:
-        needs: build
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Wait for Cloudflare Pages preview deployment
-              uses: cloudflare/wait-for-pages-action@v1
-              id: wait
+            - name: Deploy to Cloudflare Pages
+              id: deploy
+              uses: cloudflare/wrangler-action@v3
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                  projectName: website
-                  branch: ${{ github.head_ref }}
-
-            - name: Save preview URL
-              run: echo "PREVIEW_URL=${{ steps.wait.outputs.deployment_url }}" >> $GITHUB_ENV
+                  command: pages deploy dist --project-name="website" --branch="${{ github.head_ref }}"
 
     lighthouse:
-        needs: wait_for_preview
+        needs: build_and_deploy
         runs-on: ubuntu-latest
-
+        env:
+            PREVIEW_URL: ${{ needs.build_and_deploy.outputs.preview_url }}
         steps:
             - name: Setup pnpm
               uses: pnpm/action-setup@v4

@@ -69,10 +69,26 @@ jobs:
               with:
                   version: 9
 
-            - name: Inject Zero Trust Headers
+            - name: Create lighthouserc.json with Zero Trust Headers
               run: |
-                  sed -i "s|__CF_ID__|${{ secrets.CF_ACCESS_CLIENT_ID }}|g" lighthouserc.json
-                  sed -i "s|__CF_SECRET__|${{ secrets.CF_ACCESS_CLIENT_SECRET }}|g" lighthouserc.json
+                  cat << 'EOF' > lighthouserc.json
+                  {
+                    "ci": {
+                      "collect": {
+                        "numberOfRuns": 1,
+                        "settings": {
+                          "extraHeaders": {
+                            "CF-Access-Client-Id": "${{ secrets.CF_ACCESS_CLIENT_ID }}",
+                            "CF-Access-Client-Secret": "${{ secrets.CF_ACCESS_CLIENT_SECRET }}"
+                          }
+                        }
+                      },
+                      "assert": {
+                        "preset": "lighthouse:recommended"
+                      }
+                    }
+                  }
+                  EOF
 
             - name: Run Lighthouse CI
               run: |

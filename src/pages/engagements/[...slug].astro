@@ -8,7 +8,7 @@ import ContactCTA from '../../components/ContactCTA.astro';
 import Hero from '../../components/Hero.astro';
 import Icon from '../../components/Icon.astro';
 import Pill from '../../components/Pill.astro';
-import { Markdown } from '@astropub/md';
+import { marked } from 'marked';
 
 export async function getStaticPaths() {
     const engagements = await getCollection('engagement');
@@ -93,9 +93,10 @@ function formatPeriod(startDate: Date, endDate: Date): string {
                         entry.data.impact && (
                             <div class="impact-callout">
                                 <h2 class="impact-title">Key Impact</h2>
-                                <div class="impact-body">
-                                    <Markdown of={entry.data.impact} />
-                                </div>
+                                <div
+                                    class="impact-body"
+                                    set:html={marked.parse(entry.data.impact)}
+                                />
                             </div>
                         )
                     }

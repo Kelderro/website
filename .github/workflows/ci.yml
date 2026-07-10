@@ -7,7 +7,7 @@ on:
             - main
 
 permissions:
-    contents: read
+    contents: write
     pull-requests: write
 
 jobs:
@@ -22,25 +22,37 @@ jobs:
 
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  ref: ${{ github.head_ref || github.ref_name }}
 
             - name: Setup pnpm
-              uses: pnpm/action-setup@v4
+              uses: pnpm/action-setup@v6
+              with:
+                  version: 10.33.0
 
             - name: Setup Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
-                  node-version: 22
-                  cache: pnpm
+                  node-version-file: '.nvmrc'
+                  cache: 'pnpm'
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Lint
-              run: pnpm lint
+            - name: Lint and auto-fix
+              run: pnpm run lint:fix
 
             - name: Format
               run: pnpm format
+
+            - name: Commit auto-fixes
+              if: github.event_name == 'pull_request'
+              uses: stefanzweifel/git-auto-commit-action@v7
+              with:
+                  commit_message: 'chore: auto-fix lint and formatting [skip ci]'
+                  skip_dirty_check: false
 
             - name: Build
               run: pnpm build

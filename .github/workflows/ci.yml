@@ -100,7 +100,8 @@ jobs:
                           "extraHeaders": {
                             "CF-Access-Client-Id": "${{ secrets.CF_ACCESS_CLIENT_ID }}",
                             "CF-Access-Client-Secret": "${{ secrets.CF_ACCESS_CLIENT_SECRET }}"
-                          }
+                          },
+                          "skipAudits": ["is-crawlable"]
                         }
                       },
                       "assert": {

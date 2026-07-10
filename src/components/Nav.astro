@@ -58,7 +58,7 @@ const iconLinks: {
                 textLinks.map(({ label, href }) => (
                     <li>
                         <a
-                            aria-current={Astro.url.pathname === href}
+                            aria-current={Astro.url.pathname === href ? 'page' : undefined}
                             class:list={['link']}
                             href={href}
                         >

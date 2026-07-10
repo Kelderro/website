@@ -1,5 +1,5 @@
 const CACHE_NAME = 'kelderro-website-cache-v1';
-const urlsToCache = ['/', '/index.html', '/styles/main.css', '/assets/favicon.ico'];
+const urlsToCache = ['/', '/favicon.svg'];
 
 self.addEventListener('install', event => {
     event.waitUntil(

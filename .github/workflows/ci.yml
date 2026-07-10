@@ -122,14 +122,14 @@ jobs:
 
             - name: Upload Lighthouse report
               if: always()
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                   name: lighthouse-report
                   path: lhci-report
 
             - name: Comment Lighthouse results on PR
               if: always()
-              uses: marocchino/sticky-pull-request-comment@v2
+              uses: marocchino/sticky-pull-request-comment@v3
               with:
                   message: |
                       🔍 **Lighthouse CI Report**

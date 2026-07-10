@@ -77,11 +77,19 @@ jobs:
 
         steps:
             - name: Setup pnpm
-              uses: pnpm/action-setup@v4
+              uses: pnpm/action-setup@v6
               with:
-                  version: 9
+                  version: 10.33.0
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version: 22
 
             - name: Create lighthouserc.json with Zero Trust Headers
+              # is-crawlable is disabled because Cloudflare Pages automatically adds
+              # 'noindex' headers to preview deployments, causing this audit to always
+              # fail in CI regardless of the actual site configuration.
               run: |
                   cat << 'EOF' > lighthouserc.json
                   {
@@ -96,7 +104,10 @@ jobs:
                         }
                       },
                       "assert": {
-                        "preset": "lighthouse:recommended"
+                        "preset": "lighthouse:recommended",
+                        "assertions": {
+                          "is-crawlable": "off"
+                        }
                       }
                     }
                   }
@@ -107,9 +118,7 @@ jobs:
                   pnpm dlx @lhci/cli autorun \
                     --collect.url="$PREVIEW_URL" \
                     --upload.target=filesystem \
-                    --upload.outputDir="./lhci-report" \
-                    --assert.preset=lighthouse:recommended \
-                    --reporter=cli
+                    --upload.outputDir="./lhci-report"
 
             - name: Upload Lighthouse report
               if: always()

@@ -1,35 +1,41 @@
 name: CI
 
-permissions:
-    contents: write
-
 on:
     pull_request:
         branches:
-            - '**'
+            - main
+
+permissions:
+    contents: write
+    pull-requests: write
 
 jobs:
     quality:
         name: Quality & Build
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v6
+            - name: Checkout repository
+              uses: actions/checkout@v6
               with:
-                  ref: ${{ github.head_ref }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  ref: ${{ github.head_ref || github.ref_name }}
 
-            - uses: pnpm/action-setup@v5
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
               with:
                   version: 10.33.0
 
-            - uses: actions/setup-node@v6
+            - name: Setup Node.js
+              uses: actions/setup-node@v6
               with:
                   node-version-file: '.nvmrc'
                   cache: 'pnpm'
+                  ref: ${{ github.head_ref }}
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Lint
+            - name: Lintv and auto-fix
               run: pnpm run lint:fix
 
             - name: Format
@@ -42,6 +48,13 @@ jobs:
 
             - name: Type check
               run: pnpm run type-check
+
+            - name: Commit auto-fixes
+              if: github.event_name == 'pull_request'
+              uses: stefanzweifel/git-auto-commit-action@v7
+              with:
+                  commit_message: 'chore: auto-fix lint and formatting [skip ci]'
+                  skip_dirty_check: false
 
             - name: Build
               run: pnpm run build

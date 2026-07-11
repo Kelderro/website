@@ -15,7 +15,12 @@ const { title, description } = Astro.props;
     <head>
         <MainHead title={title} description={description} />
         <!-- Preload critical assets -->
-        <link rel="preload" href="/assets/backgrounds/bg-main-light-800w.jpg" as="image" />
+        <link
+            rel="preload"
+            href="/assets/backgrounds/bg-main-light-800w.jpg"
+            as="image"
+            fetchpriority="high"
+        />
         <link rel="preload" href="/assets/backgrounds/noise.webp" as="image" />
     </head>
     <body>
@@ -32,46 +37,9 @@ const { title, description } = Astro.props;
             // Register service worker
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
-                    navigator.serviceWorker
-                        .register('/sw.js')
-                        .then(() => {
-                            console.log('ServiceWorker registration successful');
-                        })
-                        .catch(err => {
-                            console.log('ServiceWorker registration failed: ', err);
-                        });
+                    navigator.serviceWorker.register('/sw.js');
                 });
             }
-
-            // Lazy load images
-            document.addEventListener('DOMContentLoaded', () => {
-                const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-                if ('loading' in HTMLImageElement.prototype) {
-                    lazyImages.forEach(img => {
-                        const image = img as HTMLImageElement;
-                        if (image.dataset.src) {
-                            image.src = image.dataset.src;
-                        }
-                    });
-                } else {
-                    // Fallback for browsers that don't support lazy loading
-                    const lazyImageObserver = new IntersectionObserver(entries => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                const lazyImage = entry.target as HTMLImageElement;
-                                if (lazyImage.dataset.src) {
-                                    lazyImage.src = lazyImage.dataset.src;
-                                }
-                                lazyImageObserver.unobserve(lazyImage);
-                            }
-                        });
-                    });
-
-                    lazyImages.forEach(image => {
-                        lazyImageObserver.observe(image);
-                    });
-                }
-            });
         </script>
 
         <style>

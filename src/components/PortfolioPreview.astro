@@ -6,7 +6,7 @@ interface Props {
     engagement: CollectionEntry<'engagement'>;
 }
 
-const { data, slug } = Astro.props.engagement;
+const { data, id } = Astro.props.engagement;
 
 function formatPeriod(startDate: Date, endDate: Date): string {
     const totalMonths =
@@ -24,13 +24,13 @@ function formatPeriod(startDate: Date, endDate: Date): string {
 }
 ---
 
-<a class="card" href={`/engagements/${slug}`}>
+<a class="card" href={`/engagements/${id}`}>
     <div class="card-inner">
         <div class="card-header">
             <span class="employer">{data.employer}</span>
             <span class="employment-type">{data.employment}</span>
         </div>
-        <div class="role">{data.role}</div>
+        <div class="role">{data.position}</div>
         <div class="meta">
             <span>
                 <Icon icon="calendar" size="0.9em" />

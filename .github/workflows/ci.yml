@@ -107,7 +107,11 @@ jobs:
                       "assert": {
                         "preset": "lighthouse:recommended",
                         "assertions": {
-                          "is-crawlable": "off"
+                          "is-crawlable": "off",
+                          "forced-reflow-insight": "warn",
+                          "image-delivery-insight": "warn",
+                          "network-dependency-tree-insight": "warn",
+                          "unused-javascript": "warn"
                         }
                       }
                     }

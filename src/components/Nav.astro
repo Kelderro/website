@@ -287,7 +287,9 @@ const iconLinks: {
     }
 
     .link {
-        display: inline-block;
+        display: flex;
+        align-items: center;
+        min-height: 3rem;
         color: var(--gray-300);
         text-decoration: none;
     }
@@ -381,6 +383,7 @@ const iconLinks: {
 
         .link {
             padding: 0.5rem 1rem;
+            min-height: 3rem;
             border-radius: 999rem;
             transition:
                 color var(--theme-transition),

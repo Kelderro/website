@@ -110,7 +110,10 @@ jobs:
                           "is-crawlable": "off",
                           "forced-reflow-insight": "warn",
                           "image-delivery-insight": "warn",
+                          "lcp-discovery-insight": "warn",
                           "network-dependency-tree-insight": "warn",
+                          "prioritize-lcp-image": "warn",
+                          "target-size": "warn",
                           "unused-javascript": "warn"
                         }
                       }

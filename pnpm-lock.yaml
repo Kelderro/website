@@ -26,8 +26,8 @@ importers:
                 specifier: ^7.0.7
                 version: 7.0.7(@astrojs/markdown-remark@7.2.1)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@26.1.1)(rollup@4.62.2)(yaml@2.9.0)
             marked:
-                specifier: ^15.0.12
-                version: 15.0.12
+                specifier: ^18.0.6
+                version: 18.0.6
             sharp:
                 specifier: ^0.35.3
                 version: 0.35.3(@types/node@26.1.1)
@@ -4761,12 +4761,12 @@ packages:
                 integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==,
             }
 
-    marked@15.0.12:
+    marked@18.0.6:
         resolution:
             {
-                integrity: sha512-8dD6FusOQSrpv9Z1rdNMdlSgQOIP880DHqnohobOmYLElGEqAL/JvxvuxZO16r4HtjTlfPRDC1hbvxC9dPN2nA==,
+                integrity: sha512-MrV5puXBfuiy6wl6DLaq3BtIJQAJToAd5zt/ZKhRfGRAuFPALE7/4Y7jnxRQoEgK/pBgurGqLyAuRgZ2xOjr6w==,
             }
-        engines: { node: '>= 18' }
+        engines: { node: '>= 20' }
         hasBin: true
 
     math-intrinsics@1.1.0:
@@ -10049,7 +10049,7 @@ snapshots:
 
     markdown-table@3.0.4: {}
 
-    marked@15.0.12: {}
+    marked@18.0.6: {}
 
     math-intrinsics@1.1.0: {}
 

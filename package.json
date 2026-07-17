@@ -21,7 +21,7 @@
     "dependencies": {
         "@astrojs/mdx": "^7.0.2",
         "@astrojs/sitemap": "^3.7.3",
-        "marked": "^15.0.12",
+        "marked": "^18.0.6",
         "@sentry/astro": "^10.65.0",
         "@sentry/cloudflare": "^10.65.0",
         "@spotlightjs/astro": "^3.2.6",

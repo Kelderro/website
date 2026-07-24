@@ -1,0 +1,9 @@
+# Generated lockfile — managed by pnpm. Prettier must never reformat it,
+# otherwise Dependabot's natively-generated lockfile fails `format:check`.
+pnpm-lock.yaml
+
+# Build & tooling output (mostly already in .gitignore, listed for clarity)
+dist/
+.astro/
+playwright-report/
+test-results/

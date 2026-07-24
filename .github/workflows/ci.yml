@@ -7,7 +7,7 @@ on:
             - main
 
 permissions:
-    contents: write
+    contents: read
     pull-requests: write
 
 jobs:
@@ -24,9 +24,6 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v6
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  ref: ${{ github.head_ref || github.ref_name }}
 
             - name: Setup pnpm
               uses: pnpm/action-setup@v6
@@ -42,18 +39,16 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Lint and auto-fix
-              run: pnpm run lint:fix
+            # Verify only. Formatting/linting is auto-fixed locally via the
+            # husky + lint-staged pre-commit hook, so CI must NOT rewrite the PR
+            # HEAD. Pushing an auto-fix commit here (previously with [skip ci])
+            # left the required status checks stuck on a commit that CI never
+            # runs against.
+            - name: Lint
+              run: pnpm run lint
 
-            - name: Format
-              run: pnpm format
-
-            - name: Commit auto-fixes
-              if: github.event_name == 'pull_request'
-              uses: stefanzweifel/git-auto-commit-action@v7
-              with:
-                  commit_message: 'chore: auto-fix lint and formatting [skip ci]'
-                  skip_dirty_check: false
+            - name: Check formatting
+              run: pnpm run format:check
 
             - name: Type check
               run: pnpm run type-check
@@ -61,8 +56,15 @@ jobs:
             - name: Build
               run: pnpm build
 
+            # Preview deployments require Cloudflare secrets, which are not
+            # available to Dependabot or fork pull requests. Skip the deploy in
+            # those cases so the required "Build and Deploy" check can still pass.
             - name: Deploy to Cloudflare Pages
               id: deploy
+              if: >-
+                  github.event_name == 'push' ||
+                  (github.actor != 'dependabot[bot]' &&
+                  github.event.pull_request.head.repo.full_name == github.repository)
               uses: cloudflare/wrangler-action@v4
               with:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -74,7 +76,10 @@ jobs:
 
     e2e:
         name: E2E tests
-        needs: build_and_deploy
+        # Playwright starts its own local astro dev server (see
+        # playwright.config.ts), so these tests need neither the deployment nor
+        # any secrets. Keeping this job independent lets it pass for Dependabot
+        # and run in parallel with the build.
         runs-on: ubuntu-latest
 
         steps:
@@ -115,7 +120,12 @@ jobs:
     lighthouse:
         name: Lighthouse CI
         needs: build_and_deploy
-        if: github.event_name == 'pull_request'
+        # Requires a preview deployment (and Cloudflare Access secrets), so it
+        # can only run for non-Dependabot pull requests from this repository.
+        if: >-
+            github.event_name == 'pull_request' &&
+            github.actor != 'dependabot[bot]' &&
+            github.event.pull_request.head.repo.full_name == github.repository
         runs-on: ubuntu-latest
         env:
             PREVIEW_URL: ${{ needs.build_and_deploy.outputs.preview_url }}

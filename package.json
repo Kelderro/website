@@ -42,7 +42,7 @@
         "prettier": "^3.9.5",
         "prettier-plugin-astro": "^0.14.1",
         "simple-icons": "^16.25.0",
-        "typescript": "^5.9.3",
+        "typescript": "^6.0.3",
         "typescript-eslint": "^8.63.0",
         "wrangler": "^4.110.0"
     },

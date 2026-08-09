@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
-// Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
+// Layout import - provides basic page elements: <head>, <nav>, <footer> etc.
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 // Component Imports
@@ -204,8 +204,8 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
         <section id="contact" class="consultation-footer">
             <div class="footer-container">
                 <div class="status-pill">
-                    <span class="pulse-dot"></span>
-                    Current Availability: Q3 2026 Engagement
+                    <span class="status-dot" aria-hidden="true"></span>
+                    Open to New Engagements - Available with 1 Month Notice
                 </div>
 
                 <h2 class="footer-title">Ready to resolve your architectural bottlenecks?</h2>
@@ -215,32 +215,30 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                     engineering maturity, and align technical roadmaps with business goals.
                 </p>
 
-                <div class="cta-group">
-                    <a href="mailto:contact@kelderro.nl" class="btn-primary">
-                        Book a Strategic Consultation
-                    </a>
-                </div>
-                <div class="cta-links">
-                    <a
-                        href="https://linkedin.com/in/kelderro"
-                        class="cta-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <Icon icon="linkedin-logo" size="1.1em" /> Connect on LinkedIn
-                    </a>
-                    <span class="cta-link-sep">·</span>
-                    <a href="/assets/rob-op-den-kelder-cv.pdf" download class="cta-link">
-                        <Icon icon="download-simple" size="1.1em" /> Download CV
-                    </a>
-                </div>
-
                 <div class="footer-meta">
                     <span>Netherlands Based</span>
                     <span class="separator">•</span>
                     <span class="highlight-meta">UK Settled Status</span>
                     <span class="separator">•</span>
                     <span>Global Remote Engagements</span>
+                </div>
+
+                <div class="cta-group">
+                    <a
+                        href="https://linkedin.com/in/kelderro"
+                        class="btn-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <Icon icon="linkedin-logo" size="1.1em" /> Connect on LinkedIn
+                    </a>
+                    <a href="/assets/rob-op-den-kelder-cv.pdf" download class="btn-secondary">
+                        <Icon icon="download-simple" size="1.1em" /> Download CV
+                    </a>
+                </div>
+                <div class="cta-links">
+                    <span class="cta-link-label">Ready to talk?</span>
+                    <a href="mailto:contact@kelderro.nl" class="cta-link"> contact@kelderro.nl </a>
                 </div>
             </div>
         </section>
@@ -266,52 +264,37 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
     .status-pill {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid color-mix(in srgb, var(--accent-regular), transparent 80%);
-        padding: 8px 16px;
+        gap: 8px;
+        padding: 8px 18px;
         border-radius: 100px;
-        font-size: 0.85rem;
-        color: var(--gray-0);
+        font-size: 0.8rem;
+        color: var(--gray-200);
         margin-bottom: 2rem;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
+        border: 1px solid var(--gray-700);
+        background: color-mix(in srgb, var(--gray-999) 80%, transparent);
     }
 
-    .pulse-dot {
-        position: relative;
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background-color: var(--accent-regular);
+    .status-dot {
+        width: 7px;
+        height: 7px;
         border-radius: 50%;
-        vertical-align: middle; /* Aligns the dot with your text baseline */
+        background: #4ade80;
+        box-shadow: 0 0 6px #4ade80;
+        animation: status-pulse 2.5s ease-in-out infinite;
+        flex-shrink: 0;
     }
 
-    .pulse-dot::after {
-        content: ''; /* Keep this empty */
-        position: absolute;
-        top: 0;
-        left: 0;
-        /* Force the size to match the parent dot */
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background-color: var(--accent-regular);
-        /* Use 'inherit' for background if you want it to always match the dot */
-        background-color: inherit;
-        animation: ripple 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
-        z-index: -1; /* Place it BEHIND the main dot */
-    }
-
-    @keyframes ripple {
-        0% {
-            transform: scale(1);
-            opacity: 0.8;
-        }
+    @keyframes status-pulse {
+        0%,
         100% {
-            transform: scale(4);
-            opacity: 0;
+            opacity: 1;
+            box-shadow: 0 0 6px #4ade80;
+        }
+        50% {
+            opacity: 0.45;
+            box-shadow: 0 0 2px #4ade80;
         }
     }
 
@@ -332,6 +315,7 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
     }
 
     .cta-group {
+        padding-top: 2rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -365,9 +349,14 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
         color: var(--gray-700);
     }
 
+    .cta-link-label {
+        color: var(--gray-500);
+        font-size: var(--text-sm);
+    }
+
     .btn-primary {
-        background: var(--accent-regular);
-        color: var(--accent-text-over);
+        background: var(--accent);
+        color: white;
         padding: 18px 36px;
         border-radius: 8px;
         text-decoration: none;

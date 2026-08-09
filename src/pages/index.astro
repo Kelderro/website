@@ -247,7 +247,7 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 
 <style>
     .highlight-meta {
-        color: rgba(255, 255, 255, 0.9); /* Slightly brighter than the rest */
+        color: var(--gray-0);
         font-weight: 500;
     }
 
@@ -308,13 +308,13 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 
     .footer-description {
         font-size: 1.15rem;
-        color: rgba(255, 255, 255, 0.6);
+        color: var(--gray-300);
         max-width: 600px;
         margin: 0 auto 3rem;
         line-height: 1.6;
     }
 
-    <<<<<<< Updated upstream ======= .cta-group {
+    .cta-group {
         padding-top: 2rem;
         display: flex;
         flex-wrap: wrap;
@@ -354,7 +354,7 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
         font-size: var(--text-sm);
     }
 
-    >>>>>>>Stashed changes .btn-primary {
+    .btn-primary {
         background: var(--accent);
         color: white;
         padding: 18px 36px;
@@ -367,6 +367,54 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
     .btn-primary:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 30px color-mix(in srgb, var(--accent-purple), transparent 60%);
+    }
+
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        background: transparent;
+        color: var(--gray-200);
+        padding: 18px 36px;
+        border-radius: 8px;
+        border: 1px solid var(--gray-700);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        border-color: var(--accent-purple);
+        color: var(--gray-0);
+        transform: translateY(-2px);
+    }
+
+    .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        background: transparent;
+        color: var(--gray-200);
+        padding: 0.6em 1.4em;
+        border-radius: 8px;
+        border: 1px solid var(--gray-700);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: var(--text-base);
+        transition: all 0.3s ease;
+    }
+
+    .btn-download:hover {
+        border-color: var(--accent-purple);
+        color: var(--gray-0);
+        transform: translateY(-2px);
     }
 
     @keyframes pulse {
@@ -571,6 +619,14 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
         display: none;
     }
 
+    .hero-ctas {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+
     .hero img {
         object-fit: cover;
         object-position: top;
@@ -592,6 +648,10 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
             justify-content: center;
             flex-wrap: wrap;
             gap: 0.5rem;
+        }
+
+        .hero-ctas {
+            justify-content: flex-start;
         }
 
         .hero img {

@@ -71,6 +71,12 @@ export default defineConfig({
         css: {
             devSourcemap: true,
         },
+        // Polling required in dev containers where native FS events aren't forwarded
+        server: {
+            watch: {
+                usePolling: true,
+            },
+        },
     },
 
     // Navigation Optimization

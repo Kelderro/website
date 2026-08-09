@@ -219,12 +219,19 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                     <a href="mailto:contact@kelderro.nl" class="btn-primary">
                         Book a Strategic Consultation
                     </a>
+                </div>
+                <div class="cta-links">
                     <a
                         href="https://linkedin.com/in/kelderro"
-                        class="btn-secondary"
+                        class="cta-link"
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
-                        Connect on LinkedIn
+                        <Icon icon="linkedin-logo" size="1.1em" /> Connect on LinkedIn
+                    </a>
+                    <span class="cta-link-sep">·</span>
+                    <a href="/assets/rob-op-den-kelder-cv.pdf" download class="cta-link">
+                        <Icon icon="download-simple" size="1.1em" /> Download CV
                     </a>
                 </div>
 
@@ -242,7 +249,7 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 
 <style>
     .highlight-meta {
-        color: rgba(255, 255, 255, 0.9); /* Slightly brighter than the rest */
+        color: var(--gray-0);
         font-weight: 500;
     }
 
@@ -318,15 +325,49 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 
     .footer-description {
         font-size: 1.15rem;
-        color: rgba(255, 255, 255, 0.6);
+        color: var(--gray-300);
         max-width: 600px;
         margin: 0 auto 3rem;
         line-height: 1.6;
     }
 
+    .cta-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .cta-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+        flex-wrap: wrap;
+    }
+
+    .cta-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        color: var(--gray-400);
+        text-decoration: none;
+        font-size: var(--text-sm);
+        transition: color 0.2s ease;
+    }
+
+    .cta-link:hover {
+        color: var(--gray-0);
+    }
+
+    .cta-link-sep {
+        color: var(--gray-700);
+    }
+
     .btn-primary {
-        background: var(--accent);
-        color: white;
+        background: var(--accent-regular);
+        color: var(--accent-text-over);
         padding: 18px 36px;
         border-radius: 8px;
         text-decoration: none;
@@ -337,6 +378,54 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
     .btn-primary:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 30px color-mix(in srgb, var(--accent-purple), transparent 60%);
+    }
+
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        background: transparent;
+        color: var(--gray-200);
+        padding: 18px 36px;
+        border-radius: 8px;
+        border: 1px solid var(--gray-700);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        border-color: var(--accent-purple);
+        color: var(--gray-0);
+        transform: translateY(-2px);
+    }
+
+    .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .btn-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        background: transparent;
+        color: var(--gray-200);
+        padding: 0.6em 1.4em;
+        border-radius: 8px;
+        border: 1px solid var(--gray-700);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: var(--text-base);
+        transition: all 0.3s ease;
+    }
+
+    .btn-download:hover {
+        border-color: var(--accent-purple);
+        color: var(--gray-0);
+        transform: translateY(-2px);
     }
 
     @keyframes pulse {
@@ -541,6 +630,14 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
         display: none;
     }
 
+    .hero-ctas {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+
     .hero img {
         object-fit: cover;
         object-position: top;
@@ -562,6 +659,10 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
             justify-content: center;
             flex-wrap: wrap;
             gap: 0.5rem;
+        }
+
+        .hero-ctas {
+            justify-content: flex-start;
         }
 
         .hero img {

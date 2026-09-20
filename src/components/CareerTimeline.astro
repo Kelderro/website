@@ -37,44 +37,39 @@ function isFreelance(employment: string): boolean {
 
 <section class="timeline">
     <ul class="timeline-list">
-        {
-            engagements.map(engagement => (
-                <li class="timeline-item">
-                    <a class="timeline-link" href={`/engagements/${engagement.id}`}>
-                        <span class="year-range">
-                            {formatYear(engagement.data.startDate)}
-                            <span class="year-sep">–</span>
-                            {endLabel(engagement.data.endDate)}
-                        </span>
-                        <span class="role-info">
-                            <span class="role-title">{engagement.data.mission}</span>
-                            <span class="role-meta">
-                                <span class="employer">{engagement.data.employer}</span>
-                                <span class="dot" aria-hidden="true">
-                                    |
-                                </span>
-                                <span class="employer">{engagement.data.position}</span>
-                                <span class="dot" aria-hidden="true">
-                                    |
-                                </span>
-                                <span class="duration">
-                                    {formatDuration(
-                                        engagement.data.startDate,
-                                        engagement.data.endDate
-                                    )}
-                                </span>
-                                {isFreelance(engagement.data.employment) && (
-                                    <span class="freelance-badge">Freelance</span>
-                                )}
+        {engagements.map(engagement => (
+            <li class="timeline-item">
+                <a class="timeline-link" href={`/engagements/${engagement.id}`}>
+                    <span class="year-range">
+                        {formatYear(engagement.data.startDate)}
+                        <span class="year-sep">–</span>
+                        {endLabel(engagement.data.endDate)}
+                    </span>
+                    <span class="role-info">
+                        <span class="role-title">{engagement.data.mission}</span>
+                        <span class="role-meta">
+                            <span class="employer">{engagement.data.employer}</span>
+                            <span class="dot" aria-hidden="true">
+                                |
                             </span>
+                            <span class="employer">{engagement.data.position}</span>
+                            <span class="dot" aria-hidden="true">
+                                |
+                            </span>
+                            <span class="duration">
+                                {formatDuration(engagement.data.startDate, engagement.data.endDate)}
+                            </span>
+                            {isFreelance(engagement.data.employment) && (
+                                <span class="freelance-badge">Freelance</span>
+                            )}
                         </span>
-                        <span class="timeline-arrow" aria-hidden="true">
-                            →
-                        </span>
-                    </a>
-                </li>
-            ))
-        }
+                    </span>
+                    <span class="timeline-arrow" aria-hidden="true">
+                        →
+                    </span>
+                </a>
+            </li>
+        ))}
     </ul>
 </section>
 

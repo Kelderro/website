@@ -54,30 +54,26 @@ const iconLinks: {
     </div>
     <div id="menu-content">
         <ul class="nav-items">
-            {
-                textLinks.map(({ label, href }) => (
-                    <li>
-                        <a
-                            aria-current={Astro.url.pathname === href ? 'page' : undefined}
-                            class:list={['link']}
-                            href={href}
-                        >
-                            {label}
-                        </a>
-                    </li>
-                ))
-            }
+            {textLinks.map(({ label, href }) => (
+                <li>
+                    <a
+                        aria-current={Astro.url.pathname === href ? 'page' : undefined}
+                        class:list={['link']}
+                        href={href}
+                    >
+                        {label}
+                    </a>
+                </li>
+            ))}
         </ul>
         <div class="menu-footer">
             <div class="socials">
-                {
-                    iconLinks.map(({ href, icon, label, title }) => (
-                        <a href={href} class="social" title={title}>
-                            <span class="sr-only">{label}</span>
-                            <Icon icon={icon} />
-                        </a>
-                    ))
-                }
+                {iconLinks.map(({ href, icon, label, title }) => (
+                    <a href={href} class="social" title={title}>
+                        <span class="sr-only">{label}</span>
+                        <Icon icon={icon} />
+                    </a>
+                ))}
             </div>
 
             <div class="theme-toggle">

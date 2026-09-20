@@ -41,15 +41,13 @@ function formatPeriod(startDate: Date, endDate: Date): string {
                 {data.location}
             </span>
         </div>
-        {
-            data.tags?.length && (
-                <div class="tags">
-                    {data.tags.map((tag: string) => (
-                        <span class="tag">{tag}</span>
-                    ))}
-                </div>
-            )
-        }
+        {data.tags?.length && (
+            <div class="tags">
+                {data.tags.map((tag: string) => (
+                    <span class="tag">{tag}</span>
+                ))}
+            </div>
+        )}
     </div>
     <div class="card-arrow">
         <Icon icon="arrow-right" size="1.2em" />

@@ -26,13 +26,11 @@ const engagements: CollectionEntry<'engagement'>[] = (await getCollection('engag
                 align="start"
             />
             <div>
-                {
-                    engagements.map(engagement => (
-                        <li>
-                            <PortfolioPreview engagement={engagement} />
-                        </li>
-                    ))
-                }
+                {engagements.map(engagement => (
+                    <li>
+                        <PortfolioPreview engagement={engagement} />
+                    </li>
+                ))}
             </div>
         </main>
         <ContactCTA />

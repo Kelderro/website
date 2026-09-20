@@ -83,42 +83,40 @@ const categories: Category[] = [
 ---
 
 <section class="toolkit-grid">
-    {
-        categories.map(cat => (
-            <div class="category">
-                <header class="category-header">
-                    <Icon icon={cat.icon} size="1.4em" color="var(--accent-regular)" />
-                    <h3>{cat.label}</h3>
-                </header>
-                <ul class="item-list">
-                    {cat.items.map(item => (
-                        <li class="tech-item">
-                            {item.svgPath ? (
-                                <svg
-                                    role="img"
-                                    viewBox="0 0 24 24"
-                                    aria-label={item.name}
-                                    class="tech-icon"
-                                    style={`color: #${item.hex}`}
-                                >
-                                    <path d={item.svgPath} fill="currentColor" />
-                                </svg>
-                            ) : (
-                                <span
-                                    class="tech-icon text-icon"
-                                    style={item.hex ? `background: #${item.hex}` : undefined}
-                                    aria-hidden="true"
-                                >
-                                    {item.name.slice(0, 2).toUpperCase()}
-                                </span>
-                            )}
-                            <span class="tech-name">{item.name}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        ))
-    }
+    {categories.map(cat => (
+        <div class="category">
+            <header class="category-header">
+                <Icon icon={cat.icon} size="1.4em" color="var(--accent-regular)" />
+                <h3>{cat.label}</h3>
+            </header>
+            <ul class="item-list">
+                {cat.items.map(item => (
+                    <li class="tech-item">
+                        {item.svgPath ? (
+                            <svg
+                                role="img"
+                                viewBox="0 0 24 24"
+                                aria-label={item.name}
+                                class="tech-icon"
+                                style={`color: #${item.hex}`}
+                            >
+                                <path d={item.svgPath} fill="currentColor" />
+                            </svg>
+                        ) : (
+                            <span
+                                class="tech-icon text-icon"
+                                style={item.hex ? `background: #${item.hex}` : undefined}
+                                aria-hidden="true"
+                            >
+                                {item.name.slice(0, 2).toUpperCase()}
+                            </span>
+                        )}
+                        <span class="tech-name">{item.name}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    ))}
 </section>
 
 <style>

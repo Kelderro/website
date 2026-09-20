@@ -46,15 +46,21 @@ function formatPeriod(startDate: Date, endDate: Date): string {
                 <div class="wrapper stack gap-2">
                     <nav class="breadcrumb" aria-label="Breadcrumb">
                         <ol>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/engagements/">Engagements</a></li>
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="/engagements/">Engagements</a>
+                            </li>
                             <li aria-current="page">{entry.data.position}</li>
                         </ol>
                     </nav>
                     <Hero title={entry.data.position} align="start">
                         <div class="details">
                             <div class="tags">
-                                {entry.data.tags.map((t: string) => <Pill>{t}</Pill>)}
+                                {entry.data.tags.map((t: string) => (
+                                    <Pill>{t}</Pill>
+                                ))}
                             </div>
                             <p class="description">{entry.data.description}</p>
                         </div>
@@ -89,17 +95,12 @@ function formatPeriod(startDate: Date, endDate: Date): string {
             </header>
             <main class="wrapper">
                 <div class="stack content-area">
-                    {
-                        entry.data.impact && (
-                            <div class="impact-callout">
-                                <h2 class="impact-title">Key Impact</h2>
-                                <div
-                                    class="impact-body"
-                                    set:html={marked.parse(entry.data.impact)}
-                                />
-                            </div>
-                        )
-                    }
+                    {entry.data.impact && (
+                        <div class="impact-callout">
+                            <h2 class="impact-title">Key Impact</h2>
+                            <div class="impact-body" set:html={marked.parse(entry.data.impact)} />
+                        </div>
+                    )}
                     <div class="content">
                         <Content />
                     </div>

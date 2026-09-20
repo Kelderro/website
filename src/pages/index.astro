@@ -62,13 +62,21 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                 <div id="trustBar">
                     <span class="label">Strategic Impact at:</span>
                     <div class="company-list">
-                        <span><a href="#transavia">Transavia</a></span>
+                        <span>
+                            <a href="#transavia">Transavia</a>
+                        </span>
                         <span class="separator">//</span>
-                        <span><a href="#kpmg">KPMG LLP (UK)</a></span>
+                        <span>
+                            <a href="#kpmg">KPMG LLP (UK)</a>
+                        </span>
                         <span class="separator">//</span>
-                        <span><a href="#shell">Royal Dutch Shell</a></span>
+                        <span>
+                            <a href="#shell">Royal Dutch Shell</a>
+                        </span>
                         <span class="separator">//</span>
-                        <span><a href="#cgi">CGI</a></span>
+                        <span>
+                            <a href="#cgi">CGI</a>
+                        </span>
                     </div>
                 </div>
                 <CareerTimeline />
@@ -84,13 +92,11 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
 
                 <div class="gallery">
                     <Grid>
-                        {
-                            engagements.map(engagement => (
-                                <li>
-                                    <PortfolioPreview engagement={engagement} />
-                                </li>
-                            ))
-                        }
+                        {engagements.map(engagement => (
+                            <li>
+                                <PortfolioPreview engagement={engagement} />
+                            </li>
+                        ))}
                     </Grid>
                 </div>
 
@@ -107,16 +113,15 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                 <h2>About Rob op den Kelder</h2>
                 <div id="about-quote">
                     I've spent {yearsOfExperience}+ years in the trenches, from leading 40+ globally
-                    distributed engineers at <strong>KPMG</strong> to modernizing legacy financial systems
-                    for <strong>Transavia</strong>.
+                    distributed engineers at <strong>KPMG</strong> to modernizing legacy financial
+                    systems for <strong>Transavia</strong>.
                 </div>
                 <p>
                     As a Strategic Technical Leader, I focus on the high-leverage decisions that
                     prevent technical debt and ensure long-term scalability. While I still code to
                     keep my saw sharp, my primary value lies in ensuring your architecture supports
-                    your business goals with the same rigor I used to help secure <strong
-                        >£150M+</strong
-                    > in enterprise contracts.
+                    your business goals with the same rigor I used to help secure{' '}
+                    <strong>£150M+</strong> in enterprise contracts.
                 </p>
                 <h3 class="pillars-lead-in">
                     My approach is built on three pillars of experience:
@@ -141,9 +146,8 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                             <h4>Legacy Modernization</h4>
                             <p>
                                 Orchestrating cloud-native transformations to replace aging
-                                infrastructure, such as the <strong>AS-400</strong> migration at <strong
-                                    >Transavia</strong
-                                >.
+                                infrastructure, such as the <strong>AS-400</strong> migration at{' '}
+                                <strong>Transavia</strong>.
                             </p>
                         </div>
 
@@ -238,7 +242,10 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                 </div>
                 <div class="cta-links">
                     <span class="cta-link-label">Ready to talk?</span>
-                    <a href="mailto:contact@kelderro.nl" class="cta-link"> contact@kelderro.nl </a>
+                    <a href="mailto:contact@kelderro.nl" class="cta-link">
+                        {' '}
+                        contact@kelderro.nl{' '}
+                    </a>
                 </div>
             </div>
         </section>

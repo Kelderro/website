@@ -1,20 +1,24 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
 
 const engagements: CollectionEntry<'engagement'>[] = (await getCollection('engagement')).sort(
     (a: CollectionEntry<'engagement'>, b: CollectionEntry<'engagement'>) =>
         b.data.startDate.valueOf() - a.data.startDate.valueOf()
 );
 
+const now = new Date();
+
 function formatYear(d: Date) {
     return d.getFullYear().toString();
 }
 
 function formatDuration(startDate: Date, endDate: Date): string {
+    const effectiveEndDate = endDate > now ? now : endDate;
     const totalMonths =
-        (endDate.getFullYear() - startDate.getFullYear()) * 12 +
-        (endDate.getMonth() - startDate.getMonth());
+        (effectiveEndDate.getFullYear() - startDate.getFullYear()) * 12 +
+        (effectiveEndDate.getMonth() - startDate.getMonth());
     const years = Math.floor(totalMonths / 12);
     const months = totalMonths % 12;
     const parts: string[] = [];
@@ -23,7 +27,6 @@ function formatDuration(startDate: Date, endDate: Date): string {
     return parts.join(' ') || '< 1 mo';
 }
 
-const now = new Date();
 function endLabel(endDate: Date): string {
     const diff =
         now.getFullYear() * 12 + now.getMonth() - endDate.getFullYear() * 12 - endDate.getMonth();
@@ -48,11 +51,21 @@ function isFreelance(employment: string): boolean {
                     <span class="role-info">
                         <span class="role-title">{engagement.data.mission}</span>
                         <span class="role-meta">
+                            <span class="sector">
+                                <Icon
+                                    icon={engagement.data.sectorIcon}
+                                    title={engagement.data.sectorTitle}
+                                />
+                            </span>
                             <span class="employer">{engagement.data.employer}</span>
                             <span class="dot" aria-hidden="true">
                                 |
                             </span>
-                            <span class="employer">{engagement.data.position}</span>
+                            <span class="location">{engagement.data.location}</span>
+                            <span class="dot" aria-hidden="true">
+                                |
+                            </span>
+                            <span class="position">{engagement.data.position}</span>
                             <span class="dot" aria-hidden="true">
                                 |
                             </span>
@@ -200,6 +213,11 @@ function isFreelance(employment: string): boolean {
             transform var(--theme-transition);
         align-self: center;
         flex-shrink: 0;
+    }
+
+    .sector {
+        position: relative;
+        bottom: 2px;
     }
 
     @media (max-width: 49.9em) {

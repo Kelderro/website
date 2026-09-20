@@ -21,9 +21,11 @@ export const collections = {
                 tags: z.array(z.string()),
                 img: image().optional(),
                 imgAlt: z.string().optional(),
-                location: z.string().optional(),
+                location: z.string(),
                 employment: z.string(),
                 selectedWork: z.boolean().optional().default(false),
+                sectorIcon: z.string(),
+                sectorTitle: z.string(),
             }),
     }),
     learning: defineCollection({

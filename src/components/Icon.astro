@@ -7,6 +7,7 @@ export interface Props {
     color?: string;
     gradient?: boolean;
     size?: string;
+    title?: string;
 }
 
 const { color = 'currentcolor', gradient, icon, size } = Astro.props;
@@ -16,6 +17,7 @@ const attrs: HTMLAttributes<'svg'> = {};
 if (size) attrs.style = { '--size': size };
 
 const gradientId = 'icon-gradient-' + Math.round(Math.random() * 10e12).toString(36);
+const hasTitle = Boolean(Astro.props.title);
 ---
 
 <svg
@@ -28,6 +30,7 @@ const gradientId = 'icon-gradient-' + Math.round(Math.random() * 10e12).toString
     fill={gradient ? `url(#${gradientId})` : color}
     {...attrs}
 >
+    {hasTitle && <title>{Astro.props.title}</title>}
     <g set:html={iconPath} />
     {gradient && (
         <linearGradient

@@ -20,12 +20,12 @@
     },
     "dependencies": {
         "@astrojs/mdx": "^7.0.5",
-        "@astrojs/sitemap": "^3.7.3",
-        "@sentry/astro": "^10.74.0",
-        "@sentry/cloudflare": "^10.74.0",
+        "@astrojs/sitemap": "^3.7.4",
+        "@sentry/astro": "^10.75.2",
+        "@sentry/cloudflare": "^10.75.2",
         "@spotlightjs/astro": "^3.2.6",
-        "astro": "^7.3.2",
-        "marked": "^18.0.13",
+        "astro": "^7.3.4",
+        "marked": "^18.0.14",
         "sharp": "^0.35.4"
     },
     "devDependencies": {
@@ -33,18 +33,18 @@
         "@eslint/js": "^10.0.1",
         "@playwright/test": "^1.63.0",
         "astro-eslint-parser": "^3.1.0",
-        "eslint": "^10.10.0",
+        "eslint": "^10.11.0",
         "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-astro": "^3.2.0",
+        "eslint-plugin-astro": "^3.2.1",
         "globals": "^17.12.0",
         "husky": "^9.1.7",
         "lint-staged": "^17.5.1",
-        "prettier": "^3.9.7",
+        "prettier": "^3.9.9",
         "prettier-plugin-astro": "^1.0.1",
-        "simple-icons": "^16.31.0",
+        "simple-icons": "^16.32.0",
         "typescript": "^6.0.3",
-        "typescript-eslint": "^8.70.0",
-        "wrangler": "^4.132.0"
+        "typescript-eslint": "^8.70.1",
+        "wrangler": "^4.136.3"
     },
     "lint-staged": {
         "*.{js,ts,astro}": [

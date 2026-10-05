@@ -19,7 +19,7 @@
         "test": "playwright test --headed"
     },
     "dependencies": {
-        "@astrojs/mdx": "^7.0.5",
+        "@astrojs/mdx": "^8.0.2",
         "@astrojs/sitemap": "^3.7.3",
         "@sentry/astro": "^10.74.0",
         "@sentry/cloudflare": "^10.74.0",

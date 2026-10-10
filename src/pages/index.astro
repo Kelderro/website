@@ -31,10 +31,11 @@ const engagements: CollectionEntry<'engagement'>[] = (
     .slice(0, 4);
 
 const yearsOfExperience = new Date().getFullYear() - 2009;
+const professionalTitle = 'Principal Engineer & Strategic Technology Consultant';
 ---
 
 <BaseLayout
-    title="Freelance Technical Consultant & Principal Engineer, Rob op den Kelder"
+    title={`${professionalTitle}, Rob op den Kelder`}
     description="The personal site of Rob op den Kelder. View personal experience and learning recommendations"
 >
     <div class="stack gap-10 lg:gap-30">
@@ -42,19 +43,19 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
             <div class="wrapper stack gap-8 lg:gap-20">
                 <header class="hero">
                     <Hero
-                        title="Freelance Technical Consultant & Principal Engineer"
-                        tagline="I help enterprise organizations scale their technical products through strategic architecture, hands-on engineering, and team leadership."
+                        title={professionalTitle}
+                        tagline="I bridge business strategy and technical execution, helping enterprise organizations make complex technology decisions, modernize critical platforms, and scale engineering teams."
                         align="start"
                     >
                         <div class="roles">
                             <Pill>
-                                <Icon icon="shield-check" size="1.33em" /> Architectural Guardrails
+                                <Icon icon="shield-check" size="1.33em" /> Strategic Technology
                             </Pill>
                             <Pill>
-                                <Icon icon="rocket-launch" size="1.33em" /> Strategic Engineering
+                                <Icon icon="rocket-launch" size="1.33em" /> Enterprise Architecture
                             </Pill>
                             <Pill>
-                                <Icon icon="users-four" size="1.33em" /> Technical Team Leadership
+                                <Icon icon="users-four" size="1.33em" /> Engineering Leadership
                             </Pill>
                         </div>
                     </Hero>
@@ -79,8 +80,8 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
                         </span>
                     </div>
                 </div>
-                <CareerTimeline />
                 <Skills yearsOfExperience={yearsOfExperience} />
+                <CareerTimeline />
             </div>
         </section>
         <main class="wrapper stack gap-20 lg:gap-48">
@@ -209,7 +210,8 @@ const yearsOfExperience = new Date().getFullYear() - 2009;
             <div class="footer-container">
                 <div class="status-pill">
                     <span class="status-dot" aria-hidden="true"></span>
-                    Open to New Engagements - Available with 1 Month Notice
+                    Currently Engaged <span class="separator">•</span> Accepting Select Advisory &
+                    Strategic Engagements
                 </div>
 
                 <h2 class="footer-title">Ready to resolve your architectural bottlenecks?</h2>

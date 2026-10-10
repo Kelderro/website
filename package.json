@@ -22,7 +22,7 @@
         "@astrojs/mdx": "^8.0.2",
         "@astrojs/sitemap": "^3.7.4",
         "@sentry/astro": "^10.74.0",
-        "@sentry/cloudflare": "^10.74.0",
+        "@sentry/cloudflare": "^11.5.0",
         "@spotlightjs/astro": "^3.2.6",
         "astro": "^7.3.5",
         "marked": "^18.0.14",

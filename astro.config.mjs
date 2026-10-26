@@ -36,9 +36,13 @@ export default defineConfig({
     // Deployment Output
     output: 'static',
 
-    // The standalone about page was folded into the homepage's #about section
+    // Standalone pages that are now sections of the homepage are redirected accordingly
     redirects: {
+        '/services': '/#services',
+        '/selected-engagements': '/#selected-engagements',
         '/about': '/#about',
+        '/technical-toolkit': '/#technical-toolkit',
+        '/contact': '/#contact',
     },
 
     integrations: [

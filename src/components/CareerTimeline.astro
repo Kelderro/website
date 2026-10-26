@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import Icon from './Icon.astro';
+import type { Props as IconProps } from './Icon.astro';
 
 const engagements: CollectionEntry<'engagement'>[] = (await getCollection('engagement')).sort(
     (a: CollectionEntry<'engagement'>, b: CollectionEntry<'engagement'>) =>
@@ -47,7 +48,7 @@ function sectorLabel(title: string): string {
 }
 
 // Distinct industries across the whole career, for the breadth strip.
-const industries = [
+const industries: { icon: IconProps['icon']; label: string }[] = [
     { icon: 'airplane-tilt', label: 'Aviation' },
     { icon: 'lightning', label: 'Energy' },
     { icon: 'building-office', label: 'Finance' },

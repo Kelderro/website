@@ -9,7 +9,7 @@ This is the portfolio and business website for my freelance technical consulting
 ## ✨ Features
 
 - Modern, fast, and SEO-friendly static site using Astro
-- Content-driven: MDX for projects, engagements, and learning
+- Content-driven: MDX for engagements
 - Responsive design and custom components
 - Cloudflare Pages deployment for global speed and reliability
 - Sentry integration for production error monitoring
@@ -77,7 +77,7 @@ pnpm run preview
 ## 🏗️ Architecture
 
 - **Astro**: Static site generator for fast, modern web apps
-- **MDX Content**: All portfolio, engagement, and learning content is written in MDX files under `src/content/`
+- **MDX Content**: All engagement content is written in MDX files under `src/content/`
 - **Cloudflare Pages**: Deployed globally for speed and reliability
 - **Sentry**: Enabled in production for error monitoring
 - **Spotlight**: Enabled in development for in-browser debugging

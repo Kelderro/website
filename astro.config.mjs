@@ -36,6 +36,11 @@ export default defineConfig({
     // Deployment Output
     output: 'static',
 
+    // The standalone about page was folded into the homepage's #about section
+    redirects: {
+        '/about': '/#about',
+    },
+
     integrations: [
         // Sentry is opt-in: without a DSN it would ship its SDK to every page while reporting nothing.
         // With SENTRY_AUTH_TOKEN/ORG/PROJECT also set, it uploads hidden source maps and deletes them from dist.

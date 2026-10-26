@@ -1,4 +1,7 @@
-name = "kelderro-website"
-compatibility_date = "2026-04-06"
+name = "kelderro-nl"
+compatibility_date = "2026-10-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
+
+[vars]
+NODE_VERSION = "24.22.1"

@@ -49,6 +49,6 @@ test('theme preference persists on navigation', async ({ page, isMobile }) => {
     }
 
     // Navigate to another page and verify theme persists via localStorage
-    await page.goto('/about');
+    await page.goto('/engagements');
     await expect(page.locator('html')).toHaveClass(/theme-dark/);
 });

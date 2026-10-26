@@ -3,18 +3,27 @@ import mdx from '@astrojs/mdx';
 import sentry from '@sentry/astro';
 import sitemap from '@astrojs/sitemap';
 import spotlightjs from '@spotlightjs/astro';
+import { readFile, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+
+// Stamps a unique build id into dist/sw.js so each deploy invalidates the old caches.
+const serviceWorkerVersion = () => ({
+    name: 'service-worker-version',
+    hooks: {
+        'astro:build:done': async ({ dir }) => {
+            const swPath = fileURLToPath(new URL('sw.js', dir));
+            const buildId = process.env.GITHUB_SHA?.slice(0, 12) ?? Date.now().toString(36);
+            const source = await readFile(swPath, 'utf8');
+            await writeFile(swPath, source.replace('__BUILD_ID__', buildId));
+        },
+    },
+});
 
 export default defineConfig({
     site: 'https://kelderro.nl',
     // Environment Variable Schema (Astro 5.0+)
     env: {
         schema: {
-            // Available in the browser (client-side)
-            VITE_SOURCEMAP: envField.boolean({
-                context: 'client',
-                access: 'public',
-                default: false,
-            }),
             // Available only during the build process (server-side context)
             VITE_DEBUG: envField.boolean({
                 context: 'server',
@@ -27,11 +36,25 @@ export default defineConfig({
     // Deployment Output
     output: 'static',
 
+    // Standalone pages that are now sections of the homepage are redirected accordingly
+    redirects: {
+        '/services': '/#services',
+        '/selected-engagements': '/#selected-engagements',
+        '/about': '/#about',
+        '/technical-toolkit': '/#technical-toolkit',
+        '/contact': '/#contact',
+    },
+
     integrations: [
-        ...(process.env.NODE_ENV !== 'development' ? [sentry()] : []),
+        // Sentry is opt-in: without a DSN it would ship its SDK to every page while reporting nothing.
+        // With SENTRY_AUTH_TOKEN/ORG/PROJECT also set, it uploads hidden source maps and deletes them from dist.
+        ...(process.env.NODE_ENV !== 'development' && process.env.PUBLIC_SENTRY_DSN
+            ? [sentry()]
+            : []),
         ...(process.env.NODE_ENV === 'development' && !process.env.CI ? [spotlightjs()] : []),
         mdx(),
-        sitemap(),
+        sitemap({ filter: page => !page.endsWith('/offline/') }),
+        serviceWorkerVersion(),
     ],
 
     // Image Optimization
@@ -65,8 +88,10 @@ export default defineConfig({
 
     // Vite Configuration
     vite: {
+        // Public source maps are opt-in (VITE_SOURCEMAP=true) for local debugging; leaving
+        // this unset lets the Sentry integration manage hidden maps when it is enabled.
         build: {
-            sourcemap: true,
+            ...(process.env.VITE_SOURCEMAP === 'true' && { sourcemap: true }),
         },
         css: {
             devSourcemap: true,

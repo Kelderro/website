@@ -211,8 +211,9 @@ const iconLinks: {
         font-weight: 500;
         margin-bottom: 3.5rem;
 
-        backdrop-filter: blur(10px);
+        /* Prefixed fallback first: the CSS minifier keeps only the last declaration */
         -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
     }
 
     .menu-header {

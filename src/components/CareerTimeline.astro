@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import Icon from './Icon.astro';
+import type { Props as IconProps } from './Icon.astro';
 
 const engagements: CollectionEntry<'engagement'>[] = (await getCollection('engagement')).sort(
     (a: CollectionEntry<'engagement'>, b: CollectionEntry<'engagement'>) =>
@@ -27,60 +28,105 @@ function formatDuration(startDate: Date, endDate: Date): string {
     return parts.join(' ') || '< 1 mo';
 }
 
-function endLabel(endDate: Date): string {
+function isCurrent(endDate: Date): boolean {
     const diff =
         now.getFullYear() * 12 + now.getMonth() - endDate.getFullYear() * 12 - endDate.getMonth();
-    return diff <= 3 ? 'present' : formatYear(endDate);
+    return diff <= 3;
+}
+
+function endLabel(endDate: Date): string {
+    return isCurrent(endDate) ? 'Present' : formatYear(endDate);
 }
 
 function isFreelance(employment: string): boolean {
     return employment.toLowerCase().includes('freelan');
 }
+
+// Trim the long sector descriptors down to a compact industry label.
+function sectorLabel(title: string): string {
+    return title.replace(/\s+(Sector|Services)$/i, '').trim();
+}
+
+// Distinct industries across the whole career, for the breadth strip.
+const industries: { icon: IconProps['icon']; label: string }[] = [
+    { icon: 'airplane-tilt', label: 'Aviation' },
+    { icon: 'lightning', label: 'Energy' },
+    { icon: 'building-office', label: 'Finance' },
+    { icon: 'shield-check', label: 'Government' },
+    { icon: 'cpu', label: 'Professional Services' },
+];
 ---
 
 <section class="timeline">
+    <header class="timeline-head">
+        <div class="timeline-head-text">
+            <h2>Career at a glance</h2>
+            <p>
+                Seventeen years across regulated, high-stakes industries, from oil &amp; gas to
+                aviation and government.
+            </p>
+        </div>
+        <ul class="industries" aria-label="Industries worked in">
+            {industries.map(industry => (
+                <li class="industry">
+                    <Icon icon={industry.icon} size="0.95em" />
+                    {industry.label}
+                </li>
+            ))}
+        </ul>
+    </header>
+
     <ul class="timeline-list">
         {engagements.map(engagement => (
-            <li class="timeline-item">
-                <a class="timeline-link" href={`/engagements/${engagement.id}`}>
+            <li
+                class:list={['timeline-item', { 'is-current': isCurrent(engagement.data.endDate) }]}
+            >
+                <div class="timeline-link">
                     <span class="year-range">
-                        {formatYear(engagement.data.startDate)}
-                        <span class="year-sep">–</span>
-                        {endLabel(engagement.data.endDate)}
+                        <span class="year-start">{formatYear(engagement.data.startDate)}</span>
+                        <span class="year-end">{endLabel(engagement.data.endDate)}</span>
                     </span>
                     <span class="role-info">
-                        <span class="role-title">{engagement.data.mission}</span>
+                        <span class="role-head">
+                            <span class="role-title">{engagement.data.position}</span>
+                            {isFreelance(engagement.data.employment) && (
+                                <span class="freelance-badge">Freelance</span>
+                            )}
+                            {engagement.data.caseStudy && (
+                                <a class="case-study-link" href={`/engagements/${engagement.id}`}>
+                                    Case study →
+                                </a>
+                            )}
+                        </span>
+                        {engagement.data.mission && (
+                            <span class="mission">{engagement.data.mission}</span>
+                        )}
                         <span class="role-meta">
                             <span class="sector">
                                 <Icon
                                     icon={engagement.data.sectorIcon}
                                     title={engagement.data.sectorTitle}
+                                    size="0.85em"
                                 />
+                                {sectorLabel(engagement.data.sectorTitle)}
+                            </span>
+                            <span class="dot" aria-hidden="true">
+                                ·
                             </span>
                             <span class="employer">{engagement.data.employer}</span>
                             <span class="dot" aria-hidden="true">
-                                |
+                                ·
                             </span>
                             <span class="location">{engagement.data.location}</span>
                             <span class="dot" aria-hidden="true">
-                                |
-                            </span>
-                            <span class="position">{engagement.data.position}</span>
-                            <span class="dot" aria-hidden="true">
-                                |
+                                ·
                             </span>
                             <span class="duration">
                                 {formatDuration(engagement.data.startDate, engagement.data.endDate)}
                             </span>
-                            {isFreelance(engagement.data.employment) && (
-                                <span class="freelance-badge">Freelance</span>
-                            )}
                         </span>
                     </span>
-                    <span class="timeline-arrow" aria-hidden="true">
-                        →
-                    </span>
-                </a>
+                </div>
             </li>
         ))}
     </ul>
@@ -91,84 +137,130 @@ function isFreelance(employment: string): boolean {
         width: 100%;
     }
 
+    /* Header + industry breadth strip */
+    .timeline-head {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    .timeline-head h2 {
+        font-size: var(--text-xl);
+        color: var(--gray-0);
+    }
+
+    .timeline-head-text p {
+        margin-top: 0.4rem;
+        color: var(--gray-400);
+        font-size: var(--text-sm);
+        max-width: 48ch;
+    }
+
+    .industries {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .industry {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: var(--text-xsm);
+        font-weight: 500;
+        color: var(--gray-200);
+        padding: 0.3rem 0.75rem;
+        border: 1px solid var(--gray-800);
+        border-radius: 999rem;
+        background: var(--gray-999_40);
+    }
+
+    /* Timeline rail */
     .timeline-list {
         list-style: none;
         padding: 0;
         margin: 0;
         border-left: 2px solid var(--gray-800);
-        padding-left: 1.5rem;
+        padding-left: 1.75rem;
         display: flex;
         flex-direction: column;
-        gap: 0;
+        gap: 0.25rem;
     }
 
     .timeline-item {
         position: relative;
     }
 
-    /* Timeline dot */
+    /* Timeline node */
     .timeline-item::before {
         content: '';
         position: absolute;
-        left: -1.625rem;
-        top: 1.1rem;
+        left: -1.875rem;
+        top: 1.35rem;
         width: 0.6rem;
         height: 0.6rem;
         border-radius: 50%;
         background: var(--gray-700);
-        border: 2px solid var(--gray-900);
+        border: 2px solid var(--gray-999);
         transition: background var(--theme-transition);
+        z-index: 1;
     }
 
-    .timeline-item:first-child::before {
+    .timeline-item.is-current::before {
         background: var(--accent-regular);
+        box-shadow: 0 0 0 4px var(--accent-subtle-overlay);
     }
 
     .timeline-link {
         display: flex;
-        align-items: baseline;
+        align-items: flex-start;
         gap: 1.25rem;
-        padding: 0.85rem 0.5rem;
-        text-decoration: none;
-        border-radius: 0.5rem;
-        transition: background var(--theme-transition);
-    }
-
-    .timeline-link:hover {
-        background: var(--accent-subtle-overlay);
-    }
-
-    .timeline-link:hover .timeline-item::before {
-        background: var(--accent-regular);
-    }
-
-    .timeline-link:hover .role-title {
-        color: var(--accent-regular);
-    }
-
-    .timeline-link:hover .timeline-arrow {
-        opacity: 1;
-        transform: translateX(3px);
+        padding: 1rem 0.85rem;
+        border-radius: 0.75rem;
     }
 
     .year-range {
-        font-size: var(--text-sm);
+        display: flex;
+        flex-direction: column;
         font-variant-numeric: tabular-nums;
-        color: var(--gray-400);
-        white-space: nowrap;
-        min-width: 7rem;
+        min-width: 3.5rem;
         flex-shrink: 0;
+        padding-top: 0.15rem;
     }
 
-    .year-sep {
-        margin: 0 0.15rem;
+    .year-start {
+        font-size: var(--text-md);
+        font-weight: 600;
+        color: var(--gray-100);
+    }
+
+    .year-end {
+        font-size: var(--text-sm);
+        color: var(--gray-400);
+    }
+
+    .is-current .year-end {
+        color: var(--accent-regular);
+        font-weight: 600;
     }
 
     .role-info {
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 0.2rem;
+        gap: 0.35rem;
+        min-width: 0;
+    }
+
+    .role-head {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
     }
 
     .role-title {
@@ -178,55 +270,70 @@ function isFreelance(employment: string): boolean {
         transition: color var(--theme-transition);
     }
 
+    .mission {
+        color: var(--gray-300);
+        font-size: var(--text-sm);
+        line-height: 1.45;
+    }
+
     .role-meta {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         gap: 0.3rem 0.5rem;
-        font-size: var(--text-sm);
+        font-size: var(--text-xsm);
         color: var(--gray-400);
+    }
+
+    .sector {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: var(--gray-300);
+        font-weight: 500;
     }
 
     .dot {
         opacity: 0.4;
     }
 
-    .duration {
-        color: var(--gray-300);
-    }
-
     .freelance-badge {
-        font-size: 0.7rem;
+        font-size: var(--text-xsm);
         padding: 0.05rem 0.5rem;
         border-radius: 999rem;
         border: 1px solid var(--accent-regular);
         color: var(--accent-regular);
         font-weight: 500;
+        line-height: 1.5;
     }
 
-    .timeline-arrow {
-        opacity: 0;
+    .case-study-link {
+        font-size: var(--text-xsm);
+        font-weight: 600;
         color: var(--accent-regular);
-        font-size: var(--text-sm);
-        transition:
-            opacity var(--theme-transition),
-            transform var(--theme-transition);
-        align-self: center;
-        flex-shrink: 0;
+        text-decoration: none;
+        white-space: nowrap;
     }
 
-    .sector {
-        position: relative;
-        bottom: 2px;
+    .case-study-link:hover {
+        text-decoration: underline;
     }
 
-    @media (max-width: 49.9em) {
-        .year-range {
-            min-width: 5rem;
+    @media (min-width: 50em) {
+        .timeline-head {
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
         }
 
-        .timeline-arrow {
-            display: none;
+        .industries {
+            justify-content: flex-end;
+            max-width: 32rem;
+        }
+
+        .year-range {
+            min-width: 4rem;
         }
     }
 </style>

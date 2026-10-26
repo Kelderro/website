@@ -15,6 +15,7 @@ import PortfolioPreview from '../components/PortfolioPreview.astro';
 
 // Page section components
 import CareerTimeline from '../components/CareerTimeline.astro';
+import ImpactBand from '../components/ImpactBand.astro';
 import Skills from '../components/Skills.astro';
 import TechToolkit from '../components/TechToolkit.astro';
 import { Image } from 'astro:assets';
@@ -36,7 +37,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
 
 <BaseLayout
     title={`${professionalTitle}, Rob op den Kelder`}
-    description="The personal site of Rob op den Kelder. View personal experience and learning recommendations"
+    description="Principal engineer and strategic technology consultant helping enterprises make complex technology decisions, modernize critical platforms and scale engineering teams."
 >
     <div class="stack gap-10 lg:gap-30">
         <section id="services">
@@ -63,23 +64,16 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
                 <div id="trustBar">
                     <span class="label">Strategic Impact at:</span>
                     <div class="company-list">
-                        <span>
-                            <a href="#transavia">Transavia</a>
-                        </span>
+                        <span>Transavia</span>
                         <span class="separator">//</span>
-                        <span>
-                            <a href="#kpmg">KPMG LLP (UK)</a>
-                        </span>
+                        <span>KPMG LLP (UK)</span>
                         <span class="separator">//</span>
-                        <span>
-                            <a href="#shell">Royal Dutch Shell</a>
-                        </span>
+                        <span>Royal Dutch Shell</span>
                         <span class="separator">//</span>
-                        <span>
-                            <a href="#cgi">CGI</a>
-                        </span>
+                        <span>CGI</span>
                     </div>
                 </div>
+                <ImpactBand yearsOfExperience={yearsOfExperience} />
                 <Skills yearsOfExperience={yearsOfExperience} />
                 <CareerTimeline />
             </div>
@@ -164,6 +158,11 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
                         </div>
                     </div>
                 </section>
+                <p class="pro-bono">
+                    Outside client work, I'm a pro bono IT strategy advisor to non-technical leaders
+                    at local non-profits and small businesses, from translating vendor proposals
+                    into clear business guidance to leading IT procurement for an animal shelter.
+                </p>
                 <div class="cert-card-wrapper">
                     <a
                         href="https://learn.microsoft.com/api/credentials/share/en-us/RobKelder-0006/1D3FC9BEB76BCB26?sharingId=F604AD3A83C1F2D3"
@@ -223,6 +222,8 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
 
                 <div class="footer-meta">
                     <span>Netherlands Based</span>
+                    <span class="separator">•</span>
+                    <span class="highlight-meta">EU Citizen</span>
                     <span class="separator">•</span>
                     <span class="highlight-meta">UK Settled Status</span>
                     <span class="separator">•</span>
@@ -557,6 +558,15 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     #about .pillar-item p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        opacity: 0.8;
+    }
+
+    #about .pro-bono {
+        margin-top: 2.5rem;
+        padding-left: 1rem;
+        border-left: 2px solid var(--accent-purple);
         font-size: 0.95rem;
         line-height: 1.6;
         opacity: 0.8;

@@ -24,20 +24,9 @@ export const collections = {
                 location: z.string(),
                 employment: z.string(),
                 selectedWork: z.boolean().optional().default(false),
+                caseStudy: z.boolean().optional().default(false),
                 sectorIcon: z.string(),
                 sectorTitle: z.string(),
             }),
-    }),
-    learning: defineCollection({
-        loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/learning' }),
-        schema: z.object({
-            title: z.string(),
-            publishDate: z.coerce.date(),
-            cover: z.string(),
-            url: z.string(),
-            type: z.enum(['book', 'video', 'blog']),
-            description: z.string(),
-            rating: z.number().default(3),
-        }),
     }),
 };

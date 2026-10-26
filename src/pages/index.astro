@@ -15,6 +15,7 @@ import PortfolioPreview from '../components/PortfolioPreview.astro';
 
 // Page section components
 import CareerTimeline from '../components/CareerTimeline.astro';
+import ImpactBand from '../components/ImpactBand.astro';
 import Skills from '../components/Skills.astro';
 import TechToolkit from '../components/TechToolkit.astro';
 import { Image } from 'astro:assets';
@@ -63,23 +64,16 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
                 <div id="trustBar">
                     <span class="label">Strategic Impact at:</span>
                     <div class="company-list">
-                        <span>
-                            <a href="#transavia">Transavia</a>
-                        </span>
+                        <span>Transavia</span>
                         <span class="separator">//</span>
-                        <span>
-                            <a href="#kpmg">KPMG LLP (UK)</a>
-                        </span>
+                        <span>KPMG LLP (UK)</span>
                         <span class="separator">//</span>
-                        <span>
-                            <a href="#shell">Royal Dutch Shell</a>
-                        </span>
+                        <span>Royal Dutch Shell</span>
                         <span class="separator">//</span>
-                        <span>
-                            <a href="#cgi">CGI</a>
-                        </span>
+                        <span>CGI</span>
                     </div>
                 </div>
+                <ImpactBand yearsOfExperience={yearsOfExperience} />
                 <Skills yearsOfExperience={yearsOfExperience} />
                 <CareerTimeline />
             </div>

@@ -26,11 +26,23 @@ interface TechItem {
 
 interface Category {
     label: string;
-    icon: 'code' | 'rocket-launch' | 'strategy' | 'shield-check';
+    icon: 'code' | 'rocket-launch' | 'strategy' | 'shield-check' | 'terminal-window';
     items: TechItem[];
 }
 
 const categories: Category[] = [
+    {
+        label: 'AI-Assisted Engineering',
+        icon: 'terminal-window',
+        items: [
+            { name: 'GitHub Copilot', hex: '7611a6' },
+            { name: 'Copilot CLI', hex: '7611a6' },
+            { name: 'Claude Code', hex: '7611a6' },
+            { name: 'Claude Skills', hex: '7611a6' },
+            { name: 'MCP', hex: '7611a6' },
+            { name: 'Agentic Workflows', hex: '7611a6' },
+        ],
+    },
     {
         label: 'Languages',
         icon: 'code',

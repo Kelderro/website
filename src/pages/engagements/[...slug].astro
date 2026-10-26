@@ -11,7 +11,9 @@ import Pill from '../../components/Pill.astro';
 import { marked } from 'marked';
 
 export async function getStaticPaths() {
-    const engagements = await getCollection('engagement');
+    const engagements = (await getCollection('engagement')).filter(
+        (entry: CollectionEntry<'engagement'>) => entry.data.caseStudy
+    );
     return engagements.map((entry: CollectionEntry<'engagement'>) => ({
         params: { slug: entry.id },
         props: { entry },

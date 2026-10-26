@@ -1,139 +1,265 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
+import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
+import Icon from '../components/Icon.astro';
+
+const yearsOfExperience = new Date().getFullYear() - 2009;
+
+const learning = await getCollection('learning');
+const books = learning.filter(e => e.data.type === 'book');
+const channels = learning.filter(e => e.data.type === 'video');
+
+const industries = [
+    'Energy & Utilities',
+    'Aviation & Travel',
+    'Finance',
+    'Government',
+    'Professional Services',
+];
+
+const expertise = [
+    'AI-Assisted & Agentic Engineering',
+    'Enterprise & Solution Architecture',
+    'Event-Driven & Distributed Systems',
+    'Microservices',
+    'Cloud-Native (Azure)',
+    'Legacy Modernization',
+    'Infrastructure as Code',
+    'DevSecOps & Security-First Design',
+    'Enterprise Integration & B2B APIs',
+];
+
+const leadership = [
+    'Engineering leadership (40+)',
+    'Technical strategy & roadmap',
+    'Architecture governance',
+    'Mentoring & enablement',
+    'Stakeholder management',
+    'Agile delivery',
+];
+
+const languages =
+    'C# / .NET, TypeScript & JavaScript (React), Python, Go, PowerShell, Bicep, Terraform, with Rust in progress. Day-to-day AI toolchain: GitHub Copilot & Copilot CLI, Claude Code, and MCP for agentic workflows.';
+
+interface Certification {
+    title: string;
+    meta: string;
+    url?: string;
+}
+
+const certifications: Certification[] = [
+    {
+        title: 'Microsoft Certified: Azure Solutions Architect Expert',
+        meta: 'Active · 2019 – present · verified via Microsoft Learn',
+        url: 'https://learn.microsoft.com/api/credentials/share/en-us/RobKelder-0006/1D3FC9BEB76BCB26?sharingId=F604AD3A83C1F2D3',
+    },
+    {
+        title: 'AZ-302: Microsoft Azure Solutions Architect',
+        meta: 'Microsoft Certified',
+        url: 'https://www.credly.com/badges/fdcd03bf-c976-4d5c-9992-89f600daadc2/',
+    },
+    {
+        title: '70-535: Architecting Microsoft Azure Solutions',
+        meta: 'Microsoft Certified',
+        url: 'https://www.credly.com/badges/2aec6f3b-b7d3-4855-94dd-f1f36c5504ea/',
+    },
+    {
+        title: 'Professional Scrum Master',
+        meta: 'Agile delivery',
+    },
+    {
+        title: 'Exam 535: Microsoft Certified Professional (MCP)',
+        meta: 'Microsoft Certified',
+    },
+];
+
+const beyondWork = [
+    {
+        title: 'Pro Bono IT Strategy Advisor',
+        body: 'Trusted advisor to non-technical leaders across local non-profits and small businesses, including leading IT procurement for an animal shelter, translating vendor proposals into clear business guidance.',
+    },
+    {
+        title: 'Team Captain · Ingress (AR gaming)',
+        body: 'Establishing, inspiring and leading freshly formed field teams, making real-time tactical decisions in fast-paced live events across unfamiliar cities.',
+    },
+];
 ---
 
-<BaseLayout title="About | Rob op den Kelder" description="About Rob op den Kelder">
+<BaseLayout
+    title="About | Rob op den Kelder"
+    description="Principal software engineer with 17+ years across energy, aviation, finance and government. Azure Solutions Architect Expert based in the Netherlands."
+>
     <div class="stack gap-20">
         <main class="wrapper about">
-            <Hero title="About" tagline="" />
+            <Hero
+                title="About Rob op den Kelder"
+                tagline="Principal engineer and strategic technology advisor, turning complex, high-stakes systems into durable architecture."
+                align="start"
+            />
 
             <section id="section-about-background">
                 <h2 class="section-title">Background</h2>
                 <div class="content">
                     <p>
-                        Principal software engineer with over 14 years of professional experience in
-                        the computer software sector and a product engineering mindset. Driven to
-                        work in an international team atmosphere to identify straightforward
-                        solutions to complex challenges.
+                        Principal software engineer with <strong>{yearsOfExperience}+ years</strong>
+                        in the software industry and a product-engineering mindset. I work best in
+                        international teams, turning complex, high-stakes challenges into
+                        straightforward, durable solutions.
                     </p>
                     <p>
-                        Using experience to recognize and lead technological opportunities,
-                        mentoring others, ensuring quality, and developing long-term strategic
-                        decisions and plans. Extensive experience applying skills in a variety of
-                        industries, including energy, industrial, business services, finance,
-                        government and transportation.
+                        I use that experience to recognise and lead technology opportunities, mentor
+                        engineers, safeguard quality, and shape long-term technical strategy. I've
+                        applied these skills across energy, aviation, finance, government,
+                        professional services and transportation.
                     </p>
                     <p>
-                        Able to work in the United Kingdom as part of the settle status scheme and
-                        Europa as a Dutch citizen.
+                        Authorised to work across the EU as a Dutch citizen, and in the United
+                        Kingdom under the EU Settled Status scheme.
                     </p>
                 </div>
             </section>
+
             <section>
-                <h2 class="section-title">Strengths</h2>
+                <h2 class="section-title">How I work</h2>
                 <div class="content">
                     <p>
-                        Analytical and strategic thinker with a proven ability to break down complex
-                        challenges into actionable solutions. Skilled at aligning technical
-                        decisions with long-term business objectives.
-                    </p>
-                    <p>
-                        Using experience to recognize and lead technological opportunities,
-                        mentoring others, ensuring quality, and developing long-term strategic
-                        decisions and plans. Extensive experience applying skills in a variety of
-                        industries, including energy, industrial, business services, finance,
-                        government and transportation.
+                        I focus on the high-leverage decisions that prevent technical debt and keep
+                        architecture aligned with business goals. I break complex challenges into
+                        actionable solutions, then stay hands-on, still writing code to keep my saw
+                        sharp, while providing the architectural authority, governance and mentoring
+                        that lets teams move faster with confidence.
                     </p>
                 </div>
             </section>
+
             <section>
-                <h2 class="section-title">Certification</h2>
-                <div>
-                    <p>
-                        <a href="https://www.credly.com/badges/fdcd03bf-c976-4d5c-9992-89f600daadc2/">
-                            AZ-302
-                        </a>
-                        : Microsoft Certified: Azure Solution Architect Expert
-                    </p>
-                    <p>
-                        <a href="https://www.credly.com/badges/2aec6f3b-b7d3-4855-94dd-f1f36c5504ea/">
-                            70-535
-                        </a>
-                        : Architecting Microsoft Azure Solutions
-                    </p>
-                    <p>Scrum master</p>
-                    <p>Exam 535: Microsoft Certified Professional (MCP)</p>
+                <h2 class="section-title">Industries</h2>
+                <div class="content">
+                    <ul class="chips">
+                        {industries.map(item => (
+                            <li class="chip">{item}</li>
+                        ))}
+                    </ul>
                 </div>
             </section>
+
+            <section>
+                <h2 class="section-title">Leadership</h2>
+                <div class="content">
+                    <ul class="chips">
+                        {leadership.map(item => (
+                            <li class="chip">{item}</li>
+                        ))}
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Core expertise</h2>
+                <div class="content">
+                    <ul class="chips">
+                        {expertise.map(item => (
+                            <li class="chip">{item}</li>
+                        ))}
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Languages &amp; tools</h2>
+                <div class="content">
+                    <p>{languages}</p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Certifications</h2>
+                <div class="content">
+                    <ul class="cert-list">
+                        {certifications.map(cert => (
+                            <li class="cert-item">
+                                {cert.url ? (
+                                    <a href={cert.url} target="_blank" rel="noopener noreferrer">
+                                        {cert.title}
+                                        <Icon icon="arrow-right" size="0.8em" />
+                                    </a>
+                                ) : (
+                                    <span class="cert-name">{cert.title}</span>
+                                )}
+                                <span class="cert-meta">{cert.meta}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </section>
+
             <section>
                 <h2 class="section-title">Education</h2>
                 <div class="content">
-                    <p>B.Sc. Computer Science, University of Applied Science, Rotterdam</p>
+                    <p>B.Sc. Computer Science, Rotterdam University of Applied Sciences</p>
                 </div>
             </section>
+
             <section>
-                <h2 class="section-title">Soft skills</h2>
-                <div class="content">
-                    <p>Problem-solving / analytical</p>
-                    <p>Stakeholder management</p>
-                    <p>Recruiting</p>
-                    <p>Teamwork</p>
-                    <p>Open-mindedness</p>
-                    <p>Performance manager</p>
+                <h2 class="section-title">Beyond work</h2>
+                <div class="content stack-content">
+                    {beyondWork.map(item => (
+                        <div class="note">
+                            <h3 class="note-title">{item.title}</h3>
+                            <p>{item.body}</p>
+                        </div>
+                    ))}
+                    <div class="note">
+                        <h3 class="note-title">Interests</h3>
+                        <p>Snowboarding, cycling and lane swimming.</p>
+                    </div>
                 </div>
             </section>
-            <section>
-                <h2 class="section-title">Hard skills</h2>
-                <div class="content">
-                    <p>Distributed Architecture (event and message driven)</p>
-                    <p>Microservices</p>
-                    <p>Product development</p>
-                    <p>Technical roadmap</p>
-                    <p>Security</p>
-                    <p>Development</p>
-                    <p>
-                        Polyglot programming:{' '}
-                        <span class="detail-text">
-                            C#, Python, Java, JavaScript (React JS), Batch, PHP, Go(Lang) and Rust
-                            (learning)
-                        </span>
-                    </p>
-                </div>
-            </section>
-            <section>
-                <h2 class="section-title">YouTube</h2>
-                <div class="content">
-                    <p>
-                        <a href="https://www.youtube.com/@freecodecamp">freeCodeCamp.org</a>
-                    </p>
-                    <p>
-                        <a href="https://www.youtube.com/@GOTO-">GOTO Conferences</a>
-                    </p>
-                    <p>
-                        <a href="https://www.youtube.com/@nickchapsas">Nick Chapsas</a>
-                    </p>
-                </div>
-            </section>
-            <section>
-                <h2 class="section-title">Books</h2>
-                <div class="content"></div>
-            </section>
-            <section>
-                <h2 class="section-title">Interests</h2>
-                <div class="content">
-                    <p>Sports, snowboarding, cycling and lane swimming.</p>
-                    <p>
-                        Ingress team captain:{' '}
-                        <span class="detail-text">
-                            establishing, inspiring, and leading freshly formed teams. Assist them
-                            in attaining success in a dynamic and fast-paced environment.
-                        </span>
-                    </p>
-                </div>
-            </section>
+
+            {books.length > 0 && (
+                <section>
+                    <h2 class="section-title">Reading list</h2>
+                    <div class="content">
+                        <ul class="link-list">
+                            {books.map(book => (
+                                <li>
+                                    <a
+                                        href={book.data.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {book.data.title}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
+            )}
+
+            {channels.length > 0 && (
+                <section>
+                    <h2 class="section-title">Learning channels</h2>
+                    <div class="content">
+                        <ul class="link-list">
+                            {channels.map(channel => (
+                                <li>
+                                    <a
+                                        href={channel.data.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {channel.data.title}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </section>
+            )}
         </main>
 
         <ContactCTA />
@@ -155,12 +281,6 @@ import Hero from '../components/Hero.astro';
         padding-bottom: 0;
     }
 
-    img {
-        margin-top: 1.5rem;
-        border-radius: 1.5rem;
-        box-shadow: var(--shadow-md);
-    }
-
     section {
         display: flex;
         flex-direction: column;
@@ -178,6 +298,91 @@ import Hero from '../components/Hero.astro';
         grid-column: 2 / 4;
     }
 
+    .stack-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* Chip rows */
+    .chips {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .chip {
+        font-size: var(--text-sm);
+        padding: 0.3rem 0.85rem;
+        border-radius: 999rem;
+        border: 1px solid var(--gray-800);
+        background: var(--gray-999_40);
+        color: var(--gray-200);
+    }
+
+    /* Certification list */
+    .cert-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .cert-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        padding-left: 0.9rem;
+        border-left: 2px solid var(--accent-regular);
+    }
+
+    .cert-item a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--gray-0);
+        font-weight: 600;
+    }
+
+    .cert-name {
+        color: var(--gray-0);
+        font-weight: 600;
+    }
+
+    .cert-meta {
+        font-size: var(--text-sm);
+        color: var(--gray-400);
+    }
+
+    /* Beyond-work notes */
+    .note-title {
+        font-size: var(--text-md);
+        color: var(--gray-0);
+        margin-bottom: 0.35rem;
+    }
+
+    .note p {
+        color: var(--gray-300);
+        font-size: var(--text-sm);
+        line-height: 1.6;
+    }
+
+    /* Link lists */
+    .link-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .link-list a,
     .content :global(a) {
         text-decoration: 1px solid underline transparent;
         text-underline-offset: 0.25em;
@@ -189,24 +394,24 @@ import Hero from '../components/Hero.astro';
         text-decoration-color: currentColor;
     }
 
-    .detail-text {
-        font-size: var(--text-sm);
-        color: var(--gray-300);
-    }
-
     @media (min-width: 50em) {
         .about {
             display: grid;
             grid-template-columns: 1fr 60% 1fr;
+            column-gap: 2rem;
         }
 
         .about > :global(:first-child) {
-            grid-column-start: 2;
+            grid-column: 1 / 4;
         }
 
         section {
             display: contents;
             font-size: var(--text-lg);
+        }
+
+        .section-title {
+            font-size: var(--text-xl);
         }
     }
 </style>

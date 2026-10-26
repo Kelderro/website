@@ -24,6 +24,7 @@ export const collections = {
                 location: z.string(),
                 employment: z.string(),
                 selectedWork: z.boolean().optional().default(false),
+                caseStudy: z.boolean().optional().default(false),
                 sectorIcon: z.string(),
                 sectorTitle: z.string(),
             }),

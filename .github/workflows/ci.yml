@@ -27,8 +27,6 @@ jobs:
 
             - name: Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: 10.33.0
 
             - name: Setup Node.js
               uses: actions/setup-node@v7
@@ -88,8 +86,6 @@ jobs:
 
             - name: Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: 10.33.0
 
             - name: Setup Node.js
               uses: actions/setup-node@v7
@@ -131,15 +127,17 @@ jobs:
             PREVIEW_URL: ${{ needs.build_and_deploy.outputs.preview_url }}
 
         steps:
+            # Needed for the pnpm version (package.json) and Node version (.nvmrc).
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
             - name: Setup pnpm
               uses: pnpm/action-setup@v6
-              with:
-                  version: 10.33.0
 
             - name: Setup Node.js
               uses: actions/setup-node@v7
               with:
-                  node-version: 22
+                  node-version-file: '.nvmrc'
 
             - name: Create lighthouserc.json with Zero Trust Headers
               # is-crawlable is disabled because Cloudflare Pages automatically adds

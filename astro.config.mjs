@@ -24,12 +24,6 @@ export default defineConfig({
     // Environment Variable Schema (Astro 5.0+)
     env: {
         schema: {
-            // Available in the browser (client-side)
-            VITE_SOURCEMAP: envField.boolean({
-                context: 'client',
-                access: 'public',
-                default: false,
-            }),
             // Available only during the build process (server-side context)
             VITE_DEBUG: envField.boolean({
                 context: 'server',
@@ -43,7 +37,11 @@ export default defineConfig({
     output: 'static',
 
     integrations: [
-        ...(process.env.NODE_ENV !== 'development' ? [sentry()] : []),
+        // Sentry is opt-in: without a DSN it would ship its SDK to every page while reporting nothing.
+        // With SENTRY_AUTH_TOKEN/ORG/PROJECT also set, it uploads hidden source maps and deletes them from dist.
+        ...(process.env.NODE_ENV !== 'development' && process.env.PUBLIC_SENTRY_DSN
+            ? [sentry()]
+            : []),
         ...(process.env.NODE_ENV === 'development' && !process.env.CI ? [spotlightjs()] : []),
         mdx(),
         sitemap({ filter: page => !page.endsWith('/offline/') }),
@@ -81,8 +79,10 @@ export default defineConfig({
 
     // Vite Configuration
     vite: {
+        // Public source maps are opt-in (VITE_SOURCEMAP=true) for local debugging; leaving
+        // this unset lets the Sentry integration manage hidden maps when it is enabled.
         build: {
-            sourcemap: true,
+            ...(process.env.VITE_SOURCEMAP === 'true' && { sourcemap: true }),
         },
         css: {
             devSourcemap: true,

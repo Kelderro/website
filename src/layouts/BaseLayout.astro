@@ -14,12 +14,34 @@ const { title, description } = Astro.props;
 <html lang="en">
     <head>
         <MainHead title={title} description={description} />
-        <!-- Preload critical assets -->
+        <!-- Preload critical assets: only the hero background matching the viewport and color scheme -->
         <link
             rel="preload"
             href="/assets/backgrounds/bg-main-light-800w.jpg"
             as="image"
             fetchpriority="high"
+            media="(max-width: 49.99em) and (prefers-color-scheme: light)"
+        />
+        <link
+            rel="preload"
+            href="/assets/backgrounds/bg-main-dark-800w.jpg"
+            as="image"
+            fetchpriority="high"
+            media="(max-width: 49.99em) and (prefers-color-scheme: dark)"
+        />
+        <link
+            rel="preload"
+            href="/assets/backgrounds/bg-main-light-1440w.jpg"
+            as="image"
+            fetchpriority="high"
+            media="(min-width: 50em) and (prefers-color-scheme: light)"
+        />
+        <link
+            rel="preload"
+            href="/assets/backgrounds/bg-main-dark-1440w.jpg"
+            as="image"
+            fetchpriority="high"
+            media="(min-width: 50em) and (prefers-color-scheme: dark)"
         />
         <link rel="preload" href="/assets/backgrounds/noise.webp" as="image" />
     </head>

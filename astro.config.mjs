@@ -3,6 +3,21 @@ import mdx from '@astrojs/mdx';
 import sentry from '@sentry/astro';
 import sitemap from '@astrojs/sitemap';
 import spotlightjs from '@spotlightjs/astro';
+import { readFile, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+
+// Stamps a unique build id into dist/sw.js so each deploy invalidates the old caches.
+const serviceWorkerVersion = () => ({
+    name: 'service-worker-version',
+    hooks: {
+        'astro:build:done': async ({ dir }) => {
+            const swPath = fileURLToPath(new URL('sw.js', dir));
+            const buildId = process.env.GITHUB_SHA?.slice(0, 12) ?? Date.now().toString(36);
+            const source = await readFile(swPath, 'utf8');
+            await writeFile(swPath, source.replace('__BUILD_ID__', buildId));
+        },
+    },
+});
 
 export default defineConfig({
     site: 'https://kelderro.nl',
@@ -31,7 +46,8 @@ export default defineConfig({
         ...(process.env.NODE_ENV !== 'development' ? [sentry()] : []),
         ...(process.env.NODE_ENV === 'development' && !process.env.CI ? [spotlightjs()] : []),
         mdx(),
-        sitemap(),
+        sitemap({ filter: page => !page.endsWith('/offline/') }),
+        serviceWorkerVersion(),
     ],
 
     // Image Optimization

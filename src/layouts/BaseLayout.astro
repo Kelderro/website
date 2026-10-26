@@ -34,8 +34,8 @@ const { title, description } = Astro.props;
             // Add "loaded" class once the document has completely loaded.
             addEventListener('load', () => document.documentElement.classList.add('loaded'));
 
-            // Register service worker
-            if ('serviceWorker' in navigator) {
+            // Register service worker (production only, so dev and E2E runs never serve cached pages)
+            if (import.meta.env.PROD && 'serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('/sw.js');
                 });

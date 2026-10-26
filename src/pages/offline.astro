@@ -1,0 +1,52 @@
+---
+import Hero from '../components/Hero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Offline" description="You are offline - this page is not available right now">
+    <div class="stack gap-20">
+        <main class="wrapper stack gap-8">
+            <Hero
+                title="You're Offline"
+                tagline="This page isn't available without a connection. Pages you visited before still work."
+            />
+            <nav class="offline-nav" aria-label="Alternative pages">
+                <a href="/" class="nav-link">
+                    ← Back to Home
+                </a>
+                <button type="button" class="nav-link" onclick="location.reload()">
+                    Try Again
+                </button>
+            </nav>
+        </main>
+    </div>
+</BaseLayout>
+
+<style>
+    .offline-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .nav-link {
+        padding: 0.75rem 1.5rem;
+        border: 1px solid var(--gray-800);
+        border-radius: 999rem;
+        background: none;
+        color: var(--gray-200);
+        text-decoration: none;
+        font: inherit;
+        font-size: var(--text-sm);
+        cursor: pointer;
+        transition:
+            background-color var(--theme-transition),
+            color var(--theme-transition);
+    }
+
+    .nav-link:hover {
+        background-color: var(--accent-subtle-overlay);
+        color: var(--gray-0);
+    }
+</style>

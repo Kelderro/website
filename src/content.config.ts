@@ -1,8 +1,12 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
+import { iconPaths } from './components/IconPaths';
 
 const DEFAULT_DATE = new Date(0);
+
+type IconName = keyof typeof iconPaths;
+const iconNames = Object.keys(iconPaths) as [IconName, ...IconName[]];
 
 export const collections = {
     engagement: defineCollection({
@@ -25,7 +29,7 @@ export const collections = {
                 employment: z.string(),
                 selectedWork: z.boolean().optional().default(false),
                 caseStudy: z.boolean().optional().default(false),
-                sectorIcon: z.string(),
+                sectorIcon: z.enum(iconNames),
                 sectorTitle: z.string(),
             }),
     }),

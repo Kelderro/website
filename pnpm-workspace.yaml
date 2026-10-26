@@ -2,3 +2,9 @@ allowBuilds:
     '@sentry/cli': true
     esbuild: true
     workerd: true
+
+# The WASM bindings (astro2tsx, compiler-binding) are built against emnapi 1.x; pnpm's peer
+# auto-install otherwise pulls the incompatible 2.0 alpha, which breaks `astro check`.
+overrides:
+    '@emnapi/core': 1.11.3
+    '@emnapi/runtime': 1.11.3

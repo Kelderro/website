@@ -9,7 +9,7 @@ const sectionHref = (hash: string) => (isHome ? hash : `/${hash}`);
 
 const textLinks: { label: string; href: string }[] = [
     { label: 'Services', href: sectionHref('#services') },
-    { label: 'Selected Engagements', href: sectionHref('#engagements') },
+    { label: 'Experience', href: sectionHref('#experience') },
     { label: 'About', href: sectionHref('#about') },
     { label: 'Technical Toolkit', href: sectionHref('#technical-toolkit') },
     { label: 'Contact', href: sectionHref('#contact') },
@@ -161,20 +161,23 @@ const iconLinks: {
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
 
-    // Track sections
-    document.querySelectorAll('section[id]').forEach(section => {
+    // Track only sections with a nav link; nested ones such as #engagements would clear the highlight
+    const trackedSections = [...document.querySelectorAll('section[id]')].filter(section =>
+        document.querySelector(`.link[href="#${section.id}"]`)
+    );
+    trackedSections.forEach(section => {
         observer.observe(section);
     });
 
+    // The intro at the top of the page has no nav link, so nothing is highlighted there
     window.addEventListener('load', () => {
         if (window.scrollY < 100) {
-            updateActiveState('#services');
+            updateActiveState('');
         }
     });
 
     if (window.scrollY > 100) {
-        const sections = document.querySelectorAll('section[id]');
-        sections.forEach(section => {
+        trackedSections.forEach(section => {
             const rect = section.getBoundingClientRect();
             if (rect.top > 0 && rect.top < window.innerHeight / 2) {
                 updateActiveState(`#${section.id}`);

@@ -40,7 +40,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     description="Principal engineer and strategic technology consultant helping enterprises make complex technology decisions, modernize critical platforms and scale engineering teams."
 >
     <div class="stack gap-10 lg:gap-30">
-        <section id="services">
+        <section>
             <div class="wrapper stack gap-8 lg:gap-20">
                 <header class="hero">
                     <Hero
@@ -74,33 +74,44 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
                     </div>
                 </div>
                 <ImpactBand yearsOfExperience={yearsOfExperience} />
-                <Skills yearsOfExperience={yearsOfExperience} />
-                <CareerTimeline />
+                <section id="services" class="section">
+                    <header class="section-header stack gap-2 lg:gap-4">
+                        <h2>How I help</h2>
+                        <p>Where I make the biggest difference for enterprise teams.</p>
+                    </header>
+                    <div class="gallery">
+                        <Skills yearsOfExperience={yearsOfExperience} />
+                    </div>
+                </section>
             </div>
         </section>
         <main class="wrapper stack gap-20 lg:gap-48">
-            <section id="engagements" class="section with-background with-cta">
-                <header class="section-header stack gap-2 lg:gap-4">
-                    <h2>Selected Engagements</h2>
-                    <p>The most impactful roles from my professional experience.</p>
-                </header>
+            <!-- Experience: case studies first, then the full career timeline -->
+            <section id="experience" class="stack gap-20 lg:gap-30">
+                <section id="engagements" class="section with-background with-cta">
+                    <header class="section-header stack gap-2 lg:gap-4">
+                        <h2>Selected Engagements</h2>
+                        <p>The most impactful roles from my professional experience.</p>
+                    </header>
 
-                <div class="gallery">
-                    <Grid>
-                        {engagements.map(engagement => (
-                            <li>
-                                <PortfolioPreview engagement={engagement} />
-                            </li>
-                        ))}
-                    </Grid>
-                </div>
+                    <div class="gallery">
+                        <Grid>
+                            {engagements.map(engagement => (
+                                <li>
+                                    <PortfolioPreview engagement={engagement} />
+                                </li>
+                            ))}
+                        </Grid>
+                    </div>
 
-                <div class="cta">
-                    <CallToAction href="/engagements/">
-                        View All Engagements
-                        <Icon icon="arrow-right" size="1.2em" />
-                    </CallToAction>
-                </div>
+                    <div class="cta">
+                        <CallToAction href="/engagements/">
+                            View All Engagements
+                            <Icon icon="arrow-right" size="1.2em" />
+                        </CallToAction>
+                    </div>
+                </section>
+                <CareerTimeline />
             </section>
             <section id="about">
                 <h2>About Rob op den Kelder</h2>

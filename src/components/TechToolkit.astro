@@ -3,17 +3,12 @@ import Icon from './Icon.astro';
 import {
     siDotnet,
     siTypescript,
-    siPython,
+    siReact,
     siGo,
     siRust,
-    siJavascript,
-    siOpenjdk,
     siDocker,
     siKubernetes,
     siTerraform,
-    siPostgresql,
-    siGit,
-    siGithub,
     siGithubactions,
     siSonarqubeserver,
     siTeamcity,
@@ -27,11 +22,21 @@ interface TechItem {
     name: string;
     svgPath?: string;
     hex?: string;
+    /** Per-theme logo colour where the brand colour is too faint on that background */
+    lightHex?: string;
+    darkHex?: string;
     /** Letters for the text tile when there is no logo; defaults to the first two of the name */
     abbr?: string;
 }
 
-/** Near-black brand colours (GitHub, TeamCity, Rust, Java) vanish on the dark theme background. */
+function logoColors(item: TechItem): string | undefined {
+    if (!item.hex || isNearBlack(item.hex)) {
+        return undefined;
+    }
+    return `--logo-light: #${item.lightHex ?? item.hex}; --logo-dark: #${item.darkHex ?? item.hex}`;
+}
+
+/** Near-black brand colours (Copilot, MCP, TeamCity, Rust) vanish on the dark theme background. */
 function isNearBlack(hex: string): boolean {
     const channel = (i: number) => parseInt(hex.slice(i, i + 2), 16) / 255;
     const luminance = 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
@@ -40,7 +45,7 @@ function isNearBlack(hex: string): boolean {
 
 interface Category {
     label: string;
-    icon: 'code' | 'rocket-launch' | 'strategy' | 'shield-check' | 'terminal-window';
+    icon: 'code' | 'rocket-launch' | 'strategy' | 'shield-check' | 'terminal-window' | 'star';
     items: TechItem[];
 }
 
@@ -64,16 +69,17 @@ const categories: Category[] = [
         ],
     },
     {
-        label: 'Languages',
+        label: 'Languages & Frameworks',
         icon: 'code',
         items: [
-            { name: 'C# / .NET', svgPath: siDotnet.path, hex: siDotnet.hex },
+            { name: 'C# / .NET', svgPath: siDotnet.path, hex: siDotnet.hex, darkHex: '9B87F5' },
+            // simple-icons has no Microsoft logos, so those use text tiles
+            { name: '.NET Aspire', hex: '512BD4', abbr: 'AS' },
             { name: 'TypeScript', svgPath: siTypescript.path, hex: siTypescript.hex },
-            { name: 'Python', svgPath: siPython.path, hex: siPython.hex },
-            { name: 'Go', svgPath: siGo.path, hex: siGo.hex },
-            { name: 'Rust', svgPath: siRust.path, hex: siRust.hex },
-            { name: 'JavaScript', svgPath: siJavascript.path, hex: siJavascript.hex },
-            { name: 'Java', svgPath: siOpenjdk.path, hex: siOpenjdk.hex },
+            // React and Go use these darker brand shades on light backgrounds themselves
+            { name: 'React', svgPath: siReact.path, hex: siReact.hex, lightHex: '087EA4' },
+            { name: 'PowerShell', hex: '012456', abbr: 'PS' },
+            { name: 'SQL', hex: '1e4db7', abbr: 'SQ' },
         ],
     },
     {
@@ -81,11 +87,12 @@ const categories: Category[] = [
         icon: 'rocket-launch',
         items: [
             { name: 'Azure', hex: '0078D4' },
+            { name: 'Azure Functions', hex: '0078D4', abbr: 'FN' },
+            { name: 'Service Bus', hex: '0078D4', abbr: 'SB' },
+            { name: 'Cosmos DB', hex: '0078D4', abbr: 'DB' },
             { name: 'Bicep', hex: '0078D4' },
-            { name: 'Docker', svgPath: siDocker.path, hex: siDocker.hex },
-            { name: 'Kubernetes', svgPath: siKubernetes.path, hex: siKubernetes.hex },
             { name: 'Terraform', svgPath: siTerraform.path, hex: siTerraform.hex },
-            { name: 'PostgreSQL', svgPath: siPostgresql.path, hex: siPostgresql.hex },
+            { name: 'Docker', svgPath: siDocker.path, hex: siDocker.hex },
         ],
     },
     {
@@ -95,23 +102,32 @@ const categories: Category[] = [
             { name: 'Microservices' },
             { name: 'Event-Driven' },
             { name: 'Domain-Driven Design' },
+            { name: 'Cloud-Native' },
+            { name: 'Enterprise Integration' },
             { name: 'REST & gRPC APIs' },
             { name: 'Legacy Modernization' },
         ],
     },
     {
-        label: 'Quality & Tooling',
+        label: 'Delivery & Quality',
         icon: 'shield-check',
         items: [
-            { name: 'Git', svgPath: siGit.path, hex: siGit.hex },
-            { name: 'GitHub', svgPath: siGithub.path, hex: siGithub.hex },
             { name: 'GitHub Actions', svgPath: siGithubactions.path, hex: siGithubactions.hex },
-            // simple-icons has no Microsoft logos, so these use text tiles like Azure and Bicep
             { name: 'Azure DevOps', hex: '0078D4', abbr: 'DO' },
-            { name: 'Azure Pipelines', hex: '0078D4', abbr: 'PL' },
             { name: 'TeamCity', svgPath: siTeamcity.path, hex: siTeamcity.hex },
             { name: 'Octopus Deploy', svgPath: siOctopusdeploy.path, hex: siOctopusdeploy.hex },
             { name: 'SonarQube', svgPath: siSonarqubeserver.path, hex: siSonarqubeserver.hex },
+            { name: 'Fortify', hex: '1e4db7', abbr: 'FO' },
+        ],
+    },
+    {
+        // Interest, not production experience: kept apart so it isn't read as the same depth
+        label: 'Currently Exploring',
+        icon: 'star',
+        items: [
+            { name: 'Go', svgPath: siGo.path, hex: siGo.hex, lightHex: '007D9C' },
+            { name: 'Rust', svgPath: siRust.path, hex: siRust.hex },
+            { name: 'Kubernetes', svgPath: siKubernetes.path, hex: siKubernetes.hex },
         ],
     },
 ];
@@ -129,29 +145,29 @@ const categories: Category[] = [
                     <li class="tech-item">
                         {item.svgPath ? (
                             <svg
-                                role="img"
                                 viewBox="0 0 24 24"
-                                aria-label={item.name}
+                                aria-hidden="true"
+                                data-logo={item.name}
                                 class:list={[
                                     'tech-icon',
                                     { mono: item.hex && isNearBlack(item.hex) },
                                 ]}
-                                style={
-                                    item.hex && !isNearBlack(item.hex)
-                                        ? `color: #${item.hex}`
-                                        : undefined
-                                }
+                                style={logoColors(item)}
                             >
                                 <path d={item.svgPath} fill="currentColor" />
                             </svg>
                         ) : (
-                            <span
-                                class="tech-icon text-icon"
-                                style={item.hex ? `background: #${item.hex}` : undefined}
-                                aria-hidden="true"
-                            >
-                                {item.abbr ?? item.name.slice(0, 2).toUpperCase()}
-                            </span>
+                            // Concepts without a brand colour (Architecture) get no tile: white
+                            // initials on no background were invisible on the light theme
+                            item.hex && (
+                                <span
+                                    class="tech-icon text-icon"
+                                    style={`background: #${item.hex}`}
+                                    aria-hidden="true"
+                                >
+                                    {item.abbr ?? item.name.slice(0, 2).toUpperCase()}
+                                </span>
+                            )
                         )}
                         <span class="tech-name">{item.name}</span>
                     </li>
@@ -216,10 +232,16 @@ const categories: Category[] = [
         width: 1rem;
         height: 1rem;
         flex-shrink: 0;
+        color: var(--logo-light);
+    }
+
+    :global(.theme-dark) .tech-icon {
+        color: var(--logo-dark);
     }
 
     /* Near-black logos follow the text colour: dark on light, white on dark */
-    .tech-icon.mono {
+    .tech-icon.mono,
+    :global(.theme-dark) .tech-icon.mono {
         color: var(--gray-0);
     }
 

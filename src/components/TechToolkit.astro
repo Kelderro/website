@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import type { Props as IconProps } from './Icon.astro';
 import {
     siDotnet,
     siTypescript,
@@ -27,6 +28,8 @@ interface TechItem {
     darkHex?: string;
     /** Letters for the text tile when there is no logo; defaults to the first two of the name */
     abbr?: string;
+    /** Generic line icon, drawn in `hex`, for products whose logo can't be used */
+    lineIcon?: IconProps['icon'];
 }
 
 function logoColors(item: TechItem): string | undefined {
@@ -45,7 +48,7 @@ function isNearBlack(hex: string): boolean {
 
 interface Category {
     label: string;
-    icon: 'code' | 'rocket-launch' | 'strategy' | 'shield-check' | 'terminal-window' | 'star';
+    icon: 'code' | 'rocket-launch' | 'strategy' | 'shield-check' | 'terminal-window' | 'thumbs-up';
     items: TechItem[];
 }
 
@@ -86,11 +89,12 @@ const categories: Category[] = [
         label: 'Cloud & Infrastructure',
         icon: 'rocket-launch',
         items: [
-            { name: 'Azure', hex: '0078D4' },
-            { name: 'Azure Functions', hex: '0078D4', abbr: 'FN' },
-            { name: 'Service Bus', hex: '0078D4', abbr: 'SB' },
-            { name: 'Cosmos DB', hex: '0078D4', abbr: 'DB' },
-            { name: 'Bicep', hex: '0078D4' },
+            // Microsoft's icon terms only cover diagrams and documentation, so Azure gets generic icons
+            { name: 'Azure', hex: '0078D4', lineIcon: 'cloud' },
+            { name: 'Azure Functions', hex: '0078D4', lineIcon: 'lightning' },
+            { name: 'Service Bus', hex: '0078D4', lineIcon: 'arrows-left-right' },
+            { name: 'Cosmos DB', hex: '0078D4', lineIcon: 'database' },
+            { name: 'Bicep', hex: '0078D4', lineIcon: 'code' },
             { name: 'Terraform', svgPath: siTerraform.path, hex: siTerraform.hex },
             { name: 'Docker', svgPath: siDocker.path, hex: siDocker.hex },
         ],
@@ -121,9 +125,9 @@ const categories: Category[] = [
         ],
     },
     {
-        // Interest, not production experience: kept apart so it isn't read as the same depth
-        label: 'Currently Exploring',
-        icon: 'star',
+        // Not production experience: technologies I'd take on (AI-assisted), kept apart so they aren't read as the same depth
+        label: 'Open To',
+        icon: 'thumbs-up',
         items: [
             { name: 'Go', svgPath: siGo.path, hex: siGo.hex, lightHex: '007D9C' },
             { name: 'Rust', svgPath: siRust.path, hex: siRust.hex },
@@ -156,6 +160,14 @@ const categories: Category[] = [
                             >
                                 <path d={item.svgPath} fill="currentColor" />
                             </svg>
+                        ) : item.lineIcon ? (
+                            <span
+                                class="tech-icon line-icon"
+                                style={`color: #${item.hex}`}
+                                aria-hidden="true"
+                            >
+                                <Icon icon={item.lineIcon} size="1rem" />
+                            </span>
                         ) : (
                             // Concepts without a brand colour (Architecture) get no tile: white
                             // initials on no background were invisible on the light theme
@@ -243,6 +255,10 @@ const categories: Category[] = [
     .tech-icon.mono,
     :global(.theme-dark) .tech-icon.mono {
         color: var(--gray-0);
+    }
+
+    .line-icon {
+        display: flex;
     }
 
     .text-icon {

@@ -17,11 +17,15 @@
     --gray-999_90: hsla(var(--gray-999-basis), 0.9);
     --gray-999: #ffffff;
 
-    --accent-light: #c561f6;
-    --accent-regular: #7611a6;
-    --accent-dark: #1c0056;
-    --accent-overlay: hsla(280, 89%, 67%, 0.33);
+    /* Brand navy from the K logo */
+    --brand-navy: #0b2150;
+
+    --accent-light: #3d73e6;
+    --accent-regular: #1e4db7;
+    --accent-dark: var(--brand-navy);
+    --accent-overlay: hsla(221, 83%, 60%, 0.25);
     --accent-subtle-overlay: var(--accent-overlay);
+    /* Text on a solid --accent-regular fill */
     --accent-text-over: var(--gray-999);
 
     --link-color: var(--gray-300);
@@ -37,12 +41,7 @@
         var(--gradient-stop-2),
         var(--gradient-stop-3)
     );
-    --gradient-accent-orange: linear-gradient(
-        150deg,
-        #ca7879,
-        var(--accent-regular),
-        var(--accent-dark)
-    );
+    --gradient-cta: linear-gradient(150deg, #2f63d6, var(--accent-regular), var(--accent-dark));
     --gradient-stroke: linear-gradient(180deg, var(--gray-900), var(--gray-700));
 
     /* Shadows */
@@ -94,23 +93,20 @@
     --gray-999-basis: 225, 31%, 5%;
     --gray-999: #090b11;
 
-    --accent-light: #1c0056;
-    --accent-regular: #7611a6;
-    --accent-dark: #c561f6;
-    --accent-overlay: hsla(280, 89%, 67%, 0.33);
-    --accent-subtle-overlay: hsla(281, 81%, 36%, 0.33);
-    --accent-text-over: var(--gray-0);
+    /* Navy is too dark to read on this background, so dark mode uses lighter blues
+    as the accent, with navy text on solid accent fills. */
+    --accent-light: var(--brand-navy);
+    --accent-regular: #7aa2f7;
+    --accent-dark: #a9c4fb;
+    --accent-overlay: hsla(220, 88%, 72%, 0.3);
+    --accent-subtle-overlay: hsla(222, 70%, 45%, 0.33);
+    --accent-text-over: var(--brand-navy);
 
     --link-color: var(--gray-300);
 
-    --gradient-stop-1: #4c11c6;
+    --gradient-stop-1: #5b8def;
     --gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%);
-    --gradient-accent-orange: linear-gradient(
-        150deg,
-        #ca7879,
-        var(--accent-regular),
-        var(--accent-light)
-    );
+    --gradient-cta: linear-gradient(150deg, var(--accent-dark), var(--accent-regular), #5b8def);
     --gradient-stroke: linear-gradient(180deg, var(--gray-600), var(--gray-800));
 
     --shadow-sm:

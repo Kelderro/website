@@ -269,7 +269,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         padding: 120px 20px;
         background: radial-gradient(
             circle at top,
-            rgba(var(--accent-regular), 0.05) 0%,
+            color-mix(in srgb, var(--accent-regular) 5%, transparent) 0%,
             transparent 70%
         );
         text-align: center;
@@ -369,8 +369,8 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     .btn-primary {
-        background: var(--accent);
-        color: white;
+        background: var(--accent-regular);
+        color: var(--accent-text-over);
         padding: 18px 36px;
         border-radius: 8px;
         text-decoration: none;
@@ -380,7 +380,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
 
     .btn-primary:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px color-mix(in srgb, var(--accent-purple), transparent 60%);
+        box-shadow: 0 10px 30px color-mix(in srgb, var(--accent-regular), transparent 60%);
     }
 
     .btn-secondary {
@@ -398,7 +398,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     .btn-secondary:hover {
-        border-color: var(--accent-purple);
+        border-color: var(--accent-regular);
         color: var(--gray-0);
         transform: translateY(-2px);
     }
@@ -426,7 +426,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     .btn-download:hover {
-        border-color: var(--accent-purple);
+        border-color: var(--accent-regular);
         color: var(--gray-0);
         transform: translateY(-2px);
     }
@@ -472,7 +472,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
 
     /* On hover, we change the border color and add a subtle glow */
     .cert-card:hover {
-        border-color: var(--accent-purple);
+        border-color: var(--accent-regular);
         transform: translateY(-2px);
         box-shadow: 0 10px 30px var(--gray-400);
     }
@@ -488,7 +488,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 1.5px;
-        color: var(--accent-purple);
+        color: var(--accent-regular);
         font-weight: 600;
     }
 
@@ -516,7 +516,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         font-weight: 500;
         letter-spacing: 0.02em;
         /* Optional: A very thin left border or accent to make it pop */
-        border-left: 2px solid var(--accent-purple);
+        border-left: 2px solid var(--accent-regular);
         padding-left: 1rem;
     }
 
@@ -550,7 +550,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         top: -20px;
         left: -10px;
         font-size: 5rem;
-        color: var(--accent-purple);
+        color: var(--accent-regular);
         opacity: 0.3; /* Subtle, not distracting */
         font-family: serif; /* Serifs look more "literary" and authoritative */
     }
@@ -563,7 +563,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     #about .pillar-item h4 {
-        color: var(--accent-purple);
+        color: var(--accent-regular);
         text-transform: uppercase;
         font-size: 0.8rem;
         letter-spacing: 0.1em;
@@ -579,7 +579,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     #about .pro-bono {
         margin-top: 2.5rem;
         padding-left: 1rem;
-        border-left: 2px solid var(--accent-purple);
+        border-left: 2px solid var(--accent-regular);
         font-size: 0.95rem;
         line-height: 1.6;
         opacity: 0.8;

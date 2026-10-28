@@ -169,12 +169,15 @@ const iconLinks: {
         observer.observe(section);
     });
 
-    // The intro at the top of the page has no nav link, so nothing is highlighted there
-    window.addEventListener('load', () => {
+    // The intro at the top of the page has no nav link, so nothing is highlighted there.
+    // Checked on scroll too: the observer never un-highlights a section when scrolling back up.
+    const clearActiveAtTop = () => {
         if (window.scrollY < 100) {
             updateActiveState('');
         }
-    });
+    };
+    window.addEventListener('load', clearActiveAtTop);
+    window.addEventListener('scroll', clearActiveAtTop, { passive: true });
 
     if (window.scrollY > 100) {
         trackedSections.forEach(section => {
@@ -203,18 +206,37 @@ const iconLinks: {
                 history.pushState(null, '', targetId);
             }
 
-            // Close mobile menu after navigation
-            const menuButton = document.querySelector('menu-button') as HTMLElement & {
-                setExpanded: (expand: boolean) => void;
-            };
-            if (
-                menuButton &&
-                !document.querySelector<HTMLButtonElement>('button.menu-button')?.hidden
-            ) {
-                menuButton.setExpanded(false);
-            }
+            closeMobileMenu();
         });
     });
+
+    // On the homepage the logo scrolls back to the top like the section links, instead of
+    // reloading the page. Elsewhere, and for new-tab clicks, it stays a normal link home.
+    document.querySelector('a.site-title')?.addEventListener('click', e => {
+        const event = e as MouseEvent;
+        const newTab = event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey;
+        if (window.location.pathname !== '/' || newTab) {
+            return;
+        }
+
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        history.pushState(null, '', '/');
+        updateActiveState('');
+        closeMobileMenu();
+    });
+
+    function closeMobileMenu() {
+        const menuButton = document.querySelector('menu-button') as HTMLElement & {
+            setExpanded: (expand: boolean) => void;
+        };
+        if (
+            menuButton &&
+            !document.querySelector<HTMLButtonElement>('button.menu-button')?.hidden
+        ) {
+            menuButton.setExpanded(false);
+        }
+    }
 </script>
 
 <style>

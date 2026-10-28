@@ -1,17 +1,11 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { getCollection } from 'astro:content';
-
 // Layout import - provides basic page elements: <head>, <nav>, <footer> etc.
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 // Component Imports
-import CallToAction from '../components/CallToAction.astro';
-import Grid from '../components/Grid.astro';
 import Hero from '../components/Hero.astro';
 import Icon from '../components/Icon.astro';
 import Pill from '../components/Pill.astro';
-import PortfolioPreview from '../components/PortfolioPreview.astro';
 
 // Page section components
 import CareerTimeline from '../components/CareerTimeline.astro';
@@ -20,16 +14,6 @@ import Skills from '../components/Skills.astro';
 import TechToolkit from '../components/TechToolkit.astro';
 import { Image } from 'astro:assets';
 import microsoftCertBadge from '../assets/microsoft-certified-expert-badge.svg';
-
-// Content Fetching: List four most recent work projects
-const engagements: CollectionEntry<'engagement'>[] = (
-    await getCollection('engagement', (e: CollectionEntry<'engagement'>) => e.data.selectedWork)
-)
-    .sort(
-        (a: CollectionEntry<'engagement'>, b: CollectionEntry<'engagement'>) =>
-            b.data.startDate.valueOf() - a.data.startDate.valueOf()
-    )
-    .slice(0, 4);
 
 const yearsOfExperience = new Date().getFullYear() - 2009;
 const professionalTitle = 'Principal Engineer & Strategic Technology Consultant';
@@ -40,7 +24,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     description="Principal engineer and strategic technology consultant helping enterprises make complex technology decisions, modernize critical platforms and scale engineering teams."
 >
     <div class="stack gap-10 lg:gap-30">
-        <section id="services">
+        <section>
             <div class="wrapper stack gap-8 lg:gap-20">
                 <header class="hero">
                     <Hero
@@ -74,35 +58,25 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
                     </div>
                 </div>
                 <ImpactBand yearsOfExperience={yearsOfExperience} />
-                <Skills yearsOfExperience={yearsOfExperience} />
-                <CareerTimeline />
+                <section id="expertise" class="section">
+                    <header class="section-header stack gap-2 lg:gap-4">
+                        <!-- id="services" keeps older /#services links working -->
+                        <h2 id="services">Areas of Expertise</h2>
+                        <p>Where I deliver the most value for enterprise organizations.</p>
+                    </header>
+                    <div class="gallery">
+                        <Skills yearsOfExperience={yearsOfExperience} />
+                    </div>
+                </section>
             </div>
         </section>
         <main class="wrapper stack gap-20 lg:gap-48">
-            <section class="section with-background with-cta">
-                <header class="section-header stack gap-2 lg:gap-4">
-                    <h2>Selected Engagements</h2>
-                    <p>The most impactful roles from my professional experience.</p>
-                </header>
-
-                <div class="gallery">
-                    <Grid>
-                        {engagements.map(engagement => (
-                            <li>
-                                <PortfolioPreview engagement={engagement} />
-                            </li>
-                        ))}
-                    </Grid>
+            <!-- Experience: the career timeline, with case studies linked from their roles -->
+            <section id="experience" class="with-background">
+                <!-- id="engagements" keeps older /#engagements links working -->
+                <div id="engagements">
+                    <CareerTimeline />
                 </div>
-
-                <section id="engagements">
-                    <div class="cta">
-                        <CallToAction href="/engagements/">
-                            View All Engagements
-                            <Icon icon="arrow-right" size="1.2em" />
-                        </CallToAction>
-                    </div>
-                </section>
             </section>
             <section id="about">
                 <h2>About Rob op den Kelder</h2>
@@ -269,7 +243,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         padding: 120px 20px;
         background: radial-gradient(
             circle at top,
-            rgba(var(--accent-regular), 0.05) 0%,
+            color-mix(in srgb, var(--accent-regular) 5%, transparent) 0%,
             transparent 70%
         );
         text-align: center;
@@ -369,8 +343,8 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     .btn-primary {
-        background: var(--accent);
-        color: white;
+        background: var(--accent-regular);
+        color: var(--accent-text-over);
         padding: 18px 36px;
         border-radius: 8px;
         text-decoration: none;
@@ -380,7 +354,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
 
     .btn-primary:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px color-mix(in srgb, var(--accent-purple), transparent 60%);
+        box-shadow: 0 10px 30px color-mix(in srgb, var(--accent-regular), transparent 60%);
     }
 
     .btn-secondary {
@@ -398,7 +372,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     .btn-secondary:hover {
-        border-color: var(--accent-purple);
+        border-color: var(--accent-regular);
         color: var(--gray-0);
         transform: translateY(-2px);
     }
@@ -426,7 +400,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     .btn-download:hover {
-        border-color: var(--accent-purple);
+        border-color: var(--accent-regular);
         color: var(--gray-0);
         transform: translateY(-2px);
     }
@@ -472,7 +446,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
 
     /* On hover, we change the border color and add a subtle glow */
     .cert-card:hover {
-        border-color: var(--accent-purple);
+        border-color: var(--accent-regular);
         transform: translateY(-2px);
         box-shadow: 0 10px 30px var(--gray-400);
     }
@@ -488,7 +462,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 1.5px;
-        color: var(--accent-purple);
+        color: var(--accent-regular);
         font-weight: 600;
     }
 
@@ -516,7 +490,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         font-weight: 500;
         letter-spacing: 0.02em;
         /* Optional: A very thin left border or accent to make it pop */
-        border-left: 2px solid var(--accent-purple);
+        border-left: 2px solid var(--accent-regular);
         padding-left: 1rem;
     }
 
@@ -527,7 +501,10 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     #about {
-        padding: 80px 20px;
+        --about-padding-block: 80px;
+        padding: var(--about-padding-block) 20px;
+        /* Nav jumps align the heading, not the padding above it, below the sticky header */
+        scroll-margin-top: calc(-1 * var(--about-padding-block));
         width: 100%; /* Auto margins disable flex stretch; without this it sizes to its content */
         max-width: 1000px;
         margin: 0 auto;
@@ -550,7 +527,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         top: -20px;
         left: -10px;
         font-size: 5rem;
-        color: var(--accent-purple);
+        color: var(--accent-regular);
         opacity: 0.3; /* Subtle, not distracting */
         font-family: serif; /* Serifs look more "literary" and authoritative */
     }
@@ -563,7 +540,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     #about .pillar-item h4 {
-        color: var(--accent-purple);
+        color: var(--accent-regular);
         text-transform: uppercase;
         font-size: 0.8rem;
         letter-spacing: 0.1em;
@@ -579,7 +556,7 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     #about .pro-bono {
         margin-top: 2.5rem;
         padding-left: 1rem;
-        border-left: 2px solid var(--accent-purple);
+        border-left: 2px solid var(--accent-regular);
         font-size: 0.95rem;
         line-height: 1.6;
         opacity: 0.8;
@@ -756,10 +733,6 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
             gap: 5rem;
         }
 
-        .section.with-cta {
-            grid-template-areas: 'header header header cta' 'gallery gallery gallery gallery';
-        }
-
         .section-header {
             grid-area: header;
             font-size: var(--text-lg);
@@ -769,17 +742,8 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
             font-size: var(--text-4xl);
         }
 
-        .with-cta .section-header {
-            justify-self: flex-start;
-            text-align: left;
-        }
-
         .gallery {
             grid-area: gallery;
-        }
-
-        .cta {
-            grid-area: cta;
         }
     }
 

@@ -13,8 +13,8 @@ test('navigation contains expected links', async ({ page, isMobile }) => {
 
     await openMobileMenu(page, isMobile);
 
-    await expect(page.getByRole('link', { name: /services/i })).toBeVisible();
-    await expect(page.getByRole('link', { name: /selected engagements/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /expertise/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /experience/i })).toBeVisible();
     await expect(page.getByRole('link', { name: /about/i })).toBeVisible();
 });
 
@@ -49,6 +49,6 @@ test('theme preference persists on navigation', async ({ page, isMobile }) => {
     }
 
     // Navigate to another page and verify theme persists via localStorage
-    await page.goto('/engagements');
+    await page.goto('/engagements/transavia/freelance-ict-consultant');
     await expect(page.locator('html')).toHaveClass(/theme-dark/);
 });

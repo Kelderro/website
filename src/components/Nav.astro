@@ -8,8 +8,8 @@ const isHome = Astro.url.pathname === '/';
 const sectionHref = (hash: string) => (isHome ? hash : `/${hash}`);
 
 const textLinks: { label: string; href: string }[] = [
-    { label: 'Services', href: sectionHref('#services') },
-    { label: 'Selected Engagements', href: sectionHref('#engagements') },
+    { label: 'Expertise', href: sectionHref('#expertise') },
+    { label: 'Experience', href: sectionHref('#experience') },
     { label: 'About', href: sectionHref('#about') },
     { label: 'Technical Toolkit', href: sectionHref('#technical-toolkit') },
     { label: 'Contact', href: sectionHref('#contact') },
@@ -126,7 +126,8 @@ const iconLinks: {
                 this.setExpanded(e.matches);
                 btn.hidden = e.matches;
             };
-            const mediaQueries = window.matchMedia('(min-width: 50em)');
+            // Keep in sync with the desktop nav breakpoint in the styles below.
+            const mediaQueries = window.matchMedia('(min-width: 64em)');
             handleViewports(mediaQueries);
             mediaQueries.addEventListener('change', handleViewports);
         }
@@ -160,20 +161,26 @@ const iconLinks: {
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
 
-    // Track sections
-    document.querySelectorAll('section[id]').forEach(section => {
+    // Track only sections with a nav link; nested ones such as #engagements would clear the highlight
+    const trackedSections = [...document.querySelectorAll('section[id]')].filter(section =>
+        document.querySelector(`.link[href="#${section.id}"]`)
+    );
+    trackedSections.forEach(section => {
         observer.observe(section);
     });
 
-    window.addEventListener('load', () => {
+    // The intro at the top of the page has no nav link, so nothing is highlighted there.
+    // Checked on scroll too: the observer never un-highlights a section when scrolling back up.
+    const clearActiveAtTop = () => {
         if (window.scrollY < 100) {
-            updateActiveState('#services');
+            updateActiveState('');
         }
-    });
+    };
+    window.addEventListener('load', clearActiveAtTop);
+    window.addEventListener('scroll', clearActiveAtTop, { passive: true });
 
     if (window.scrollY > 100) {
-        const sections = document.querySelectorAll('section[id]');
-        sections.forEach(section => {
+        trackedSections.forEach(section => {
             const rect = section.getBoundingClientRect();
             if (rect.top > 0 && rect.top < window.innerHeight / 2) {
                 updateActiveState(`#${section.id}`);
@@ -194,29 +201,57 @@ const iconLinks: {
 
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                const headerOffset = 100;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                // scroll-padding-top (see styles) keeps the target clear of the sticky nav
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 history.pushState(null, '', targetId);
             }
 
-            // Close mobile menu after navigation
-            const menuButton = document.querySelector('menu-button') as HTMLElement & {
-                setExpanded: (expand: boolean) => void;
-            };
-            if (
-                menuButton &&
-                !document.querySelector<HTMLButtonElement>('button.menu-button')?.hidden
-            ) {
-                menuButton.setExpanded(false);
-            }
+            closeMobileMenu();
         });
     });
+
+    // On the homepage the logo scrolls back to the top like the section links, instead of
+    // reloading the page. Elsewhere, and for new-tab clicks, it stays a normal link home.
+    document.querySelector('a.site-title')?.addEventListener('click', e => {
+        const event = e as MouseEvent;
+        const newTab = event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey;
+        if (window.location.pathname !== '/' || newTab) {
+            return;
+        }
+
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        history.pushState(null, '', '/');
+        updateActiveState('');
+        closeMobileMenu();
+    });
+
+    function closeMobileMenu() {
+        const menuButton = document.querySelector('menu-button') as HTMLElement & {
+            setExpanded: (expand: boolean) => void;
+        };
+        if (
+            menuButton &&
+            !document.querySelector<HTMLButtonElement>('button.menu-button')?.hidden
+        ) {
+            menuButton.setExpanded(false);
+        }
+    }
 </script>
 
 <style>
+    /* Land section links (including /#id jumps from other pages) just below the sticky nav:
+    its height plus 1rem. Update alongside the nav's padding and the 64em breakpoint. */
+    :global(html) {
+        scroll-padding-top: 7rem;
+    }
+
+    @media (min-width: 64em) {
+        :global(html) {
+            scroll-padding-top: 10rem;
+        }
+    }
+
     nav {
         z-index: 9999;
         position: sticky;
@@ -345,7 +380,7 @@ const iconLinks: {
 
     .social:hover,
     .social:focus {
-        color: var(--accent-text-over);
+        color: var(--gray-0);
     }
 
     .theme-toggle {
@@ -354,12 +389,14 @@ const iconLinks: {
         height: calc(var(--icon-size) + 2 * var(--icon-padding));
     }
 
-    @media (min-width: 50em) {
+    /* The full desktop nav only fits on one line from 64em; keep the menu button below that.
+    Keep in sync with the matchMedia query in the MenuButton script. */
+    @media (min-width: 64em) {
         nav {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            padding: 2.5rem 5rem;
+            padding: 2.5rem 2rem;
             gap: 1rem;
 
             mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
@@ -372,6 +409,7 @@ const iconLinks: {
 
         .site-title {
             font-size: var(--text-lg);
+            white-space: nowrap;
         }
 
         #menu-content {
@@ -381,6 +419,7 @@ const iconLinks: {
         .nav-items {
             position: relative;
             flex-direction: row;
+            gap: 0.25rem;
             font-size: var(--text-sm);
             border-radius: 999rem;
             border: 0;
@@ -399,8 +438,9 @@ const iconLinks: {
         }
 
         .link {
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.75rem;
             min-height: 3rem;
+            white-space: nowrap;
             border-radius: 999rem;
             transition:
                 color var(--theme-transition),
@@ -428,12 +468,26 @@ const iconLinks: {
             box-shadow: none;
         }
 
+        /* No room beside the nav until 80em; the footer and contact section still link them. */
         .socials {
             display: none;
         }
     }
 
-    @media (min-width: 60em) {
+    /* Tighter spacing above keeps the nav on one line from 64em; restore the roomier layout here. */
+    @media (min-width: 80em) {
+        nav {
+            padding: 2.5rem 5rem;
+        }
+
+        .nav-items {
+            gap: 1rem;
+        }
+
+        .link {
+            padding: 0.5rem 1rem;
+        }
+
         .socials {
             display: flex;
             justify-content: flex-end;

@@ -4,10 +4,10 @@ import Icon from './Icon.astro';
 // Bias for action
 ---
 
-<section class="box skills">
+<div class="box skills">
     <div class="stack gap-2 lg:gap-4">
         <Icon icon="shield-check" color="var(--accent-regular)" size="2.5rem" gradient />
-        <h2>Architectural Guardrails</h2>
+        <h3>Architectural Guardrails</h3>
         <b>Strategic governance for high-stakes environments.</b>
         <p>
             Implementation of security-first architectures and governance models designed to protect
@@ -19,7 +19,7 @@ import Icon from './Icon.astro';
     </div>
     <div class="stack gap-2 lg:gap-4">
         <Icon icon="rocket-launch" color="var(--accent-regular)" size="2.5rem" gradient />
-        <h2>Strategic Engineering</h2>
+        <h3>Strategic Engineering</h3>
         <b>Mission-critical implementation and legacy modernization.</b>
         <p>
             Surgical engineering focused on solving the complex technical hurdles that block product
@@ -31,7 +31,7 @@ import Icon from './Icon.astro';
     </div>
     <div class="stack gap-2 lg:gap-4">
         <Icon icon="users-four" color="var(--accent-regular)" size="2.5rem" gradient />
-        <h2>Technical Team Leadership</h2>
+        <h3>Technical Team Leadership</h3>
         <b>Scaling organizations through engineering enablement.</b>
         <p>
             Bridging the gap between business vision and technical execution for enterprise-scale
@@ -42,19 +42,21 @@ import Icon from './Icon.astro';
     </div>
     <div class="stack gap-2 lg:gap-4">
         <Icon icon="terminal-window" color="var(--accent-regular)" size="2.5rem" gradient />
-        <h2>AI-Accelerated Engineering</h2>
+        <h3>AI-Accelerated Engineering</h3>
         <b>Driving GenAI and agentic workflows into real delivery.</b>
         <p>
             Hands-on with the modern AI toolchain: <strong>GitHub Copilot</strong> and the{' '}
             <strong>Copilot CLI</strong>, <strong>Claude Code</strong>, and the{' '}
-            <strong>Model Context Protocol (MCP)</strong>, authoring reusable{' '}
-            <strong>Claude skills</strong> to standardize how teams build. At{' '}
+            <strong>Model Context Protocol (MCP)</strong>. I apply{' '}
+            <strong>context engineering</strong>, authoring reusable <strong>Claude skills</strong>{' '}
+            and repository instructions so AI agents work to a team's standards, and bring{' '}
+            <strong>AI-assisted coding</strong> into everyday delivery. At{' '}
             <strong>Transavia</strong> I drove Copilot adoption through live demonstrations and
             upskilled engineers in agentic workflows, turning AI from novelty into measurable
             delivery velocity.
         </p>
     </div>
-</section>
+</div>
 
 <style>
     .box {
@@ -71,7 +73,7 @@ import Icon from './Icon.astro';
         gap: 3rem;
     }
 
-    .skills h2 {
+    .skills h3 {
         font-size: var(--text-lg);
     }
 
@@ -91,7 +93,7 @@ import Icon from './Icon.astro';
             gap: 5rem;
         }
 
-        .skills h2 {
+        .skills h3 {
             font-size: var(--text-2xl);
         }
     }

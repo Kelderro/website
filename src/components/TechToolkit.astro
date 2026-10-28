@@ -14,14 +14,25 @@ import {
     siPostgresql,
     siGit,
     siGithub,
+    siGithubactions,
     siSonarqubeserver,
-    siJenkins,
+    siTeamcity,
+    siOctopusdeploy,
 } from 'simple-icons';
 
 interface TechItem {
     name: string;
     svgPath?: string;
     hex?: string;
+    /** Letters for the text tile when there is no logo; defaults to the first two of the name */
+    abbr?: string;
+}
+
+/** Near-black brand colours (GitHub, TeamCity, Rust, Java) vanish on the dark theme background. */
+function isNearBlack(hex: string): boolean {
+    const channel = (i: number) => parseInt(hex.slice(i, i + 2), 16) / 255;
+    const luminance = 0.2126 * channel(0) + 0.7152 * channel(2) + 0.0722 * channel(4);
+    return luminance < 0.1;
 }
 
 interface Category {
@@ -86,9 +97,13 @@ const categories: Category[] = [
         items: [
             { name: 'Git', svgPath: siGit.path, hex: siGit.hex },
             { name: 'GitHub', svgPath: siGithub.path, hex: siGithub.hex },
-            { name: 'GitHub Actions', svgPath: siGithub.path, hex: siGithub.hex },
+            { name: 'GitHub Actions', svgPath: siGithubactions.path, hex: siGithubactions.hex },
+            // simple-icons has no Microsoft logos, so these use text tiles like Azure and Bicep
+            { name: 'Azure DevOps', hex: '0078D4', abbr: 'DO' },
+            { name: 'Azure Pipelines', hex: '0078D4', abbr: 'PL' },
+            { name: 'TeamCity', svgPath: siTeamcity.path, hex: siTeamcity.hex },
+            { name: 'Octopus Deploy', svgPath: siOctopusdeploy.path, hex: siOctopusdeploy.hex },
             { name: 'SonarQube', svgPath: siSonarqubeserver.path, hex: siSonarqubeserver.hex },
-            { name: 'Jenkins', svgPath: siJenkins.path, hex: siJenkins.hex },
         ],
     },
 ];
@@ -109,8 +124,15 @@ const categories: Category[] = [
                                 role="img"
                                 viewBox="0 0 24 24"
                                 aria-label={item.name}
-                                class="tech-icon"
-                                style={`color: #${item.hex}`}
+                                class:list={[
+                                    'tech-icon',
+                                    { mono: item.hex && isNearBlack(item.hex) },
+                                ]}
+                                style={
+                                    item.hex && !isNearBlack(item.hex)
+                                        ? `color: #${item.hex}`
+                                        : undefined
+                                }
                             >
                                 <path d={item.svgPath} fill="currentColor" />
                             </svg>
@@ -120,7 +142,7 @@ const categories: Category[] = [
                                 style={item.hex ? `background: #${item.hex}` : undefined}
                                 aria-hidden="true"
                             >
-                                {item.name.slice(0, 2).toUpperCase()}
+                                {item.abbr ?? item.name.slice(0, 2).toUpperCase()}
                             </span>
                         )}
                         <span class="tech-name">{item.name}</span>
@@ -186,6 +208,11 @@ const categories: Category[] = [
         width: 1rem;
         height: 1rem;
         flex-shrink: 0;
+    }
+
+    /* Near-black logos follow the text colour: dark on light, white on dark */
+    .tech-icon.mono {
+        color: var(--gray-0);
     }
 
     .text-icon {

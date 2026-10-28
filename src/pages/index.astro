@@ -66,6 +66,37 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
                     </header>
                     <div class="gallery">
                         <Skills yearsOfExperience={yearsOfExperience} />
+                        <div class="cert-card-wrapper">
+                            <a
+                                href="https://learn.microsoft.com/api/credentials/share/en-us/RobKelder-0006/1D3FC9BEB76BCB26?sharingId=F604AD3A83C1F2D3"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="cert-card"
+                            >
+                                <div class="cert-badge-area">
+                                    <Image
+                                        src={microsoftCertBadge}
+                                        alt="Microsoft Certified: Azure Solutions Architect Expert"
+                                        format="svg"
+                                    />
+                                </div>
+                                <div class="cert-info">
+                                    <span class="cert-status">Active Certification</span>
+                                    <h3 class="cert-title">
+                                        Microsoft Certified: Azure Solutions Architect Expert
+                                    </h3>
+                                    <p class="cert-meta">Verified via Microsoft Learn</p>
+                                </div>
+                                <div class="cert-arrow">
+                                    <svg viewBox="0 0 24 24" width="24" height="24">
+                                        <path
+                                            fill="currentColor"
+                                            d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -141,37 +172,6 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
                     <em lang="nl">Kelder</em> is Dutch for cellar: the foundation everything else is
                     built on. Fitting, since that's what I build.
                 </p>
-                <div class="cert-card-wrapper">
-                    <a
-                        href="https://learn.microsoft.com/api/credentials/share/en-us/RobKelder-0006/1D3FC9BEB76BCB26?sharingId=F604AD3A83C1F2D3"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="cert-card"
-                    >
-                        <div class="cert-badge-area">
-                            <Image
-                                src={microsoftCertBadge}
-                                alt="Microsoft Certified: Azure Solutions Architect Expert"
-                                format="svg"
-                            />
-                        </div>
-                        <div class="cert-info">
-                            <span class="cert-status">Active Certification</span>
-                            <h3 class="cert-title">
-                                Microsoft Certified: Azure Solutions Architect Expert
-                            </h3>
-                            <p class="cert-meta">Verified via Microsoft Learn</p>
-                        </div>
-                        <div class="cert-arrow">
-                            <svg viewBox="0 0 24 24" width="24" height="24">
-                                <path
-                                    fill="currentColor"
-                                    d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"
-                                ></path>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
             </section>
         </main>
 
@@ -452,10 +452,18 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     .cert-badge-area {
-        width: 90px;
+        /* Fixed size: as a flex item it otherwise shrinks to make room for the title */
+        flex-shrink: 0;
+        width: 64px;
         height: auto;
         /* Soft glow behind the badge instead of a box */
         filter: drop-shadow(0px 0px 1.5rem rgba(0, 120, 212, 0.8));
+    }
+
+    @media (min-width: 50em) {
+        .cert-badge-area {
+            width: 90px;
+        }
     }
 
     .cert-status {

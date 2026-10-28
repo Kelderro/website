@@ -39,6 +39,7 @@ export default defineConfig({
     // Standalone pages that are now sections of the homepage are redirected accordingly
     redirects: {
         '/services': '/#expertise',
+        '/engagements': '/#experience',
         '/selected-engagements': '/#experience',
         '/about': '/#about',
         '/technical-toolkit': '/#technical-toolkit',

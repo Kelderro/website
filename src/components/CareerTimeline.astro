@@ -42,6 +42,15 @@ function isFreelance(employment: string): boolean {
     return employment.toLowerCase().includes('freelan');
 }
 
+// Impact is authored as a Markdown bullet list in frontmatter.
+function impactItems(impact: string | undefined): string[] {
+    return (impact ?? '')
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line.startsWith('- '))
+        .map(line => line.slice(2).trim());
+}
+
 // Trim the long sector descriptors down to a compact industry label.
 function sectorLabel(title: string): string {
     return title.replace(/\s+(Sector|Services)$/i, '').trim();
@@ -86,7 +95,7 @@ const industries: { icon: IconProps['icon']; label: string }[] = [
                         <span class="year-start">{formatYear(engagement.data.startDate)}</span>
                         <span class="year-end">{endLabel(engagement.data.endDate)}</span>
                     </span>
-                    <span class="role-info">
+                    <div class="role-info">
                         <span class="role-head">
                             <span class="role-title">{engagement.data.position}</span>
                             {isFreelance(engagement.data.employment) && (
@@ -129,13 +138,29 @@ const industries: { icon: IconProps['icon']; label: string }[] = [
                                 {formatDuration(engagement.data.startDate, engagement.data.endDate)}
                             </span>
                         </span>
-                        {engagement.data.caseStudy && (
+                        {engagement.data.caseStudy ? (
                             <a class="case-study-link" href={`/engagements/${engagement.id}`}>
                                 Read the case study
                                 <Icon icon="arrow-right" size="1em" />
                             </a>
+                        ) : (
+                            impactItems(engagement.data.impact).length > 0 && (
+                                <details class="impact">
+                                    <summary>
+                                        <span class="impact-label">Key impact</span>
+                                        <span class="impact-marker" aria-hidden="true">
+                                            +
+                                        </span>
+                                    </summary>
+                                    <ul class="impact-list">
+                                        {impactItems(engagement.data.impact).map(item => (
+                                            <li>{item}</li>
+                                        ))}
+                                    </ul>
+                                </details>
+                            )
                         )}
-                    </span>
+                    </div>
                 </div>
             </li>
         ))}
@@ -354,6 +379,53 @@ const industries: { icon: IconProps['icon']; label: string }[] = [
     .case-study-link:hover,
     .case-study-link:focus-visible {
         box-shadow: 0 0 0 4px var(--accent-subtle-overlay);
+    }
+
+    .impact {
+        align-self: flex-start;
+        margin-top: 0.25rem;
+    }
+
+    .impact summary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        cursor: pointer;
+        list-style: none;
+    }
+
+    .impact summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .impact-label {
+        color: var(--accent-regular);
+        text-transform: uppercase;
+        font-size: var(--text-xsm);
+        font-weight: 600;
+        letter-spacing: 0.08em;
+    }
+
+    .impact-marker {
+        font-size: 1.1rem;
+        line-height: 1;
+        color: var(--gray-400);
+        transition: transform var(--theme-transition);
+    }
+
+    .impact[open] .impact-marker {
+        transform: rotate(45deg);
+    }
+
+    .impact-list {
+        margin: 0.5rem 0 0;
+        padding-left: 1.1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        font-size: var(--text-sm);
+        color: var(--gray-300);
+        line-height: 1.5;
     }
 
     @media (min-width: 50em) {

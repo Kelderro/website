@@ -20,9 +20,10 @@ for (const { slug, role } of caseStudyRoutes) {
     });
 }
 
-test('engagement listing links to case study pages', async ({ page }) => {
-    await page.goto('/engagements');
-    const links = page.getByRole('link', { name: /read the full case study/i });
+test('career timeline links to case study pages', async ({ page }) => {
+    await page.goto('/');
+    const links = page.getByRole('link', { name: /read the case study/i });
+    await expect(links).toHaveCount(caseStudyRoutes.length);
     await expect(links.first()).toBeVisible();
     await expect(links.first()).toHaveAttribute('href', /^\/engagements\/.+/);
 });

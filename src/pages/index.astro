@@ -3,7 +3,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 // Component Imports
-import CallToAction from '../components/CallToAction.astro';
 import Hero from '../components/Hero.astro';
 import Icon from '../components/Icon.astro';
 import Pill from '../components/Pill.astro';
@@ -73,16 +72,10 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         </section>
         <main class="wrapper stack gap-20 lg:gap-48">
             <!-- Experience: the career timeline, with case studies linked from their roles -->
-            <section id="experience" class="with-background stack gap-8">
+            <section id="experience" class="with-background">
                 <!-- id="engagements" keeps older /#engagements links working -->
                 <div id="engagements">
                     <CareerTimeline />
-                </div>
-                <div class="experience-cta">
-                    <CallToAction href="/engagements/">
-                        View All Engagements
-                        <Icon icon="arrow-right" size="1.2em" />
-                    </CallToAction>
                 </div>
             </section>
             <section id="about">
@@ -752,11 +745,6 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
         .gallery {
             grid-area: gallery;
         }
-    }
-
-    .experience-cta {
-        display: flex;
-        justify-content: center;
     }
 
     /* ====================================================== */

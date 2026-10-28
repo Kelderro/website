@@ -40,7 +40,21 @@ const iconLinks: {
 <nav>
     <div class="menu-header">
         <a href="/" class="site-title">
-            <Icon icon="terminal-window" color="var(--accent-regular)" size="1.6em" gradient />
+            <svg
+                class="site-logo"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 64 64"
+                width="32"
+                height="32"
+                aria-hidden="true"
+            >
+                <rect width="64" height="64" rx="14" fill="#0B2150"></rect>
+                <g fill="#FFFFFF">
+                    <rect x="14" y="12" width="10" height="40"></rect>
+                    <polygon points="24,30 38,12 49,12 24,43"></polygon>
+                    <polygon points="30.98,39.12 36.87,31.82 51,52 40,52"></polygon>
+                </g>
+            </svg>
             Rob op den Kelder
         </a>
         <menu-button>
@@ -230,6 +244,12 @@ const iconLinks: {
         line-height: 1.1;
         color: var(--gray-0);
         text-decoration: none;
+    }
+
+    .site-logo {
+        flex-shrink: 0;
+        width: 1.6em;
+        height: 1.6em;
     }
 
     .menu-button {

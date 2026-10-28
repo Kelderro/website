@@ -525,7 +525,10 @@ const professionalTitle = 'Principal Engineer & Strategic Technology Consultant'
     }
 
     #about {
-        padding: 80px 20px;
+        --about-padding-block: 80px;
+        padding: var(--about-padding-block) 20px;
+        /* Nav jumps align the heading, not the padding above it, below the sticky header */
+        scroll-margin-top: calc(-1 * var(--about-padding-block));
         width: 100%; /* Auto margins disable flex stretch; without this it sizes to its content */
         max-width: 1000px;
         margin: 0 auto;

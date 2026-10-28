@@ -34,13 +34,18 @@ const impactItems = (data.impact ?? '')
     .map((line: string) => line.slice(2).trim());
 
 const isCaseStudy = data.caseStudy === true;
+
+// Cards only have room for the employment type; the case study page shows the full text (hours etc.).
+const employmentLabel = data.employment
+    .replace(/\s*\(.*\)$/, '')
+    .replace(/^full time employee$/i, 'Full-time');
 ---
 
 <article class="card">
     <div class="card-inner">
         <div class="card-header">
             <span class="employer">{data.employer}</span>
-            <span class="employment-type">{data.employment}</span>
+            <span class="employment-type">{employmentLabel}</span>
         </div>
         <div class="role">{data.position}</div>
         {data.mission && <p class="mission">{data.mission}</p>}
@@ -112,12 +117,12 @@ const isCaseStudy = data.caseStudy === true;
         gap: 0.5rem;
     }
 
+    /* Stacked on narrow cards so every badge sits in the same place; side by side from 50em */
     .card-header {
         display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 0.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
     }
 
     .employer {
@@ -253,6 +258,14 @@ const isCaseStudy = data.caseStudy === true;
     @media (min-width: 50em) {
         .card {
             border-radius: 1rem;
+        }
+
+        .card-header {
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
         }
     }
 </style>

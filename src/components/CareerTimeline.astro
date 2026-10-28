@@ -92,14 +92,18 @@ const industries: { icon: IconProps['icon']; label: string }[] = [
                             {isFreelance(engagement.data.employment) && (
                                 <span class="freelance-badge">Freelance</span>
                             )}
-                            {engagement.data.caseStudy && (
-                                <a class="case-study-link" href={`/engagements/${engagement.id}`}>
-                                    Case study →
-                                </a>
-                            )}
                         </span>
                         {engagement.data.mission && (
                             <span class="mission">{engagement.data.mission}</span>
+                        )}
+                        {engagement.data.tags.length > 0 && (
+                            <span class="tags" role="list" aria-label="Focus areas">
+                                {engagement.data.tags.map((tag: string) => (
+                                    <span class="tag" role="listitem">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </span>
                         )}
                         <span class="role-meta">
                             <span class="sector">
@@ -125,6 +129,12 @@ const industries: { icon: IconProps['icon']; label: string }[] = [
                                 {formatDuration(engagement.data.startDate, engagement.data.endDate)}
                             </span>
                         </span>
+                        {engagement.data.caseStudy && (
+                            <a class="case-study-link" href={`/engagements/${engagement.id}`}>
+                                Read the case study
+                                <Icon icon="arrow-right" size="1em" />
+                            </a>
+                        )}
                     </span>
                 </div>
             </li>
@@ -307,16 +317,43 @@ const industries: { icon: IconProps['icon']; label: string }[] = [
         line-height: 1.5;
     }
 
-    .case-study-link {
-        font-size: var(--text-xsm);
-        font-weight: 600;
-        color: var(--accent-regular);
-        text-decoration: none;
-        white-space: nowrap;
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-top: 0.15rem;
     }
 
-    .case-study-link:hover {
-        text-decoration: underline;
+    .tag {
+        font-size: 0.72rem;
+        padding: 0.15rem 0.65rem;
+        border-radius: 999rem;
+        background: var(--accent-overlay);
+        color: var(--gray-0);
+        font-weight: 500;
+    }
+
+    /* Case studies are the deeper story behind a role, so make the link a clear button */
+    .case-study-link {
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-top: 0.35rem;
+        padding: 0.4rem 0.9rem;
+        border-radius: 999rem;
+        background: var(--accent-regular);
+        color: var(--accent-text-over);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: box-shadow var(--theme-transition);
+    }
+
+    .case-study-link:hover,
+    .case-study-link:focus-visible {
+        box-shadow: 0 0 0 4px var(--accent-subtle-overlay);
     }
 
     @media (min-width: 50em) {

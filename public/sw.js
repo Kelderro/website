@@ -4,7 +4,7 @@ const CACHE_VERSION = '__BUILD_ID__';
 const PAGE_CACHE = `pages-${CACHE_VERSION}`;
 const ASSET_CACHE = `assets-${CACHE_VERSION}`;
 const OFFLINE_URL = '/offline/';
-const PRECACHE_URLS = ['/', OFFLINE_URL, '/favicon.svg'];
+const PRECACHE_URLS = ['/', OFFLINE_URL, '/favicon.svg', '/favicon.ico'];
 
 self.addEventListener('install', event => {
     event.waitUntil(

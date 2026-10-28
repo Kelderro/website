@@ -1,0 +1,11 @@
+{
+    "name": "Rob op den Kelder",
+    "short_name": "Kelderro",
+    "icons": [
+        { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+        { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+    ],
+    "theme_color": "#0B2150",
+    "background_color": "#0B2150",
+    "display": "browser"
+}

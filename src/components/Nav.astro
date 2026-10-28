@@ -8,7 +8,7 @@ const isHome = Astro.url.pathname === '/';
 const sectionHref = (hash: string) => (isHome ? hash : `/${hash}`);
 
 const textLinks: { label: string; href: string }[] = [
-    { label: 'Services', href: sectionHref('#services') },
+    { label: 'Expertise', href: sectionHref('#expertise') },
     { label: 'Experience', href: sectionHref('#experience') },
     { label: 'About', href: sectionHref('#about') },
     { label: 'Technical Toolkit', href: sectionHref('#technical-toolkit') },

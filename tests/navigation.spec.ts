@@ -13,7 +13,7 @@ test('navigation contains expected links', async ({ page, isMobile }) => {
 
     await openMobileMenu(page, isMobile);
 
-    await expect(page.getByRole('link', { name: /services/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /expertise/i })).toBeVisible();
     await expect(page.getByRole('link', { name: /experience/i })).toBeVisible();
     await expect(page.getByRole('link', { name: /about/i })).toBeVisible();
 });
